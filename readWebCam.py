@@ -34,5 +34,5 @@ def userExitRequest():
     '''Return True if user presses q'''
     if cv2.waitKey(1) & 0xFF == ord('q'): 
         return True
-    
+
 readVideoFromCamera()
