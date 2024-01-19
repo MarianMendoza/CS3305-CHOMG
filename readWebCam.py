@@ -6,15 +6,6 @@ import cv2
 def readVideoFromCamera():
     # define a video capture object 
     video = cv2.VideoCapture(0) 
-    # if not video.isOpened():
-    #     print("Error: Could not open webcam.")
-    #     exit()
-    while(True): 
-        frame = captureFrame(video)
-        displayFrame(frame)
-        if userExitRequest():
-            break
-    stopReading(video)
 
 def displayFrame(frame):
     cv2.imshow('frame', frame) 
@@ -34,5 +25,12 @@ def userExitRequest():
     '''Return True if user presses q'''
     if cv2.waitKey(1) & 0xFF == ord('q'): 
         return True
+
+def displayVideo(video):
+    while(True): 
+        frame = captureFrame(video)
+        displayFrame(frame)
+        if userExitRequest():
+            break
 
 readVideoFromCamera()
