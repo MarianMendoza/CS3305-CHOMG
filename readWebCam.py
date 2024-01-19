@@ -6,14 +6,14 @@ import cv2
 def readVideoFromCamera():
     # define a video capture object 
     video = cv2.VideoCapture(0) 
-
-def displayFrame(frame):
-    cv2.imshow('frame', frame) 
-        
+    
 def captureFrame(video):
     frameReturnedSuccessfully, frame = video.read() 
     return frame
 
+def displayFrame(frame):
+    cv2.imshow('frame', frame) 
+    
 def stopReading(video):
     '''
     After the loop release the cap object and destroy all the windows 
