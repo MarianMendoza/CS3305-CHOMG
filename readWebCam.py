@@ -1,11 +1,20 @@
 # Tutorial https://www.geeksforgeeks.org/python-opencv-capture-video-from-camera/?ref=lbp
 
+#######
+# How to run in new file:
+    # import CS3305.readWebCam as rWC 
+
+    # video = rWC.readVideoFromCamera()
+    # rWC.displayVideo(video)
+########
+
 # import the opencv library 
 import cv2 
 
 def readVideoFromCamera():
     # define a video capture object 
-    video = cv2.VideoCapture(0) 
+    video= cv2.VideoCapture(0) 
+    return video
     
 def captureFrame(video):
     frameReturnedSuccessfully, frame = video.read() 
@@ -17,7 +26,8 @@ def displayVideo(video):
         displayFrame(frame)
         if userExitRequest():
             break
-        
+    stopReading(video)
+
 def displayFrame(frame):
     cv2.imshow('frame', frame) 
     
