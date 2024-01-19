@@ -32,5 +32,3 @@ def displayVideo(video):
         displayFrame(frame)
         if userExitRequest():
             break
-
-readVideoFromCamera()
