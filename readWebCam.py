@@ -11,6 +11,13 @@ def captureFrame(video):
     frameReturnedSuccessfully, frame = video.read() 
     return frame
 
+def displayVideo(video):
+    while(True): 
+        frame = captureFrame(video)
+        displayFrame(frame)
+        if userExitRequest():
+            break
+        
 def displayFrame(frame):
     cv2.imshow('frame', frame) 
     
@@ -26,10 +33,3 @@ def stopReading(video):
     video.release() 
     cv2.destroyAllWindows() 
 
-
-def displayVideo(video):
-    while(True): 
-        frame = captureFrame(video)
-        displayFrame(frame)
-        if userExitRequest():
-            break
