@@ -14,6 +14,11 @@ def captureFrame(video):
 def displayFrame(frame):
     cv2.imshow('frame', frame) 
     
+def userExitRequest():
+    '''Return True if user presses q'''
+    if cv2.waitKey(1) & 0xFF == ord('q'): 
+        return True
+    
 def stopReading(video):
     '''
     After the loop release the cap object and destroy all the windows 
@@ -21,10 +26,6 @@ def stopReading(video):
     video.release() 
     cv2.destroyAllWindows() 
 
-def userExitRequest():
-    '''Return True if user presses q'''
-    if cv2.waitKey(1) & 0xFF == ord('q'): 
-        return True
 
 def displayVideo(video):
     while(True): 
