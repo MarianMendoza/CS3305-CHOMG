@@ -1,5 +1,3 @@
-
-
 # Tutorial https://www.geeksforgeeks.org/python-opencv-capture-video-from-camera/?ref=lbp
 
 #######
