@@ -15,7 +15,8 @@ def run():
         foregroundOfFrame = dilateFrameUsingKernel(foregroundOfFrame, kernel)
         displayFrame(foregroundOfFrame)
         if userExitRequest():
-            stopReading()
+            stopReading(video)
+            break
 
 if __name__ == "__main__":
     run()
