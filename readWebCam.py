@@ -8,6 +8,8 @@
     # rWC.displayVideo(video)
 ########
 
+# i am sick and tired
+
 # import the opencv library 
 import cv2 
 
