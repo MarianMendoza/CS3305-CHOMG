@@ -28,8 +28,10 @@ def displayVideo(video):
             break
     stopReading(video)
 
-def displayFrame(frame):
-    cv2.imshow('frame', frame) 
+def displayFrame(frame, nameOfFrame=None):
+    if nameOfFrame == None:
+        nameOfFrame =""
+    cv2.imshow(nameOfFrame, frame) 
     
 def userExitRequest():
     '''Return True if user presses q'''
