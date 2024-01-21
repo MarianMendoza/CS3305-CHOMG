@@ -2,6 +2,7 @@ from greyscale import *
 from imagereader import *
 from backgroundseperator import *
 from noisereduction import *
+from boundingbox import *
 
 def run():
     video = readVideoFromCamera()
@@ -13,7 +14,18 @@ def run():
         foregroundOfFrame = getForegroundOfFrame(greyScaleFrame, separator)
         foregroundOfFrame = erodeFrameUsingKernel(foregroundOfFrame, kernel)
         foregroundOfFrame = dilateFrameUsingKernel(foregroundOfFrame, kernel)
-        displayFrame(foregroundOfFrame)
+
+        contours = getContours(foregroundOfFrame)
+
+        if contours:
+            maxContour = getMaxContour(contours)
+            approxPolygonalCurve = getApproximateCurve(maxContour)
+
+            boundingRectangleCoordinates = getBoundingRectangleCoordinates(approxPolygonalCurve)
+            drawBoundaryRectangle(frame, boundingRectangleCoordinates)
+
+        displayFrame(frame, "bg")
+        displayFrame(foregroundOfFrame, "fg")
         if userExitRequest():
             stopReading(video)
             break
