@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Find the button by its ID
-        Button myButton = findViewById(R.id.myButton);
+        Button notificationButton = findViewById(R.id.notificationButton);
 
         // Set up the notification manager
         final NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Set an OnClickListener on the button
-        myButton.setOnClickListener(new View.OnClickListener() {
+        notificationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Build the notification when the button is clicked
