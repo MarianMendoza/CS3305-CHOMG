@@ -24,7 +24,7 @@ def getBoundingRectangleCoordinates(approx):
     return Rectangle(*cv2.boundingRect(approx))
 
 def drawBoundaryRectangle(frame, boundingRectangleCoordinates):
-    blackRGBCode = (255, 255, 255)
+    blackRGBCode = (0, 0, 0)
     boundaryWidth = 4
     cv2.rectangle(frame, (boundingRectangleCoordinates.x1, boundingRectangleCoordinates.y1), 
                     (boundingRectangleCoordinates.x2, boundingRectangleCoordinates.y2), 
