@@ -2,7 +2,7 @@ import cv2
 
 def createNoiseReductionKernel():
     '''
-    Creates a kernel in the shape of an ellipse of size 10 up and across to help remove noise in the frame
+    Creates a kernel in the shape of an ellipse of size 3 up and across to help remove noise in the frame
     '''
     return cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
 
