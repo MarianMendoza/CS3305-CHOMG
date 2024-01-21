@@ -1,0 +1,26 @@
+{
+  "name": "appbackend",
+  "version": "1.0.0",
+  "description": "backend for app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarianMendoza/CS3305.git"
+  },
+  "author": "Liam Healy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarianMendoza/CS3305/issues"
+  },
+  "homepage": "https://github.com/MarianMendoza/CS3305#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.1.0"
+  }
+}
