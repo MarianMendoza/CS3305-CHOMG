@@ -23,6 +23,7 @@ fgbg = cv2.createBackgroundSubtractorMOG2()
 recording = False
 last_movement_time = None
 record_duration_after_movement = 7  # 7 seconds after movement stops
+first_movement_detected = False  # Flag to track the first movement
 
 # Directory for recordings
 recordings_dir = "Recordings"
@@ -33,18 +34,32 @@ if not os.path.exists(recordings_dir):
 fourcc = cv2.VideoWriter_fourcc(*'avc1')
 out = None
 
+# Increase this value to ignore smaller movements
+min_contour_area = 2000  # Adjust this value based on your specific needs
+
 while True:
     frame = readWebCam.captureFrame(video)
 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     fgmask = fgbg.apply(gray)
 
-    contours, _ = cv2.findContours(fgmask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    # Apply thresholding
+    _, thresh = cv2.threshold(fgmask, 25, 255, cv2.THRESH_BINARY)
+
+    # Morphological operations to close gaps
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
+    thresh = cv2.dilate(thresh, kernel, iterations=2)
+
+    contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
     movement_detected = False
     for contour in contours:
-        if cv2.contourArea(contour) > 500:
+        if cv2.contourArea(contour) > min_contour_area:
             movement_detected = True
+            if not first_movement_detected:
+                first_movement_detected = True  # Mark the first movement
+                continue  # Skip the rest of the loop for the first movement
+
             if not recording:
                 last_movement_time = time.time()
                 # Generate timestamped filename
