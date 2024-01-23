@@ -3,32 +3,32 @@
 import cv2
 
 
-class Rectangle(object):
+class BoundingBox(object):
     def __init__(self, x, y, width, height) -> None:
-        self.x1 = x
-        self.y1 = y
-        self.x2 = x + width
-        self.y2 = y + height
+        self.x = x
+        self.y = y
+        self.width_from_x = x + width
+        self.height_from_y = y + height
 
-def getContours(frameMask):
-        return cv2.findContours(frameMask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE) [0]
+def get_contours(frame_mask):
+        return cv2.findContours(frame_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE) [0]
 
-def getMaxContour(contours) -> float:
+def get_max_contour(contours) -> float:
     max_contour = contours[0]
     for contour in contours:
         if cv2.contourArea(contour) > cv2.contourArea(max_contour):
             max_contour = contour
     return max_contour
 
-def getBoundingRectangleCoordinates(approx):
-    return Rectangle(*cv2.boundingRect(approx))
+def get_bounding_box_from_curve(approx):
+    return BoundingBox(*cv2.boundingRect(approx))
 
-def drawBoundaryRectangle(frame, boundingRectangleCoordinates):
-    blackRGBCode = (0, 0, 0)
-    boundaryWidth = 4
-    cv2.rectangle(frame, (boundingRectangleCoordinates.x1, boundingRectangleCoordinates.y1), 
-                    (boundingRectangleCoordinates.x2, boundingRectangleCoordinates.y2), 
-                    blackRGBCode, boundaryWidth)    
+def draw_bounding_box_on_frame(frame, bounding_box):
+    black_rgb_value = (0, 0, 0)
+    boundary_box_width = 4
+    cv2.rectangle(frame, (bounding_box.x1, bounding_box.y1), 
+                        (bounding_box.x2, bounding_box.y2), 
+                    black_rgb_value, boundary_box_width)    
     
-def getApproximateCurve(maxContour):
-     return cv2.approxPolyDP(maxContour, 0.01 * cv2.arcLength(maxContour, True), True)
+def get_approximate_curve_from_contour(max_contour):
+     return cv2.approxPolyDP(max_contour, 0.01 * cv2.arcLength(max_contour, True), True)
