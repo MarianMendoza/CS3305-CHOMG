@@ -8,77 +8,79 @@
     tools:context=".LoginActivity">
 
 
+    <!--    Password Field-->
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/bebas_neue"
-        android:letterSpacing="0.2"
+        android:fontFamily="@font/dela_gothic_one"
+        android:letterSpacing="0"
         android:text="CHOMG"
         android:textColor="#FFFFFF"
-        android:textSize="96sp"
+        android:textSize="64sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.245" />
-
+        app:layout_constraintVertical_bias="0.281" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/bebas_neue"
+        android:fontFamily="@font/dela_gothic_one"
         android:text="SECURITY"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.358" />
-
-
-    <!--    Password Field-->
+        app:layout_constraintVertical_bias="0.38" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="140dp"
-        android:layout_height="51dp"
+        android:layout_width="224dp"
+        android:layout_height="52dp"
         android:backgroundTint="#FFFFFF"
-        android:fontFamily="@font/bebas_neue"
+        android:fontFamily="@font/dela_gothic_one"
         android:text="LOG IN"
-        android:textColor="#FF0000"
+        android:textColor="#9F1B1B"
+        android:textColorHighlight="#9F1B1B"
+        android:textColorHint="#9F1B1B"
+        android:textColorLink="#9F1B1B"
         app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.65" />
+        app:layout_constraintVertical_bias="0.662"
+        android:onClick="onLoginButtonClick" />
 
     <EditText
         android:id="@+id/editTextTextEmailAddress5"
         style="@style/Widget.AppCompat.AutoCompleteTextView"
-        android:layout_width="215dp"
-        android:layout_height="37dp"
+        android:layout_width="310dp"
+        android:layout_height="44dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/shape"
         android:ems="10"
-        android:fontFamily="@font/bebas_neue"
+        android:fontFamily="@font/dela_gothic_one"
         android:hint="EMAIL"
         android:hyphenationFrequency="normal"
         android:inputType="textEmailAddress"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="#FF0000"
-        android:textColorHighlight="#FF0000"
-        android:textColorHint="#FF0000"
-        android:textColorLink="#FF0000"
+        android:textColor="#9F1B1B"
+        android:textColorHighlight="#9F1B1B"
+        android:textColorHint="#9F1B1B"
+        android:textColorLink="#9F1B1B"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -88,29 +90,30 @@
 
     <EditText
         android:id="@+id/editTextTextPassword2"
-        android:layout_width="215dp"
-        android:layout_height="37dp"
+        android:layout_width="310dp"
+        android:layout_height="44dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/shape"
         android:ems="10"
-        android:fontFamily="@font/bebas_neue"
+        android:fontFamily="@font/dela_gothic_one"
         android:hint="PASSWORD"
         android:inputType="textPassword"
         android:textAlignment="center"
-        android:textColor="#FF0000"
-        android:textColorHighlight="#FF0000"
-        android:textColorHint="#FF0000"
-        android:textColorLink="#FF0000"
+        android:textColor="#9F1B1B"
+        android:textColorHighlight="#9F1B1B"
+        android:textColorHint="#9F1B1B"
+        android:textColorLink="#9F1B1B"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.567" />
+        app:layout_constraintVertical_bias="0.583" />
 
     <Button
         android:id="@+id/button"
@@ -121,8 +124,9 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:fontFamily="@font/bebas_neue"
+        android:fontFamily="@font/dela_gothic_one"
         android:text="FORGOT PASSWORD?"
+        android:textSize="10sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -142,33 +146,15 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:fontFamily="@font/bebas_neue"
+        android:fontFamily="@font/dela_gothic_one"
         android:text="SIGN UP"
-        android:textStyle="bold"
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.691" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/bebas_neue"
-        android:text="Invalid User Credentials.Please try again."
-        android:textColor="#FFFFFF"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="0.057" />
+        app:layout_constraintVertical_bias="0.728" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

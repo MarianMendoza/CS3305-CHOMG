@@ -3,5 +3,6 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/bebas_neue</item>
         <item>@font/candal</item>
+        <item>@font/dela_gothic_one</item>
     </array>
 </resources>
