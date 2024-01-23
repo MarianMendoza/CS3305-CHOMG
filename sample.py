@@ -24,7 +24,7 @@ def run():
 
             boundingRectangleCoordinates = boundingbox.getBoundingRectangleCoordinates(approxPolygonalCurve)
 
-            croppedFrame = entityrecognition.cropFrameToBoundingBox(frame, boundingRectangleCoordinates)
+            croppedFrame = cropframe.cropFrameToBoundingBox(frame, boundingRectangleCoordinates)
             
             if entityrecognition.isPersonDetected(croppedFrame):
                 print(True)
