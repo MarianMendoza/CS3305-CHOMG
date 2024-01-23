@@ -9,3 +9,6 @@ def createBackgroundSubtractor():
 
 def getForegroundOfFrame(greyscaleFrame, subtractor):
     return subtractor.apply(greyscaleFrame)
+
+def recolourForegroundUsingOriginalFrame(foregroundOfFrame, frame):
+    return cv2.bitwise_and(frame, frame, mask=foregroundOfFrame)
