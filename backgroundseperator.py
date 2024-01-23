@@ -10,5 +10,5 @@ def createBackgroundSubtractor():
 def getForegroundOfFrame(greyscaleFrame, subtractor):
     return subtractor.apply(greyscaleFrame)
 
-def recolourForegroundUsingOriginalFrame(foregroundOfFrame, frame):
+def recolourForegroundUsingOriginalFrame(foregroundOfFrame, frame): #https://www.youtube.com/watch?v=YSLVAxgclCo
     return cv2.bitwise_and(frame, frame, mask=foregroundOfFrame)
