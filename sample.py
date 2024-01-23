@@ -3,6 +3,8 @@ from imagereader import *
 from backgroundseperator import *
 from noisereduction import *
 from boundingbox import *
+from entityrecognition import *
+
 
 def run():
     video = readVideoFromCamera()
@@ -16,8 +18,9 @@ def run():
         foregroundOfFrame = dilateFrameUsingKernel(foregroundOfFrame, kernel)
 
         contours = getContours(foregroundOfFrame)
-
         if contours:
+            if isPersonDetected(frame):
+                print(True)
             maxContour = getMaxContour(contours)
             approxPolygonalCurve = getApproximateCurve(maxContour)
 
