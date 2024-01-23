@@ -38,15 +38,25 @@ app.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
-    if (user && await bcrypt.compare(password, user.password)) {
-      const token = jwt.sign({ userId: user._id }, 'YourSecretKey', { expiresIn: '1h' });
-      res.status(200).json({ token });
-    } else {
-      res.status(400).send('Invalid credentials');
+  // hashed version
+  //   if (user && await bcrypt.compare(password, user.password)) {
+  //     const token = jwt.sign({ userId: user._id }, 'YourSecretKey', { expiresIn: '1h' });
+  //     res.status(200).json({ token });
+  //   } else {
+  //     res.status(400).send('Invalid credentials');
+  //   }
+  // } catch (error) {
+  //   res.status(500).send('Error logging in');
+  // }
+  if (password == user.password) {
+        const token = jwt.sign({ userId: user._id }, 'YourSecretKey', { expiresIn: '1h' });
+        res.status(200).json({ token });
+      } else {
+        res.status(400).send('Invalid credentials');
+      }
+    } catch (error) {
+      res.status(500).send('Error logging in');
     }
-  } catch (error) {
-    res.status(500).send('Error logging in');
-  }
 });
 
 app.listen(port, () => {
