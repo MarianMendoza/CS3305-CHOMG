@@ -8,6 +8,9 @@ def create_background_subtractor_object():
     return cv2.createBackgroundSubtractorMOG2()
 
 def get_foreground_of_frame_using_subtractor_object(frame, subtractor):
+    '''
+    Less processing required with frame in grey scale
+    '''
     return subtractor.apply(frame)
 
 def recolour_foreground_using_original_frame(foreground_of_frame, frame): #https://www.youtube.com/watch?v=YSLVAxgclCo
