@@ -1,8 +1,8 @@
 # tutorial https://www.geeksforgeeks.org/detect-an-object-with-opencv-python/
 # xml file - https://github.com/anaustinbeing/haar-cascade-files/blob/master/haarcascade_fullbody.xml
 import cv2
-import greyscale as gs
-import rgbframe as rgb
+import grey_scale as gs
+import rgb_frame as rgb
 
 def is_person_detected_in_frame(frame):
     '''
