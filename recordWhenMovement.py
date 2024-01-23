@@ -11,12 +11,12 @@ from entityrecognition import *
 
 
 def run():
-    video = readVideoFromCamera()
+    video = read_video_from_camera()
     if not video.isOpened():
         raise IOError("Cannot open webcam")
 
-    separator = createBackgroundSubtractor()
-    kernel = createNoiseReductionKernel()
+    separator = create_background_subtractor_object()
+    kernel = create_noise_reduction_kernel()
 
     # Adjust this value to ignore smaller movements
     min_contour_area = 5000  # Adjust based on your specific needs
@@ -39,22 +39,22 @@ def run():
     out = None
 
     while True:
-        frame = captureFrame(video)
-        greyScaleFrame = getFrameInGreyScale(frame)
-        foregroundOfFrame = getForegroundOfFrame(greyScaleFrame, separator)
-        foregroundOfFrame = erodeFrameUsingKernel(foregroundOfFrame, kernel)
-        foregroundOfFrame = dilateFrameUsingKernel(foregroundOfFrame, kernel)
+        frame = capture_frame(video)
+        greyScaleFrame = get_frame_in_grey_scale(frame)
+        foregroundOfFrame = get_foreground_of_frame_using_subtractor_object(greyScaleFrame, separator)
+        foregroundOfFrame = erode_frame_using_kernel(foregroundOfFrame, kernel)
+        foregroundOfFrame = dilate_frame_using_kernel(foregroundOfFrame, kernel)
 
-        contours = getContours(foregroundOfFrame)
+        contours = get_contours(foregroundOfFrame)
         significant_movement_detected = False
 
         for contour in contours:
             if cv2.contourArea(contour) > min_contour_area:
                 significant_movement_detected = True
-                maxContour = getMaxContour([contour])  # Assuming getMaxContour expects a list of contours
-                approxPolygonalCurve = getApproximateCurve(maxContour)
-                boundingRectangleCoordinates = getBoundingRectangleCoordinates(approxPolygonalCurve)
-                drawBoundaryRectangle(frame, boundingRectangleCoordinates)
+                maxContour = get_max_contour([contour])  # Assuming getMaxContour expects a list of contours
+                approxPolygonalCurve = get_approximate_curve_from_contour(maxContour)
+                boundingRectangleCoordinates = get_bounding_box_from_curve(approxPolygonalCurve)
+                draw_bounding_box_on_frame(frame, boundingRectangleCoordinates)
                 break  # Break after finding the first significant movement
 
         if significant_movement_detected:
@@ -78,12 +78,12 @@ def run():
                 out.release()
                 out = None
 
-        displayFrame(frame, "Camera Output")
+        display_frame(frame, "Camera Output")
 
-        if userExitRequest():
+        if user_exit_request():
             break
 
-    stopReading(video)
+    stop_reading(video)
     if out:
         out.release()
 
