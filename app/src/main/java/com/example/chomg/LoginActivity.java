@@ -1,5 +1,6 @@
 package com.example.chomg;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +35,14 @@ public class LoginActivity extends AppCompatActivity {
                 onLoginButtonClick(v);
             }
         });
+
+        Button signUpButton = findViewById(R.id.button3);
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSignUpButtonClick(v);
+            }
+        });
     }
 
     public void onLoginButtonClick(View view) {
@@ -45,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
 
         isValidCredentials(email, password);
     }
+
 
     private void isValidCredentials(final String email, final String password) {
         Api apiService = Client.getClient("http://10.0.2.2:3000").create(Api.class);
@@ -69,6 +79,12 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Login failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void onSignUpButtonClick(View view) {
+        // Start the UserSignUpActivity when the "SIGN UP" button is clicked
+        Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+        startActivity(intent);
     }
 
 }
