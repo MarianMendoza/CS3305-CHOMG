@@ -4,12 +4,13 @@ from backgroundseperator import *
 from noisereduction import *
 from boundingbox import *
 from entityrecognition import *
-
+from cropframe import *
 
 def run():
     video = readVideoFromCamera()
     separator = createBackgroundSubtractor()
     kernel = createNoiseReductionKernel()
+    
     while True:
         frame = captureFrame(video)
         greyScaleFrame = getFrameInGreyScale(frame)
@@ -19,16 +20,19 @@ def run():
 
         contours = getContours(foregroundOfFrame)
         if contours:
-            if isPersonDetected(frame):
-                print(True)
             maxContour = getMaxContour(contours)
             approxPolygonalCurve = getApproximateCurve(maxContour)
 
             boundingRectangleCoordinates = getBoundingRectangleCoordinates(approxPolygonalCurve)
+
+            colouredForegroundOfFrame = recolourForegroundUsingOriginalFrame(foregroundOfFrame, frame)
+            
+            if isPersonDetected(colouredForegroundOfFrame):
+                print(True)
             drawBoundaryRectangle(frame, boundingRectangleCoordinates)
 
         displayFrame(frame, "bg")
-        displayFrame(foregroundOfFrame, "fg")
+        displayFrame(colouredForegroundOfFrame, "fg")
         if userExitRequest():
             stopReading(video)
             break
