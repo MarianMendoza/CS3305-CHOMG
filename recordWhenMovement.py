@@ -18,6 +18,13 @@ def run():
     separator = createBackgroundSubtractor()
     kernel = createNoiseReductionKernel()
 
+    # Adjust this value to ignore smaller movements
+    min_contour_area = 5000  # Adjust based on your specific needs
+
+    # Additional parameters for continuous movement detection
+    movement_frames_threshold = 5  # Number of consecutive frames with significant movement to start recording
+    movement_frames_count = 0      # Counter for consecutive frames with significant movement
+
     # Setup for recording
     frame_width = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))
     frame_height = int(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -39,15 +46,25 @@ def run():
         foregroundOfFrame = dilateFrameUsingKernel(foregroundOfFrame, kernel)
 
         contours = getContours(foregroundOfFrame)
-        movement_detected = False
-        if contours:
-            movement_detected = isPersonDetected(frame)
-            maxContour = getMaxContour(contours)
-            approxPolygonalCurve = getApproximateCurve(maxContour)
-            boundingRectangleCoordinates = getBoundingRectangleCoordinates(approxPolygonalCurve)
-            drawBoundaryRectangle(frame, boundingRectangleCoordinates)
+        significant_movement_detected = False
 
-        if movement_detected and not recording:
+        for contour in contours:
+            if cv2.contourArea(contour) > min_contour_area:
+                significant_movement_detected = True
+                maxContour = getMaxContour([contour])  # Assuming getMaxContour expects a list of contours
+                approxPolygonalCurve = getApproximateCurve(maxContour)
+                boundingRectangleCoordinates = getBoundingRectangleCoordinates(approxPolygonalCurve)
+                drawBoundaryRectangle(frame, boundingRectangleCoordinates)
+                break  # Break after finding the first significant movement
+
+        if significant_movement_detected:
+            movement_frames_count += 1
+        else:
+            movement_frames_count = 0  # Reset counter if no significant movement
+
+        # Check if the number of consecutive frames with significant movement is enough to start recording
+        if movement_frames_count >= movement_frames_threshold and not recording:
+            # Start recording
             last_movement_time = time.time()
             timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
             filename = os.path.join(recordings_dir, f"{timestamp}.mp4")
@@ -56,7 +73,7 @@ def run():
 
         if recording:
             out.write(frame)
-            if not movement_detected and time.time() - last_movement_time > record_duration_after_movement:
+            if not significant_movement_detected and time.time() - last_movement_time > record_duration_after_movement:
                 recording = False
                 out.release()
                 out = None
