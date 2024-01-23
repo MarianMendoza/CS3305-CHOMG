@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Create the NotificationChannel with the specified ID and importance
-            NotificationChannel channel = new NotificationChannel("channel1", "Motion Detected", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel = new NotificationChannel("channel2", "Motion Detected", NotificationManager.IMPORTANCE_DEFAULT);
 
             // Set up the custom sound for the channel
             Uri soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.motiondetectedsound);
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Build the notification when the button is clicked
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "channel1") // Use the same channel ID
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, "channel2") // Use the same channel ID
                         .setSmallIcon(R.drawable.ic_notification)
                         .setContentTitle("Security Alert")
                         .setContentText("Movement detected!")

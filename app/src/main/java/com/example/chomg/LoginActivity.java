@@ -7,6 +7,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.chomg.data.User;
+import com.example.chomg.network.Api;
+import com.example.chomg.network.Client;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -35,21 +43,32 @@ public class LoginActivity extends AppCompatActivity {
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
-        // Check if the email and password are correct (replace with your authentication logic)
-        if (isValidCredentials(email, password)) {
-            // Login successful, navigate to the next screen or perform the necessary action
-            Toast.makeText(this, "Login successful!", Toast.LENGTH_SHORT).show();
-        } else {
-            // Login failed, show an error message
-            Toast.makeText(this, "Invalid email or password. Please try again.", Toast.LENGTH_SHORT).show();
-        }
+        isValidCredentials(email, password);
     }
 
-    private boolean isValidCredentials(String email, String password) {
-        // Implement your authentication logic here
-        // For demonstration purposes, let's assume the correct email and password are "demo" and "password"
-        return email.equals("demo") && password.equals("password");
+    private void isValidCredentials(final String email, final String password) {
+        Api apiService = Client.getClient("http://10.0.2.2:3000").create(Api.class);
+
+        User user = new User(email, password);
+        Call<Void> call = apiService.loginUser(user);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // Login successful, navigate to the next screen or perform the necessary action
+                    Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Login failed, show an error message
+                    Toast.makeText(LoginActivity.this, "Invalid email or password. Please try again.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Handle failure, possibly due to no internet connection, or server down
+                Toast.makeText(LoginActivity.this, "Login failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    // Other methods...
 }
