@@ -26,8 +26,8 @@ def get_bounding_box_from_curve(approx):
 def draw_bounding_box_on_frame(frame, bounding_box):
     black_rgb_value = (0, 0, 0)
     boundary_box_width = 4
-    cv2.rectangle(frame, (bounding_box.x1, bounding_box.y1), 
-                        (bounding_box.x2, bounding_box.y2), 
+    cv2.rectangle(frame, (bounding_box.x, bounding_box.y), 
+                        (bounding_box.width_from_x, bounding_box.height_from_y), 
                     black_rgb_value, boundary_box_width)    
     
 def get_approximate_curve_from_contour(max_contour):
