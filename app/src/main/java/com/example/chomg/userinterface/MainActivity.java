@@ -1,4 +1,4 @@
-package com.example.chomg;
+package com.example.chomg.userinterface;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
@@ -12,19 +12,39 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+
+import com.example.chomg.R;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        initializeUI();
+        initializeNotifications();
+
+    }
+    protected void initializeUI(){
         setContentView(R.layout.activity_main);
 
-        // Find the button by its ID
-        Button notificationButton = findViewById(R.id.notificationButton);
+        final EditText emailText = findViewById(R.id.email);
+        final EditText passwordText = findViewById(R.id.password);
+        Button submitButton = findViewById(R.id.submit);
 
-        // Set up the notification manager
+        submitButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                String email = emailText.getText().toString();
+                String password = passwordText.getText().toString();
+            }
+        });
+
+    }
+    protected void initializeNotifications(){
         final NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        Button notificationButton = findViewById(R.id.notificationButton);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Create the NotificationChannel with the specified ID and importance
