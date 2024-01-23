@@ -2,12 +2,12 @@ import cv2
 import time
 import os
 import datetime
-from greyscale import *
-from imagereader import *
-from backgroundseperator import *
-from noisereduction import *
-from boundingbox import *
-from entityrecognition import *
+from grey_scale import *
+from image_reader import *
+from background_seperator import *
+from noise_reduction import *
+from bounding_box import *
+from entity_recognition import *
 
 
 def run():
