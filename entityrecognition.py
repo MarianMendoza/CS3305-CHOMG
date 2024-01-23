@@ -17,4 +17,4 @@ def isPersonDetected(frame):
     found = xmlDataForHumanDetection.detectMultiScale(greyScaleFrame)
     
     # Return False if no people detected else return True
-    return len(found) == 0
+    return len(found) != 0
