@@ -1,40 +1,40 @@
-from greyscale import *
-from imagereader import *
-from backgroundseperator import *
-from noisereduction import *
-from boundingbox import *
-from entityrecognition import *
-from cropframe import *
+import greyscale 
+import imagereader 
+import backgroundseperator
+import noisereduction
+import boundingbox
+import entityrecognition 
+import cropframe
 
 def run():
-    video = readVideoFromCamera()
-    separator = createBackgroundSubtractor()
-    kernel = createNoiseReductionKernel()
-    
+    video = imagereader.readVideoFromCamera()
+    separator = backgroundseperator.createBackgroundSubtractor()
+    kernel = noisereduction.createNoiseReductionKernel()
     while True:
-        frame = captureFrame(video)
-        greyScaleFrame = getFrameInGreyScale(frame)
-        foregroundOfFrame = getForegroundOfFrame(greyScaleFrame, separator)
-        foregroundOfFrame = erodeFrameUsingKernel(foregroundOfFrame, kernel)
-        foregroundOfFrame = dilateFrameUsingKernel(foregroundOfFrame, kernel)
+        frame = imagereader.captureFrame(video)
+        greyScaleFrame = greyscale.getFrameInGreyScale(frame)
+        foregroundOfFrame = backgroundseperator.getForegroundOfFrame(greyScaleFrame, separator)
+        foregroundOfFrame = noisereduction.erodeFrameUsingKernel(foregroundOfFrame, kernel)
+        foregroundOfFrame = noisereduction.dilateFrameUsingKernel(foregroundOfFrame, kernel)
 
-        contours = getContours(foregroundOfFrame)
+        contours = boundingbox.getContours(foregroundOfFrame)
         if contours:
-            maxContour = getMaxContour(contours)
-            approxPolygonalCurve = getApproximateCurve(maxContour)
+            maxContour = boundingbox.getMaxContour(contours)
+            approxPolygonalCurve = boundingbox.getApproximateCurve(maxContour)
 
-            boundingRectangleCoordinates = getBoundingRectangleCoordinates(approxPolygonalCurve)
+            boundingRectangleCoordinates = boundingbox.getBoundingRectangleCoordinates(approxPolygonalCurve)
 
-            colouredForegroundOfFrame = recolourForegroundUsingOriginalFrame(foregroundOfFrame, frame)
+            croppedFrame = entityrecognition.cropFrameToBoundingBox(frame, boundingRectangleCoordinates)
             
-            if isPersonDetected(colouredForegroundOfFrame):
+            if entityrecognition.isPersonDetected(croppedFrame):
                 print(True)
-            drawBoundaryRectangle(frame, boundingRectangleCoordinates)
 
-        displayFrame(frame, "bg")
-        displayFrame(colouredForegroundOfFrame, "fg")
-        if userExitRequest():
-            stopReading(video)
+            boundingbox.drawBoundaryRectangle(frame, boundingRectangleCoordinates)
+
+        imagereader.displayFrame(frame, "bg")
+        imagereader.displayFrame(foregroundOfFrame, "fg")
+        if imagereader.userExitRequest():
+            imagereader.stopReading(video)
             break
 
 if __name__ == "__main__":
