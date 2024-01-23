@@ -12,27 +12,27 @@ def run():
     kernel = noisereduction.createNoiseReductionKernel()
     while True:
         frame = imagereader.captureFrame(video)
-        greyScaleFrame = greyscale.getFrameInGreyScale(frame)
-        foregroundOfFrame = backgroundseperator.getForegroundOfFrame(greyScaleFrame, separator)
-        foregroundOfFrame = noisereduction.erodeFrameUsingKernel(foregroundOfFrame, kernel)
-        foregroundOfFrame = noisereduction.dilateFrameUsingKernel(foregroundOfFrame, kernel)
+        grey_scale_frame = greyscale.getFrameInGreyScale(frame)
+        foreground_of_frame = backgroundseperator.getForegroundOfFrame(grey_scale_frame, separator)
+        foreground_of_frame = noisereduction.erodeFrameUsingKernel(foreground_of_frame, kernel)
+        foreground_of_frame = noisereduction.dilateFrameUsingKernel(foreground_of_frame, kernel)
 
-        contours = boundingbox.getContours(foregroundOfFrame)
+        contours = boundingbox.getContours(foreground_of_frame)
         if contours:
-            maxContour = boundingbox.getMaxContour(contours)
-            approxPolygonalCurve = boundingbox.getApproximateCurve(maxContour)
+            max_contour = boundingbox.getMaxContour(contours)
+            approximate_polygonal_curve = boundingbox.getApproximateCurve(max_contour)
 
-            boundingRectangleCoordinates = boundingbox.getBoundingRectangleCoordinates(approxPolygonalCurve)
+            bounding_rectangle_coordinates = boundingbox.getBoundingRectangleCoordinates(approximate_polygonal_curve)
 
-            croppedFrame = cropframe.cropFrameToBoundingBox(frame, boundingRectangleCoordinates)
+            cropped_frame = cropframe.cropFrameToBoundingBox(frame, bounding_rectangle_coordinates)
             
-            if entityrecognition.isPersonDetected(croppedFrame):
+            if entityrecognition.isPersonDetected(cropped_frame):
                 print(True)
 
-            boundingbox.drawBoundaryRectangle(frame, boundingRectangleCoordinates)
+            boundingbox.drawBoundaryRectangle(frame, bounding_rectangle_coordinates)
 
         imagereader.displayFrame(frame, "bg")
-        imagereader.displayFrame(foregroundOfFrame, "fg")
+        imagereader.displayFrame(foreground_of_frame, "fg")
         if imagereader.userExitRequest():
             imagereader.stopReading(video)
             break
