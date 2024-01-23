@@ -12,7 +12,7 @@ def isPersonDetected(frame):
     rgbFrame = rgb.getFrameInRGB(frame) 
     greyScaleFrame = gs.getFrameInGreyScale(rgbFrame)
 
-    xmlDataForHumanDetection = cv2.CascadeClassifier('CS3305/haarcascade_fullbody.xml')
+    xmlDataForHumanDetection = cv2.CascadeClassifier('haarcascade_fullbody.xml')
 
     found = xmlDataForHumanDetection.detectMultiScale(greyScaleFrame)
     
