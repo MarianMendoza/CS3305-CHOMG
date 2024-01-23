@@ -1,6 +1,6 @@
 # Based on tutorial - https://hackthedeveloper.com/motion-detection-opencv-python/
 import cv2
-def getFrameInGreyScale(frame):
+def get_frame_in_grey_scale(frame):
     '''
     Convert the frame to grayscale
     '''
