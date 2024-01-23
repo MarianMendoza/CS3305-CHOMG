@@ -4,17 +4,17 @@ import cv2
 import greyscale as gs
 import rgbframe as rgb
 
-def isPersonDetected(frame):
+def is_person_detected_in_frame(frame):
     '''
     Takes frame as input
     Returns True if person detected in frame otherwise returns False
     '''
-    rgbFrame = rgb.getFrameInRGB(frame) 
-    greyScaleFrame = gs.getFrameInGreyScale(rgbFrame)
+    rgb_frame = rgb.get_frame_in_rgb(frame) 
+    grey_scale_frame = gs.get_frame_in_grey_scale(rgb_frame)
 
-    xmlDataForHumanDetection = cv2.CascadeClassifier('haarcascade_fullbody.xml')
+    xml_data_for_human_detection = cv2.CascadeClassifier('haarcascade_fullbody.xml')
 
-    found = xmlDataForHumanDetection.detectMultiScale(greyScaleFrame)
+    list_of_people_detected_in_frame = xml_data_for_human_detection.detectMultiScale(grey_scale_frame)
     
     # Return False if no people detected else return True
-    return len(found) != 0
+    return len(list_of_people_detected_in_frame) != 0
