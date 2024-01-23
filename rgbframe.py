@@ -1,5 +1,6 @@
 import cv2
-def getFrameInRGB(frame):
+
+def get_frame_in_rgb(frame):
     '''
     Convert the frame to RGB
     '''
