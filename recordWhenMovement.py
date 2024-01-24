@@ -2,21 +2,18 @@ import cv2
 import time
 import os
 import datetime
-from grey_scale import *
-from image_reader import *
-from background_seperator import *
-from noise_reduction import *
-from bounding_box import *
-from entity_recognition import *
+import image_reader
+import grey_scale
+import background_seperator
+import noise_reduction
+import bounding_box
 
 
-def run():
-    video = read_video_from_camera()
+def record_on_movement(video, separator, kernel):
     if not video.isOpened():
         raise IOError("Cannot open webcam")
 
-    separator = create_background_subtractor_object()
-    kernel = create_noise_reduction_kernel()
+    # separator = createBackgroundSubtractor()
 
     # Adjust this value to ignore smaller movements
     min_contour_area = 5000  # Adjust based on your specific needs
@@ -39,22 +36,22 @@ def run():
     out = None
 
     while True:
-        frame = capture_frame(video)
-        greyScaleFrame = get_frame_in_grey_scale(frame)
-        foregroundOfFrame = get_foreground_of_frame_using_subtractor_object(greyScaleFrame, separator)
-        foregroundOfFrame = erode_frame_using_kernel(foregroundOfFrame, kernel)
-        foregroundOfFrame = dilate_frame_using_kernel(foregroundOfFrame, kernel)
+        frame = image_reader.capture_frame(video)
+        greyScaleFrame = grey_scale.get_frame_in_grey_scale(frame)
+        foregroundOfFrame = background_seperator.get_foreground_of_frame_using_subtractor_object(greyScaleFrame, separator)
+        foregroundOfFrame = noise_reduction.erode_frame_using_kernel(foregroundOfFrame, kernel)
+        foregroundOfFrame = noise_reduction.dilate_frame_using_kernel(foregroundOfFrame, kernel)
 
-        contours = get_contours(foregroundOfFrame)
+        contours = bounding_box.get_contours(foregroundOfFrame)
         significant_movement_detected = False
 
         for contour in contours:
             if cv2.contourArea(contour) > min_contour_area:
                 significant_movement_detected = True
-                maxContour = get_max_contour([contour])  # Assuming getMaxContour expects a list of contours
-                approxPolygonalCurve = get_approximate_curve_from_contour(maxContour)
-                boundingRectangleCoordinates = get_bounding_box_from_curve(approxPolygonalCurve)
-                draw_bounding_box_on_frame(frame, boundingRectangleCoordinates)
+                maxContour = bounding_box.get_max_contour([contour])  # Assuming getMaxContour expects a list of contours
+                approxPolygonalCurve = bounding_box.get_approximate_curve_from_contour(maxContour)
+                boundingRectangleCoordinates = bounding_box.get_bounding_box_from_curve(approxPolygonalCurve)
+                bounding_box.draw_bounding_box_on_frame(frame, boundingRectangleCoordinates)
                 break  # Break after finding the first significant movement
 
         if significant_movement_detected:
@@ -78,14 +75,14 @@ def run():
                 out.release()
                 out = None
 
-        display_frame(frame, "Camera Output")
+        image_reader.display_frame(frame, "Camera Output")
 
-        if user_exit_request():
+        if image_reader.user_exit_request():
             break
 
-    stop_reading(video)
+    image_reader.stop_reading(video)
     if out:
         out.release()
 
-if __name__ == "__main__":
-    run()
+# if __name__ == "__main__":
+#     record_on_movement()
