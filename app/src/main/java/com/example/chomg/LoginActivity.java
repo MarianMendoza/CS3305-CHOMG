@@ -19,14 +19,10 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    // Other variables...
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        // Other initialization...
 
         Button loginButton = findViewById(R.id.button2);
         loginButton.setOnClickListener(new View.OnClickListener() {

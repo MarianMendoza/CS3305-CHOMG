@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/root_layout"
     android:layout_height="match_parent"
     tools:context=".SignUpActivity"
     tools:layout_editor_absoluteX="1dp"
@@ -40,26 +41,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <Button
-        android:id="@+id/signUpButton"
-        android:layout_width="277dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="67dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="67dp"
-        android:layout_marginBottom="92dp"
-        android:backgroundTint="#C22525"
-        android:fontFamily="@font/dela_gothic_one"
-        android:text="SIGN UP"
-        android:textSize="10sp"
-        app:cornerRadius="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword3" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/password"
         style="@style/SignUpButton"
         android:layout_width="269dp"
         android:layout_height="45dp"
@@ -74,13 +58,13 @@
         android:hint="PASSWORD"
         android:inputType="textPassword"
         android:paddingLeft="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword3"
+        app:layout_constraintBottom_toTopOf="@+id/passwordConfirmation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
-        android:id="@+id/editTextTextPassword3"
+        android:id="@+id/passwordConfirmation"
         style="@style/SignUpButton"
         android:layout_width="269dp"
         android:layout_height="45dp"
@@ -98,17 +82,17 @@
         app:layout_constraintBottom_toTopOf="@+id/button4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/emailAddress"
         style="@style/SignUpButton"
         android:layout_width="269dp"
         android:layout_height="45dp"
         android:layout_marginStart="72dp"
         android:layout_marginTop="54dp"
         android:layout_marginEnd="70dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="9dp"
         android:background="@drawable/shape1"
         android:drawableLeft="@drawable/mail_24px"
         android:drawablePadding="8dp"
@@ -116,11 +100,30 @@
         android:hint="EMAIL ADDRESS"
         android:inputType="textEmailAddress"
         android:paddingLeft="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword"
+        app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/signUpButton"
+        android:layout_width="277dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="67dp"
+        android:layout_marginBottom="92dp"
+        android:backgroundTint="#C22525"
+        android:fontFamily="@font/dela_gothic_one"
+        android:text="SIGN UP"
+        android:textSize="10sp"
+        app:cornerRadius="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword3" />
 
     <TextView
         android:id="@+id/textView3"
@@ -153,5 +156,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
