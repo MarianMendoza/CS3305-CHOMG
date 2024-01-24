@@ -6,7 +6,7 @@ import bounding_box
 import entity_recognition 
 import crop_frame
 # import display
-import recordWhenMovement
+# import recordWhenMovement
 
 def run():
     video = image_reader.read_video_from_camera()
@@ -22,7 +22,7 @@ def run():
 
         image_reader.display_frame(frame, "bg")
         image_reader.display_frame(foreground_of_frame, "fg")
-        recordWhenMovement.record_on_movement(video, separator, kernel)  # Record when movement
+        # recordWhenMovement.record_on_movement(video, separator, kernel)  # Record when movement
 
         if image_reader.user_exit_request():
             image_reader.stop_reading(video)
