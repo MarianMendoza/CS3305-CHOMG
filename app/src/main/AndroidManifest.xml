@@ -38,6 +38,15 @@
         <activity android:name=".SignUpActivity">
         </activity>
 
+        <activity android:name=".CameraActivity" android:exported="true">
+            <!-- Intent filter for external access (if applicable) -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
 
         <meta-data
             android:name="preloaded_fonts"
@@ -45,7 +54,20 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+
+
     </application>
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+
+
+
 
 
 </manifest>
