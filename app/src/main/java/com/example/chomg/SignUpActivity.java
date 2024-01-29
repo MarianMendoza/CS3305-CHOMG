@@ -56,8 +56,10 @@ public class SignUpActivity extends AppCompatActivity {
         String passwordString = password.getText().toString();
         String passwordConfirmationString = passwordConfirmation.getText().toString();
 
-        if (!checkEmailFormat(emailString)){
+        if (!checkEmailFormat(emailString)) {
             Toast.makeText(SignUpActivity.this, "Invalid email format!", Toast.LENGTH_SHORT).show();
+        } else if (!checkPasswordFormat(passwordString)) {
+            Toast.makeText(SignUpActivity.this, "Password must contain numbers, letters, a capital letter, and a special character", Toast.LENGTH_SHORT).show();
         } else if (!passwordString.equals(passwordConfirmationString)){
             Toast.makeText(SignUpActivity.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
         } else {
@@ -109,5 +111,11 @@ public class SignUpActivity extends AppCompatActivity {
     private boolean checkEmailFormat(String email){
         String regexPattern = "^(.+)@(\\S+)$";
         return Pattern.matches(regexPattern, email);
+    }
+
+    private boolean checkPasswordFormat(String password){
+        // need one upper letter, one number, special character and min 6 in length
+        String regexPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{6,}$";
+        return Pattern.matches(regexPattern, password);
     }
 }
