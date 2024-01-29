@@ -14,6 +14,8 @@ import com.example.chomg.network.Api;
 import com.example.chomg.network.Client;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.regex.Pattern;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,7 +56,11 @@ public class SignUpActivity extends AppCompatActivity {
         String passwordString = password.getText().toString();
         String passwordConfirmationString = passwordConfirmation.getText().toString();
 
-        if (!passwordString.equals(passwordConfirmationString)){
+        if (!checkEmailFormat(emailString)) {
+            Toast.makeText(SignUpActivity.this, "Invalid email format!", Toast.LENGTH_SHORT).show();
+        } else if (!checkPasswordFormat(passwordString)) {
+            Toast.makeText(SignUpActivity.this, "Password must contain numbers, letters, a capital letter, and a special character", Toast.LENGTH_SHORT).show();
+        } else if (!passwordString.equals(passwordConfirmationString)){
             Toast.makeText(SignUpActivity.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
         } else {
             registerUser(emailString, passwordString);
@@ -73,9 +79,12 @@ public class SignUpActivity extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     showLoginRedirectMessage(findViewById(R.id.root_layout));
+                } else if (response.code() == 400) {
+                    Toast.makeText(SignUpActivity.this, "User already exists!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(SignUpActivity.this, "Error!", Toast.LENGTH_SHORT).show();
                 }
+
             }
 
             @Override
@@ -97,5 +106,16 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 });
         snackbar.show();
+    }
+
+    private boolean checkEmailFormat(String email){
+        String regexPattern = "^(.+)@(\\S+)$";
+        return Pattern.matches(regexPattern, email);
+    }
+
+    private boolean checkPasswordFormat(String password){
+        // need one upper letter, one number, special character and min 6 in length
+        String regexPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{6,}$";
+        return Pattern.matches(regexPattern, password);
     }
 }
