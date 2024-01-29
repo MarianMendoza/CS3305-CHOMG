@@ -14,6 +14,8 @@ import com.example.chomg.network.Api;
 import com.example.chomg.network.Client;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.regex.Pattern;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,7 +56,9 @@ public class SignUpActivity extends AppCompatActivity {
         String passwordString = password.getText().toString();
         String passwordConfirmationString = passwordConfirmation.getText().toString();
 
-        if (!passwordString.equals(passwordConfirmationString)){
+        if (!checkEmailFormat(emailString)){
+            Toast.makeText(SignUpActivity.this, "Invalid email format!", Toast.LENGTH_SHORT).show();
+        } else if (!passwordString.equals(passwordConfirmationString)){
             Toast.makeText(SignUpActivity.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
         } else {
             registerUser(emailString, passwordString);
@@ -100,5 +104,10 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 });
         snackbar.show();
+    }
+
+    private boolean checkEmailFormat(String email){
+        String regexPattern = "^(.+)@(\\S+)$";
+        return Pattern.matches(regexPattern, email);
     }
 }
