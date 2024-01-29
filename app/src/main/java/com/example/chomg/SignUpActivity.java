@@ -73,9 +73,12 @@ public class SignUpActivity extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     showLoginRedirectMessage(findViewById(R.id.root_layout));
+                } else if (response.code() == 400) {
+                    Toast.makeText(SignUpActivity.this, "User already exists!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(SignUpActivity.this, "Error!", Toast.LENGTH_SHORT).show();
                 }
+
             }
 
             @Override
