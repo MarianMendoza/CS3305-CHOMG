@@ -14,7 +14,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch(err => console.log(err));
 
 const UserSchema = new mongoose.Schema({
-  username: String,
+  username: { type: String, unique: true },
   password: String,
 });
 
@@ -30,7 +30,11 @@ app.post('/register', async (req, res) => {
     await newUser.save();
     res.status(201).send('User created');
   } catch (error) {
-    res.status(500).send('Error registering new user');
+    if (error.code === 11000) {
+            res.status(400).send('Username already exists');
+    } else {
+      res.status(500).send('Error registering new user');
+    }
   }
 });
 
