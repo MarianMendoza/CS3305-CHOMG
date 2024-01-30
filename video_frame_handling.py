@@ -4,7 +4,7 @@ import noise_reduction
 import bounding_box
 import entity_recognition 
 import crop_frame
-import grey_scale 
+import colour_handling
 
 class VideoFrameHandler(object):
     def __init__(self) -> None:
@@ -20,7 +20,7 @@ class VideoFrameHandler(object):
 
     # TODO: Maybe clean this function
     def set_adjusted_foreground_of_current_frame(self):
-        grey_scale_frame = grey_scale.get_frame_in_grey_scale(self.current_frame)
+        grey_scale_frame = colour_handling.get_frame_in_grey_scale(self.current_frame)
         foreground_of_frame = background_seperator.get_foreground_of_frame_using_subtractor_object(grey_scale_frame, self.separator)
         foreground_of_frame = noise_reduction.erode_frame_using_kernel(foreground_of_frame, self.kernel)
         foreground_of_frame = noise_reduction.dilate_frame_using_kernel(foreground_of_frame, self.kernel)
