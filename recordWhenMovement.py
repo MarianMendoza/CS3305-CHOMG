@@ -37,7 +37,7 @@ def record_on_movement(video, separator, kernel):
 
     while True:
         frame = image_reader.capture_frame(video)
-        greyScaleFrame = grey_scale.get_frame_in_grey_scale(frame)
+        greyScaleFrame = colour_handling.get_frame_in_grey_scale(frame)
         foregroundOfFrame = background_seperator.get_foreground_of_frame_using_subtractor_object(greyScaleFrame, separator)
         foregroundOfFrame = noise_reduction.erode_frame_using_kernel(foregroundOfFrame, kernel)
         foregroundOfFrame = noise_reduction.dilate_frame_using_kernel(foregroundOfFrame, kernel)
