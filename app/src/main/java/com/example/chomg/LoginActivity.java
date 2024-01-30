@@ -63,6 +63,10 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     // Login successful, navigate to the next screen or perform the necessary action
                     Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    startActivity(intent);
+
                 } else {
                     // Login failed, show an error message
                     Toast.makeText(LoginActivity.this, "Invalid email or password. Please try again.", Toast.LENGTH_SHORT).show();

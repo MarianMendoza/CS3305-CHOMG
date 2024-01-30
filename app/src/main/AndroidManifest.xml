@@ -38,7 +38,7 @@
         <activity android:name=".SignUpActivity">
         </activity>
 
-        <activity android:name=".CameraActivity" android:exported="true">
+        <activity android:name=".HomeActivity" android:exported="true">
             <!-- Intent filter for external access (if applicable) -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -64,6 +64,12 @@
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+
+
 
 
 
