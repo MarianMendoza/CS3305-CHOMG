@@ -117,7 +117,7 @@ public class HomeActivity extends AppCompatActivity {
                     if (!addresses.isEmpty()) {
                         String area = addresses.get(0).getLocality();
                         // Set the formatted area to the TextView
-                        locationTextView.setText("Location:" + area);
+                        locationTextView.setText("Location: " + area);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

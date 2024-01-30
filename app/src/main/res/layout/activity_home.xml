@@ -10,17 +10,16 @@
 
     <SurfaceView
         android:id="@+id/previewView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="359dp"
+        android:layout_height="212dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="16:9"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.253" />
+        app:layout_constraintVertical_bias="0.254" />
 
     <TextView
         android:id="@+id/textView7"
@@ -37,13 +36,13 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.047" />
+        app:layout_constraintVertical_bias="0.05" />
 
     <Button
         android:id="@+id/navButton"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="38dp"
-        android:layout_height="43dp"
+        android:layout_width="88dp"
+        android:layout_height="37dp"
         android:textSize="14sp"
         app:icon="@drawable/density_medium_fill0_wght400_grad0_opsz24"
         app:iconGravity="textStart"
@@ -51,48 +50,54 @@
         app:iconTint="#FF0000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.115"
+        app:layout_constraintHorizontal_bias="0.037"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.066" />
+        app:layout_constraintVertical_bias="0.072" />
 
     <TextView
         android:id="@+id/timeView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/schedule_24px"
+        android:drawablePadding="10dp"
         android:fontFamily="@font/bebas_neue"
+        android:includeFontPadding="true"
         android:text="Time:"
+        android:textAlignment="textStart"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintHorizontal_bias="0.073"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.569" />
+        app:layout_constraintVertical_bias="0.565" />
 
     <TextView
         android:id="@+id/LocationView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
         android:drawableLeft="@drawable/my_location_24px"
+        android:drawablePadding="10dp"
         android:fontFamily="@font/bebas_neue"
+        android:includeFontPadding="true"
         android:text="Location:"
+        android:textAlignment="textStart"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintHorizontal_bias="0.079"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.518" />
+        app:layout_constraintVertical_bias="0.516" />
 
     <Button
         android:id="@+id/activityLogButton"
-        android:layout_width="176dp"
+        android:layout_width="164dp"
         android:layout_height="116dp"
-        android:layout_marginEnd="8dp"
         android:backgroundTint="#D9D9D9"
         android:fontFamily="@font/bebas_neue"
         android:text="Activity Log"
@@ -104,16 +109,17 @@
         app:iconSize="32dp"
         app:iconTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/notificationButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.105"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.715" />
 
     <Button
         android:id="@+id/notificationButton"
-        android:layout_width="176dp"
+        android:layout_width="164dp"
         android:layout_height="116dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
         android:backgroundTint="#D9D9D9"
         android:fontFamily="@font/bebas_neue"
         android:text="Notifications"
@@ -126,13 +132,12 @@
         app:iconTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/activityLogButton"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.715" />
 
     <Button
         android:id="@+id/helpButton"
-        android:layout_width="176dp"
+        android:layout_width="164dp"
         android:layout_height="116dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="#D9D9D9"
@@ -147,15 +152,16 @@
         app:iconTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/setUpCameraButton"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.923" />
 
     <Button
         android:id="@+id/setUpCameraButton"
-        android:layout_width="176dp"
+        android:layout_width="164dp"
         android:layout_height="116dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
         android:backgroundTint="#D9D9D9"
         android:fontFamily="@font/bebas_neue"
         android:text="SET UP"
@@ -168,7 +174,6 @@
         app:iconTint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/helpButton"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.923" />
 
