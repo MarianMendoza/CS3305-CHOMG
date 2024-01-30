@@ -1,3 +1,5 @@
+# Tutorial https://www.geeksforgeeks.org/python-opencv-capture-video-from-camera/?ref=lbp
+
 import image_reader
 import background_seperator
 import noise_reduction
