@@ -3,7 +3,7 @@ import time
 import os
 import datetime
 import image_reader
-import grey_scale
+import colour_handling
 import background_seperator
 import noise_reduction
 import bounding_box
