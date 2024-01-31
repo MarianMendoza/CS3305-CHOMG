@@ -14,8 +14,9 @@ class VideoFrameHandler(object):
         self.separator = background_seperator.create_background_subtractor_object()
         self.kernel = noise_reduction.create_noise_reduction_kernel()
         self.current_frame = image_reader.capture_frame(self.video)
-        self.current_foreground_of_frame = self.set_adjusted_foreground_of_current_frame()
-    
+        self.set_adjusted_foreground_of_current_frame()
+        self.current_foreground_of_frame = self.get_adjusted_foreground_of_current_frame()
+
     def get_adjusted_foreground_of_current_frame(self):
         return self.current_foreground_of_frame
     
@@ -55,3 +56,4 @@ class VideoFrameHandler(object):
 
     def set_next_frame_as_current(self):
         self.current_frame = image_reader.capture_frame(self.video)
+        self.set_adjusted_foreground_of_current_frame()

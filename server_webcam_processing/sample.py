@@ -15,6 +15,7 @@ def run():
         frame_handler.display_current_frame()
         frame_handler.display_foreground()
         frame_handler.set_next_frame_as_current()
+        frame_handler.set_adjusted_foreground_of_current_frame()
         # recordWhenMovement.record_on_movement(video, separator, kernel)  # Record when movement
 
         if image_reader.user_exit_request():
