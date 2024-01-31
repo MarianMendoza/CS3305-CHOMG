@@ -11,7 +11,7 @@ def is_person_detected_in_frame(frame):
     rgb_frame = colour_handling.get_frame_in_rgb(frame) 
     grey_scale_frame = colour_handling.get_frame_in_grey_scale(rgb_frame)
 
-    xml_data_for_human_detection = cv2.CascadeClassifier('haarcascade_fullbody.xml')
+    xml_data_for_human_detection = cv2.CascadeClassifier('server_webcam_processing/haarcascade_fullbody.xml')
 
     list_of_people_detected_in_frame = xml_data_for_human_detection.detectMultiScale(grey_scale_frame)
     

@@ -38,7 +38,7 @@ class VideoFrameHandler(object):
         approximate_polygonal_curve = bounding_box.get_approximate_curve_from_contour(max_contour)
         bounding_box_coordinates = bounding_box.get_bounding_box_from_curve(approximate_polygonal_curve)
         cropped_frame = crop_frame.crop_frame_to_bounding_box(self.current_frame, bounding_box_coordinates)
-        if entity_recognition.is_person_detected_in_frame(cropped_frame):
+        if entity_recognition.is_person_detected_in_frame(self.current_foreground_of_frame):
             print(True)
         bounding_box.draw_bounding_box_on_frame(self.current_frame, bounding_box_coordinates)
     
