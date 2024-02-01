@@ -45,7 +45,8 @@
         android:layout_width="224dp"
         android:layout_height="52dp"
         android:backgroundTint="#FFFFFF"
-        android:fontFamily="@font/dela_gothic_one"
+        android:fontFamily="sans-serif-black"
+        android:onClick="onLoginButtonClick"
         android:text="LOG IN"
         android:textColor="#9F1B1B"
         android:textColorHighlight="#9F1B1B"
@@ -57,8 +58,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.662"
-        android:onClick="onLoginButtonClick" />
+        app:layout_constraintVertical_bias="0.662" />
 
     <EditText
         android:id="@+id/editTextTextEmailAddress5"
@@ -74,7 +74,7 @@
         android:drawablePadding="8dp"
         android:drawableTint="#9F1B1B"
         android:ems="10"
-        android:fontFamily="@font/dela_gothic_one"
+        android:fontFamily="sans-serif"
         android:hint="EMAIL"
         android:hyphenationFrequency="normal"
         android:inputType="textEmailAddress"
@@ -105,7 +105,7 @@
         android:drawablePadding="8dp"
         android:drawableTint="#9F1B1B"
         android:ems="10"
-        android:fontFamily="@font/dela_gothic_one"
+        android:fontFamily="sans-serif"
         android:hint="PASSWORD"
         android:inputType="textPassword"
         android:paddingLeft="10dp"
@@ -154,7 +154,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:fontFamily="@font/dela_gothic_one"
+        android:fontFamily="sans-serif-black"
         android:text="SIGN UP"
         android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
