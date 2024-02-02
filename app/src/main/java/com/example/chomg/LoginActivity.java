@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button loginButton = findViewById(R.id.button2);
+        Button loginButton = findViewById(R.id.buttonLogIn);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,18 +32,26 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button signUpButton = findViewById(R.id.button3);
+        Button signUpButton = findViewById(R.id.buttonSignUp);
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onSignUpButtonClick(v);
             }
         });
+
+        Button forgotPasswordButton = findViewById(R.id.buttonForgotPassword);
+        forgotPasswordButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+                    public void onClick(View v){
+                onForgotButtonClick(v);
+            }
+        });
     }
 
     public void onLoginButtonClick(View view) {
-        EditText emailEditText = findViewById(R.id.editTextTextEmailAddress5);
-        EditText passwordEditText = findViewById(R.id.editTextTextPassword2);
+        EditText emailEditText = findViewById(R.id.editTextEmailAddress);
+        EditText passwordEditText = findViewById(R.id.editTextPassword);
 
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
@@ -86,5 +94,11 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
         startActivity(intent);
     }
+
+    public void onForgotButtonClick(View view){
+        Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+        startActivity(intent);
+    }
+
 
 }
