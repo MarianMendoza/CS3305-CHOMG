@@ -19,7 +19,6 @@ def run():
         frame_handler.display_foreground()
 
         frame_handler.set_next_frame_as_current()
-        frame_handler.set_adjusted_foreground_of_current_frame()
 
         if image_reader.user_exit_request():
             frame_handler.stop_reading()

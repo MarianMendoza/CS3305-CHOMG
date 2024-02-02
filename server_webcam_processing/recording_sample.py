@@ -25,7 +25,6 @@ def run():
             
             # Prepare for the next frame
             frame_handler.set_next_frame_as_current()
-            frame_handler.set_adjusted_foreground_of_current_frame()
             
             if image_reader.user_exit_request():
                 break
