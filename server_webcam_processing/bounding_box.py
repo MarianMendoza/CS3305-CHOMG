@@ -13,11 +13,26 @@ class BoundingBox(object):
 def get_contours(frame_mask):
         return cv2.findContours(frame_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE) [0]
 
-def get_max_contour(contours) -> float:
-    max_contour = contours[0]
+def get_max_contour(contours, min_area=500):
+    """
+    Finds and returns the largest contour from a list of contours, based on contour area.
+    
+    Parameters:
+    - contours: List of contours to evaluate.
+    - min_area: Minimum area threshold for a contour to be considered significant.
+    
+    Returns:
+    - The largest contour that exceeds the minimum area threshold, or None if no such contour exists.
+    """
+    max_contour = None
+    max_area = min_area  # Initialize with min_area to ensure only contours larger than this are considered
+
     for contour in contours:
-        if cv2.contourArea(contour) > cv2.contourArea(max_contour):
+        area = cv2.contourArea(contour)
+        if area > max_area:
             max_contour = contour
+            max_area = area
+
     return max_contour
 
 def get_bounding_box_from_curve(approx):

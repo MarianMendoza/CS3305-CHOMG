@@ -35,6 +35,8 @@ class VideoFrameHandler(object):
     # TODO: Clean this function
     def handle_motion_detection_in_frame_using_contours(self, contours):
         max_contour = bounding_box.get_max_contour(contours)
+        if max_contour is None:
+            return
         approximate_polygonal_curve = bounding_box.get_approximate_curve_from_contour(max_contour)
         bounding_box_coordinates = bounding_box.get_bounding_box_from_curve(approximate_polygonal_curve)
         cropped_frame = crop_frame.crop_frame_to_bounding_box(self.current_frame, bounding_box_coordinates)
