@@ -1,12 +1,17 @@
 # Tutorial https://www.geeksforgeeks.org/python-opencv-capture-video-from-camera/?ref=lbp
+# tutorial https://www.geeksforgeeks.org/detect-an-object-with-opencv-python/
+# xml file - https://github.com/anaustinbeing/haar-cascade-files/blob/master/haarcascade_fullbody.xml
 
 import image_reader
 import background_seperator
 import noise_reduction
 import bounding_box
-import entity_recognition 
 import crop_frame
 import colour_handling
+import cv2
+import os 
+import sys
+
 
 class VideoFrameHandler(object):
     def __init__(self) -> None:
@@ -16,6 +21,7 @@ class VideoFrameHandler(object):
         self.current_frame = image_reader.capture_frame(self.video)
         self.set_adjusted_foreground_of_current_frame()
         self.current_foreground_of_frame = self.get_adjusted_foreground_of_current_frame()
+        self.xml_data_for_human_detection = cv2.CascadeClassifier(os.path.join(sys._MEIPASS, 'haarcascade_fullbody.xml')) if getattr(sys, 'frozen', False) else cv2.CascadeClassifier('haarcascade_fullbody.xml')
 
     def get_adjusted_foreground_of_current_frame(self):
         return self.current_foreground_of_frame
@@ -40,12 +46,25 @@ class VideoFrameHandler(object):
         approximate_polygonal_curve = bounding_box.get_approximate_curve_from_contour(max_contour)
         bounding_box_coordinates = bounding_box.get_bounding_box_from_curve(approximate_polygonal_curve)
         cropped_frame = crop_frame.crop_frame_to_bounding_box(self.current_frame, bounding_box_coordinates)
-        if entity_recognition.is_person_detected_in_frame(self.current_foreground_of_frame):
+        if self._is_person_detected_in_cropped_frame(cropped_frame):
             print(True)
         bounding_box.draw_bounding_box_on_frame(self.current_frame, bounding_box_coordinates)
     
     def get_contours_of_current_frame(self):
         return bounding_box.get_contours(self.current_foreground_of_frame)
+
+    def _is_person_detected_in_cropped_frame(self, cropped_frame):
+        '''
+        Takes cropped frame as input
+        Returns True if person detected in frame otherwise returns False
+        '''
+        rgb_frame = colour_handling.get_frame_in_rgb(cropped_frame) 
+        grey_scale_frame = colour_handling.get_frame_in_grey_scale(rgb_frame)
+        list_of_people_detected_in_frame = self.xml_data_for_human_detection.detectMultiScale(grey_scale_frame)
+    
+        # Return False if no people detected else return True
+        return len(list_of_people_detected_in_frame) != 0
+
 
     def display_current_frame(self):
         image_reader.display_frame(self.current_frame, "Full Frame")
