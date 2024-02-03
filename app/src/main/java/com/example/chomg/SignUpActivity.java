@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +28,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        Button loginButton = findViewById(R.id.button5);
+        Button loginButton = findViewById(R.id.buttonLogin);
         Button signUpButton = findViewById(R.id.signUpButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,9 +114,35 @@ public class SignUpActivity extends AppCompatActivity {
         return Pattern.matches(regexPattern, email);
     }
 
-    private boolean checkPasswordFormat(String password){
+    private ImageView imageViewMinLen;
+    private ImageView imageViewUppercase;
+    private ImageView imageViewNumeric;
+    private ImageView imageSpecial;
+
+
+
+    private void updatePasswordStrength(String password) {
+        boolean isFormatValid = checkPasswordFormat(password);
+
+        // Update the images based on the result
+        updateImageView(imageViewMinLen, isFormatValid);
+        updateImageView(imageViewUppercase, isFormatValid);
+        updateImageView(imageViewNumeric, isFormatValid);
+        updateImageView(imageSpecial, isFormatValid);
+    }
+
+    private boolean checkPasswordFormat(String password) {
         // need one upper letter, one number, special character and min 6 in length
         String regexPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{6,}$";
         return Pattern.matches(regexPattern, password);
     }
+
+    private void updateImageView(ImageView imageView, boolean isConditionMet) {
+        if (isConditionMet) {
+            imageView.setImageResource(R.drawable.check_circle_24px); // Image when condition is met
+        } else {
+            imageView.setImageResource(R.drawable.check_circle_24q); // Image when condition is not met
+        }
+    }
+
 }
