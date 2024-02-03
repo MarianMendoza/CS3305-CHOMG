@@ -13,6 +13,7 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.location.Address;
 import android.location.Geocoder;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -75,6 +76,8 @@ public class HomeActivity extends AppCompatActivity {
         timeTextView = findViewById(R.id.timeView);
         locationTextView = findViewById(R.id.LocationView);  // Added for location
 
+        loginSound();
+
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -97,6 +100,17 @@ public class HomeActivity extends AppCompatActivity {
         } else {
             initializeLocation();
         }
+    }
+
+    private void loginSound() {
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.loginsound);
+        mediaPlayer.start();
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+            }
+        });
     }
 
     private void initializeLocation() {
