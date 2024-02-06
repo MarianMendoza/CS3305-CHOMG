@@ -7,8 +7,6 @@
     android:background="#FFFFFF"
     tools:context=".HomeActivity">
 
-    <!-- Your main content goes here -->
-
     <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"

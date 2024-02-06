@@ -3,19 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <item
-        android:id="@+id/menu_itemAccount"
-        app:showAsAction="always"
-        android:icon="@drawable/account_circle_24px"
-        android:orderInCategory="1"
-        />
 
     <item
         android:id="@+id/menu_itemHome"
         app:showAsAction="always"
         android:icon="@drawable/home_24px"
+        android:orderInCategory="1"
+        />
+
+
+    <item
+        android:id="@+id/menu_itemAccount"
+        app:showAsAction="always"
+        android:icon="@drawable/account_circle_24px"
         android:orderInCategory="2"
         />
+
+
 
     <item
         android:id="@+id/menu_itemSettings"

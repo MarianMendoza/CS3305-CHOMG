@@ -14,7 +14,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentContainer, new ExampleFragment1())
+                .replace(R.id.fragmentContainer, new fragmentHome())
                 .commit();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -22,11 +22,12 @@ public class HomeActivity extends AppCompatActivity {
             Fragment selectedFragment = null;
 
             if (item.getItemId() == R.id.menu_itemHome) {
-                selectedFragment = new ExampleFragment1();
+                selectedFragment = new fragmentHome();
             } else if (item.getItemId() == R.id.menu_itemAccount) {
-                // Replace with the fragment for the "Account" menu item
+                selectedFragment = new fragmentAccount();
             } else if (item.getItemId() == R.id.menu_itemSettings) {
-                // Replace with the fragment for the "Settings" menu item
+                selectedFragment = new fragmentSettings();
+
             }
 
             if (selectedFragment != null) {
