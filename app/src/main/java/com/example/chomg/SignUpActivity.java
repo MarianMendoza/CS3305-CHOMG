@@ -70,7 +70,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void registerUser(final String email, final String password){
-        Api apiService = Client.getClient("http://10.0.2.2:3000").create(Api.class);
+        Api apiService = Client.getClient("https://178.62.75.31").create(Api.class);
 
         User user = new User(email, password);
         Call<Void> call = apiService.registerUser(user);
