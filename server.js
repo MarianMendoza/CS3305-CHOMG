@@ -1,13 +1,19 @@
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
+const nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
+const fs = require('fs');
+const https = require('https');
+const { exec } = require('child_process');
 const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 
 const app = express();
-const port = 3000;
+const port = 443;
 
 // Replace with your MongoDB URI
 const mongoURI = 'mongodb://localhost:27017/AppUsers';
@@ -22,6 +28,10 @@ const UserSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model('User', UserSchema);
+
+const privateKey = fs.readFileSync('key.pem', 'utf8');
+const certificate = fs.readFileSync('cert.pem', 'utf8');
+const credentials = { key: privateKey, cert: certificate };
 
 app.use(helmet());
 
@@ -81,6 +91,83 @@ app.post('/login', async (req, res) => {
 
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+// Assuming you have a function to generate a password reset token
+const generatePasswordResetToken = (user) => {
+  // Ensure you have a secret key to sign the token; it should be a long, secure, and kept secret
+  const secret = process.env.JWT_SECRET || 'your-very-secure-secret';
+  const expiresIn = '1h'; // Token expires in 1 hour
+
+  // Payload can include any user-specific information; here, we're using the user's ID
+  const payload = {
+    id: user._id,
+    email: user.username, // Assuming 'username' field is used for the email
+  };
+
+  // Sign the token with the user's payload and expiry time
+  const token = jwt.sign(payload, secret, { expiresIn });
+
+  return token;
+};
+
+const sendEmail = (email, token) => {
+  const resetLink = `http://10.0.2.2:3000/reset-password?token=${token}`;
+  const command = `python send_email.py '${email}' '${resetLink}'`;
+
+
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`exec error: ${error}`);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+    console.error(`stderr: ${stderr}`);
+  });
+};
+
+// Endpoint to handle forgot password request
+app.post('/forgot-password', async (req, res) => {
+  const { email } = req.body; // Assuming EmailWrapper wraps the email in a JSON object with key 'email'
+  
+  const user = await User.findOne({ username: email });
+  if (!user) {
+    return res.status(404).send('User not found');
+  }
+
+  // Generate a password reset token or link
+  const token = generatePasswordResetToken(user); // Implement this function based on your logic
+
+  // Send the email
+  try {
+    await sendEmail(user.username, token); // Adjust this function to match your email sending logic
+    res.status(200).send('Password reset email sent');
+  } catch (error) {
+    console.error('Failed to send password reset email:', error);
+    res.status(500).send('Failed to send password reset email');
+  }
+});
+
+
+
+app.post('/motion-detected', async (req, res) => {
+  try {
+    // Extract data from request body
+    const { motion_detected, person_detected, connection_lost, program_terminated } = req.body;
+
+    // Example logging
+    console.log(`Motion detected: ${motion_detected}, Person detected: ${person_detected}, Connection lost: ${connection_lost}, Program terminated: ${program_terminated}`);
+
+    // Here, implement the notification logic, e.g., calling a function to handle notifications.
+    // sendNotificationToApp(motion_detected, person_detected, connection_lost, program_terminated);
+
+    res.status(200).send('Notification processed');
+  } catch (error) {
+    console.error('Error handling motion detection:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+const httpsServer = https.createServer(credentials, app);
+
+httpsServer.listen(port, () => {
+  console.log(`HTTPS server running on port ${port}`);
 });
