@@ -90,7 +90,8 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(SignUpActivity.this, "Registration Failure" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                View rootView = findViewById(android.R.id.content);
+                Snackbar.make(rootView, "Registration failure " + t.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         });
     }
