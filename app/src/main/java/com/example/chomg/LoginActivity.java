@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.chomg.data.User;
@@ -84,7 +85,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 // Handle failure, possibly due to no internet connection, or server down
-                Toast.makeText(LoginActivity.this, "Login failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                View rootView = findViewById(android.R.id.content);
+                Snackbar.make(rootView, "Login failed: " + t.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         });
     }

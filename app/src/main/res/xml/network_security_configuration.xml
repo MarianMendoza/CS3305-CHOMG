@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <network-security-config>
-    <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">10.0.2.2</domain>
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="false">178.62.75.31</domain>
+        <trust-anchors>
+            <!-- Trust preinstalled CAs -->
+            <certificates src="system"/>
+            <!-- Trust user-added CAs -->
+            <certificates src="user"/>
+            <!-- Trust the specific certificate for your cloud server, if necessary -->
+            <certificates src="@raw/cert"/>
+        </trust-anchors>
     </domain-config>
+    <base-config>
+        <trust-anchors>
+            <certificates src="@raw/cert"/>
+        </trust-anchors>
+    </base-config>
 </network-security-config>
