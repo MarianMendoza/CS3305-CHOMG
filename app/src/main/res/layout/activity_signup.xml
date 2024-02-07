@@ -60,7 +60,6 @@
         android:inputType="textPassword"
         android:paddingLeft="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailAddress" />
 
@@ -89,9 +88,9 @@
         style="@style/SignUpButton"
         android:layout_width="269dp"
         android:layout_height="45dp"
-        android:layout_marginStart="70dp"
+        android:layout_marginStart="72dp"
         android:layout_marginTop="240dp"
-        android:layout_marginEnd="72dp"
+        android:layout_marginEnd="70dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/shape1"
         android:drawableLeft="@drawable/mail_24px"
@@ -103,7 +102,6 @@
         android:paddingLeft="10dp"
         app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
