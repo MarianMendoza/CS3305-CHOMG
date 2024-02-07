@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void isValidCredentials(final String email, final String password) {
-        Api apiService = Client.getClient("http://10.0.2.2:3000").create(Api.class);
+        Api apiService = Client.getClient("https://178.62.75.31").create(Api.class);
 
         User user = new User(email, password);
         Call<Void> call = apiService.loginUser(user);
