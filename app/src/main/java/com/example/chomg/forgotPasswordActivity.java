@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ForgotPasswordActivity extends AppCompatActivity {
+public class forgotPasswordActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start the SignUpActivity when the sign-up button is pressed
-                Intent intent = new Intent(ForgotPasswordActivity.this, SignUpActivity.class);
+                Intent intent = new Intent(forgotPasswordActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
         });

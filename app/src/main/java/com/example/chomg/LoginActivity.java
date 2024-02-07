@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onForgotButtonClick(View view){
-        Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+        Intent intent = new Intent(LoginActivity.this, forgotPasswordActivity.class);
         startActivity(intent);
     }
 

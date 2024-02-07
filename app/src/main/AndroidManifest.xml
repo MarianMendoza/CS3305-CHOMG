@@ -40,7 +40,7 @@
 
     </activity>
 
-        <activity android:name=".ForgotPasswordActivity" android:exported="true">
+        <activity android:name=".forgotPasswordActivity" android:exported="true">
             <!-- Intent filter for external access (if applicable) -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
