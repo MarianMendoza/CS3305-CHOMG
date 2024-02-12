@@ -16,7 +16,7 @@ const app = express();
 const port = 443;
 
 // Replace with your MongoDB URI
-const mongoURI = 'mongodb://localhost:27017/AppUsers';
+const mongoURI = `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}:27017/${process.env.MONGO_DB}?authSource=admin`;
 
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
@@ -29,8 +29,8 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', UserSchema);
 
-const privateKey = fs.readFileSync('key.pem', 'utf8');
-const certificate = fs.readFileSync('cert.pem', 'utf8');
+const privateKey = fs.readFileSync('server.key', 'utf8');
+const certificate = fs.readFileSync('server.crt', 'utf8');
 const credentials = { key: privateKey, cert: certificate };
 
 app.use(helmet());
@@ -46,7 +46,7 @@ app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.post('/register', 
+app.post('/register',
   // Validation rules
   [
     body('username').isEmail(),
@@ -127,7 +127,7 @@ const sendEmail = (email, token) => {
 // Endpoint to handle forgot password request
 app.post('/forgot-password', async (req, res) => {
   const { email } = req.body; // Assuming EmailWrapper wraps the email in a JSON object with key 'email'
-  
+
   const user = await User.findOne({ username: email });
   if (!user) {
     return res.status(404).send('User not found');
