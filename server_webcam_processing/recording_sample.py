@@ -32,7 +32,7 @@ def run():
                 break
     finally:
         # Cleanup and release resources on exit
-        record_on_movement.cleanup()
+        frame_recorder.cleanup()
 
 if __name__ == "__main__":
     run()
