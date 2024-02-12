@@ -146,7 +146,26 @@ app.post('/forgot-password', async (req, res) => {
   }
 });
 
+app.delete('/delete-user/:username', async (req, res) => {
+  const { username } = req.params; // Extract the username from the route parameter
 
+  try {
+    // Use Mongoose to delete the user from the database
+    const result = await User.deleteOne({ username: username });
+
+    // If no user was found to delete, send a 404 response
+    if (result.deletedCount === 0) {
+      return res.status(404).send('User not found');
+    }
+
+    // Otherwise, send a success response
+    res.status(200).send('User deleted successfully');
+  } catch (error) {
+    // If an error occurs, send a 500 response
+    console.error('Error deleting user:', error);
+    res.status(500).send('Error deleting user');
+  }
+});
 
 app.post('/motion-detected', async (req, res) => {
   try {
