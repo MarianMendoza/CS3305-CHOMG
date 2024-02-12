@@ -23,7 +23,7 @@ class Recorder(object):
         if not os.path.exists(self.recordings_dir):
             os.makedirs(self.recordings_dir)
     
-    def set_new_video_recorder(self):
+    def __set_new_video_recorder(self):
         last_movement_time = datetime.datetime.now()
         timestamp = last_movement_time.strftime("%Y%m%d_%H%M%S")
         filename = os.path.join(self.recordings_dir, f"{timestamp}.mp4")
@@ -40,13 +40,13 @@ class Recorder(object):
         if not self.recording:
             # Start a new recording session
             self.recording = True
-            self.set_new_video_recorder()
+            self.__set_new_video_recorder()
         # Record the current frame
         self.out.write(frame)
         # Update the last movement time
         self.last_movement_time = datetime.datetime.now()
 
-    def stop_recording_if_time_elapsed(self):
+    def stop_recording_if_time_elapsed(self, frame):
         if self.last_movement_time is None:
             return
         
@@ -54,6 +54,9 @@ class Recorder(object):
         elapsed_time_without_movement = (datetime.datetime.now() - self.last_movement_time).total_seconds()
         if elapsed_time_without_movement > 2:  # Adjust as needed
             self.stop_recording()
+        else:
+            # Record the current frame
+            self.out.write(frame)
 
     def cleanup():
         global out
