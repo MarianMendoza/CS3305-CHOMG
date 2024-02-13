@@ -17,7 +17,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class ForgotPasswordActivity extends AppCompatActivity {
+public class forgotPasswordActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start the SignUpActivity when the sign-up button is pressed
-                Intent intent = new Intent(ForgotPasswordActivity.this, SignUpActivity.class);
+                Intent intent = new Intent(forgotPasswordActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
         });
@@ -56,13 +56,13 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     // Password reset email successfully sent
                     // Handle the successful response here
-                    Toast.makeText(ForgotPasswordActivity.this, "Forgot email password successfully sent!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(forgotPasswordActivity.this, "Forgot email password successfully sent!", Toast.LENGTH_SHORT).show();
                 } else {
                     switch (response.code()) {
                         case 404:
-                            Toast.makeText(ForgotPasswordActivity.this, "Email address not found!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(forgotPasswordActivity.this, "Email address not found!", Toast.LENGTH_SHORT).show();
                         case 500:
-                            Toast.makeText(ForgotPasswordActivity.this, "Internal server error. Please wait some time and try again.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(forgotPasswordActivity.this, "Internal server error. Please wait some time and try again.", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

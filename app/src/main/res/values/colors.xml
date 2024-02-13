@@ -8,4 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF3B2C</color>
+    <color name="your_new_thumb_color_true">#F66363</color>
+    <color name="your_new_track_color_true">#F7A3A3</color>
+    <color name="your_new_thumb_color_false">#888888</color>
+    <color name="your_new_track_color_false">#D9D9D9</color>
 </resources>

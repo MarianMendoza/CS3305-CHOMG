@@ -11,7 +11,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_layout);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragmentContainer, new fragmentHome())
@@ -23,11 +23,8 @@ public class HomeActivity extends AppCompatActivity {
 
             if (item.getItemId() == R.id.menu_itemHome) {
                 selectedFragment = new fragmentHome();
-            } else if (item.getItemId() == R.id.menu_itemAccount) {
-                selectedFragment = new fragmentAccount();
-            } else if (item.getItemId() == R.id.menu_itemSettings) {
+            }  else if (item.getItemId() == R.id.menu_itemSettings) {
                 selectedFragment = new fragmentSettings();
-
             }
 
             if (selectedFragment != null) {

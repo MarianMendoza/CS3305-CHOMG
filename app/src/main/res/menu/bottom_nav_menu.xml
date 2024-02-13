@@ -13,15 +13,6 @@
 
 
     <item
-        android:id="@+id/menu_itemAccount"
-        app:showAsAction="always"
-        android:icon="@drawable/account_circle_24px"
-        android:orderInCategory="2"
-        />
-
-
-
-    <item
         android:id="@+id/menu_itemSettings"
         android:icon="@drawable/settings_24px"
         android:orderInCategory="2"

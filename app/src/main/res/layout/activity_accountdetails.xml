@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageViewAccount"
+        android:layout_width="125dp"
+        android:layout_height="106dp"
+        android:layout_marginStart="143dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="143dp"
+        android:tint="#424242"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/person_24px" />
+
+    <ImageView
+        android:id="@+id/imageViewPasswordRect"
+        android:layout_width="234dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="89dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewYourPassword"
+        app:srcCompat="@drawable/shape1" />
+
+    <TextView
+        android:id="@+id/textViewPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:text="PASSWORD"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPasswordRect"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewPasswordRect"
+        app:layout_constraintStart_toStartOf="@+id/imageViewPasswordRect"
+        app:layout_constraintTop_toTopOf="@+id/imageViewPasswordRect" />
+
+    <ImageView
+        android:id="@+id/imageViewEmailRect"
+        android:layout_width="234dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="89dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewYourEmail"
+        app:srcCompat="@drawable/shape1" />
+
+    <TextView
+        android:id="@+id/textViewAccountH"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="95dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="96dp"
+        android:fontFamily="@font/dela_gothic_one"
+        android:text="ACCOUNT"
+        android:textColor="#FF0000"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewYour" />
+
+    <TextView
+        android:id="@+id/textViewDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="135dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="135dp"
+        android:fontFamily="@font/dela_gothic_one"
+        android:text="DETAILS"
+        android:textColor="#FF0000"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAccountH" />
+
+    <TextView
+        android:id="@+id/textViewYourPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="157dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="YOUR PASSWORD"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewEmailRect" />
+
+    <TextView
+        android:id="@+id/textViewYourEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="171dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="YOUR EMAIL"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDetails" />
+
+    <TextView
+        android:id="@+id/textViewEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:text="EMAIL"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewEmailRect"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewEmailRect"
+        app:layout_constraintStart_toStartOf="@+id/imageViewEmailRect"
+        app:layout_constraintTop_toTopOf="@+id/imageViewEmailRect" />
+
+    <TextView
+        android:id="@+id/textViewYour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="169dp"
+        android:fontFamily="@font/dela_gothic_one"
+        android:text="YOUR"
+        android:textColor="#FF0000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewAccount" />
+
+    <TextView
+        android:id="@+id/textViewChngeEmailSettings"
+        android:layout_width="256dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="77dp"
+        android:layout_marginTop="117dp"
+        android:layout_marginEnd="78dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="CHANGE YOUR EMAIL/PASSWORD IN THE SETTINGS"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPasswordRect" />
+
+    <Button
+        android:id="@+id/buttonBack"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="50dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="345dp"
+        android:layout_marginBottom="652dp"
+        app:icon="@drawable/chevron_left_24px"
+        app:iconSize="40dp"
+        app:iconTint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

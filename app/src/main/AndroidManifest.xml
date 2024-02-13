@@ -9,9 +9,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/chomgiconwb"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/chomgiconwb"
         android:supportsRtl="true"
         android:theme="@style/Theme.Chomg"
         tools:targetApi="31">
@@ -34,34 +34,33 @@
         <activity android:name=".SignUpActivity">
         </activity>
 
-        <activity
-            android:name="com.example.chomg.IPCameraActivity"
-            android:exported="true">
-
-    </activity>
-
         <activity android:name=".forgotPasswordActivity" android:exported="true">
-            <!-- Intent filter for external access (if applicable) -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
 
         <activity android:name=".HomeActivity" android:exported="true">
-            <!-- Intent filter for external access (if applicable) -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <activity android:name=".AccountActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-
-
+        <activity android:name=".resetPasswordActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"
