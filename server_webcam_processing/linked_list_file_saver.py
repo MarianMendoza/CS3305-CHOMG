@@ -5,7 +5,7 @@ class Node(object):
     def __init__(self, frame, next_node, previous_node) -> None:
         self.frame = frame
         self.next_node = next_node   
-        self.previousNode = previous_node
+        self.previous_node = previous_node
 
     def set_frame(self, frame):
         self.frame = frame
@@ -41,8 +41,10 @@ class LinkedList(object):
     def get_list_of_frames_in_linked_list(self):
         linked_list = []
         current_node=self.start.get_next_node()
-        while current_node.get_next_node() is not None:
+        while current_node != self.end:
+            print(2)
             linked_list += [current_node.get_frame()]
+            print(3)
             current_node = current_node.get_next_node()
         return linked_list
     
@@ -55,7 +57,7 @@ class LinkedList(object):
 
     def __add_frame_at_end(self, frame):
         last_node = self.end.get_previous_node()
-        new_node = Node(frame, last_node, self.end)
+        new_node = Node(frame, self.end, last_node)
         self.end.set_previous_node(new_node)
         last_node.set_next_node(new_node)
         LinkedList.amount_of_nodes += 1
@@ -69,7 +71,7 @@ class LinkedList(object):
         last_node = self.end.get_previous_node()
         first_node.set_frame(frame)
         first_node.set_next_node(self.end)
-        first_node.set_previous_node(self.last_node)
+        first_node.set_previous_node(last_node)
         self.end.set_previous_node(first_node)
         last_node.set_next_node(first_node)
 
