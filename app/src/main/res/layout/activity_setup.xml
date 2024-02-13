@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/buttonBack"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="67dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginBottom="11dp"
+        app:icon="@drawable/chevron_left_24px"
+        app:iconSize="30sp"
+        app:iconTint="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+        app:layout_constraintEnd_toStartOf="@+id/textViewSetUp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewSetUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="126dp"
+        android:fontFamily="@font/dela_gothic_one"
+        android:text="SET UP"
+        android:textColor="#FF0000"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonBack"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="match_parent"
+        android:layout_height="635dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSetUp">
+
+        <LinearLayout
+            android:id="@+id/scrollView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewStep1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/dela_gothic_one"
+                android:paddingLeft="30dp"
+                android:paddingTop="10dp"
+                android:text="Step 1."
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <!-- Add your ImageView here -->
+            <ImageView
+                android:layout_width="334dp"
+                android:layout_height="249dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:padding="20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/turtorial1" />
+
+            <TextView
+                android:id="@+id/textViewStep1DESC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:paddingLeft="2dp"
+                android:paddingTop="10dp"
+                android:text="Connect your USB camera to the raspberry pi and a power source."
+                android:textColor="#000000"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textViewStep2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/dela_gothic_one"
+                android:paddingLeft="30dp"
+                android:paddingTop="10dp"
+                android:text="Step 2."
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <!-- Add your ImageView here -->
+            <ImageView
+                android:layout_width="334dp"
+                android:layout_height="249dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:padding="20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/t2" />
+
+            <TextView
+                android:id="@+id/textViewStep2DESC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:paddingLeft="2dp"
+                android:paddingTop="10dp"
+                android:text="Download the app and register an account."
+                android:textColor="#000000"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textViewStep3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/dela_gothic_one"
+                android:paddingLeft="30dp"
+                android:paddingTop="10dp"
+                android:text="Step 3."
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <!-- Add your ImageView here -->
+            <ImageView
+                android:layout_width="213dp"
+                android:layout_height="359dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:padding="20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/t3" />
+
+            <TextView
+                android:id="@+id/textViewStep3DESC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:paddingLeft="2dp"
+                android:paddingTop="10dp"
+                android:text="Upon login. You will be presented with the home screen. This displays the latest recording, and an activity log. Press the email button to send that recording to your email."
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textViewStep4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/dela_gothic_one"
+                android:paddingLeft="30dp"
+                android:paddingTop="10dp"
+                android:text="Step 4."
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <!-- Add your ImageView here -->
+            <ImageView
+                android:layout_width="261dp"
+                android:layout_height="114dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:padding="20dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/t4" />
+
+            <TextView
+                android:id="@+id/textViewStep4DESC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:paddingLeft="2dp"
+                android:paddingTop="10dp"
+                android:text="Notification settings can be changed in the settings tab. Turn them off or on to your own preference."
+                android:textColor="#000000"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

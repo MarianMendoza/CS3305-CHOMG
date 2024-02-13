@@ -20,6 +20,12 @@ public class fragmentSettings extends Fragment {
 
     private Button buttonChangePassword;
 
+    private Button buttonDeleteAccount;
+
+    private Button buttonChangeEmail;
+
+    private Button buttonSetUp;
+
 
 
     @Override
@@ -32,6 +38,9 @@ public class fragmentSettings extends Fragment {
 
         buttonViewAccount = view.findViewById(R.id.buttonViewAccount);
         buttonChangePassword = view.findViewById(R.id.buttonChangePassword);
+        buttonDeleteAccount = view.findViewById(R.id.buttonDeleteAccount);
+        buttonChangeEmail = view.findViewById(R.id.buttonChangeEmail);
+        buttonSetUp = view.findViewById(R.id.buttonSetUp);
 
 
         // Set switch listeners to change color
@@ -76,6 +85,25 @@ public class fragmentSettings extends Fragment {
             Intent intent = new Intent(getActivity(),resetPasswordActivity.class);
             startActivity(intent);
         });
+
+        buttonChangeEmail.setOnClickListener(v -> {
+            // Navigate to AccountActivity
+            Intent intent = new Intent(getActivity(), changeEmailActivity.class);
+            startActivity(intent);
+        });
+
+        buttonDeleteAccount.setOnClickListener(v -> {
+            // Navigate to AccountActivity
+            Intent intent = new Intent(getActivity(), deleteAccountActivity.class);
+            startActivity(intent);
+        });
+
+        buttonSetUp.setOnClickListener(v -> {
+            // Navigate to AccountActivity
+            Intent intent = new Intent(getActivity(), setUpActivity.class);
+            startActivity(intent);
+        });
+
 
         return view;
     }
