@@ -58,6 +58,9 @@ class Recorder(object):
             # Record the current frame
             self.out.write(frame)
 
+    def is_recording(self):
+        return self.recording
+
     def cleanup(self):
         if self.out is not None:
             self.__stop_recording()
