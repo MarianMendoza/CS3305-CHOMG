@@ -36,8 +36,9 @@ class LinkedList(object):
 
         self.start.set_next_node(self.end)
         self.end.set_previous_node(self.start)
+        self.empty = True
 
-    def return_list_of_linked_list(self):
+    def get_list_of_frames_in_linked_list(self):
         linked_list = []
         current_node=self.start.get_next_node()
         while current_node.get_next_node() is not None:
@@ -46,10 +47,11 @@ class LinkedList(object):
         return linked_list
     
     def add_frame(self, frame):
-        if LinkedList.amount_of_nodes < 900: 
+        if LinkedList.amount_of_nodes < 600: 
             self.__add_frame_at_end(frame)
         else:
             self.__remove_first_frame_and_add_new_frame_at_end(frame)
+        self.empty = False
 
     def __add_frame_at_end(self, frame):
         last_node = self.end.get_previous_node()
@@ -70,3 +72,11 @@ class LinkedList(object):
         first_node.set_previous_node(self.last_node)
         self.end.set_previous_node(first_node)
         last_node.set_next_node(first_node)
+
+    def clear_linked_list(self):
+        self.start.set_next_node(self.end)
+        self.end.set_previous_node(self.start)
+        self.empty = True
+
+    def is_empty(self):
+        return self.empty
