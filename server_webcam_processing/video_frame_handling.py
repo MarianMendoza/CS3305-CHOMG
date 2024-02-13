@@ -106,3 +106,6 @@ class VideoFrameHandler(object):
         
     def is_movement_detected(self):
         return self.movement_detected
+    
+    def stop_detecting(self):
+        return image_reader.user_exit_request()

@@ -1,4 +1,3 @@
-import image_reader
 import video_frame_handling
 import record_on_movement
 import linked_list_file_saver
@@ -10,7 +9,7 @@ def run():
         while True:
             if frame_handler.is_movement_detected():
                 if  frame_recorder.is_recording() or linked_list.is_empty():
-                    frame_handler.handle_motion_detection_in_frame_using_contours()
+                    # frame_handler.handle_motion_detection_in_frame_using_contours()
                     # Record based on significant movement detection
                     frame_recorder.record_frame(frame_handler.get_current_frame())
                 else:
@@ -31,7 +30,7 @@ def run():
             # Prepare for the next frame
             frame_handler.set_next_frame_as_current()
             
-            if image_reader.user_exit_request():
+            if frame_handler.stop_detecting():
                 break
     finally:
         # Cleanup and release resources on exit
