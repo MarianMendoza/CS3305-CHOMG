@@ -43,15 +43,19 @@ class VideoFrameHandler(object):
     
     # TODO: Clean this function
     def handle_motion_detection_in_frame_using_contours(self):
-        if self.max_contour is None:
-            return
+        
         approximate_polygonal_curve = bounding_box.get_approximate_curve_from_contour(self.max_contour)
         bounding_box_coordinates = bounding_box.get_bounding_box_from_curve(approximate_polygonal_curve)
         cropped_frame = crop_frame.crop_frame_to_bounding_box(self.current_frame, bounding_box_coordinates)
+
         if self.__is_person_detected_in_cropped_frame(cropped_frame):
-            print(True)
+            self.__update_message_sent_to_phone()
+
         bounding_box.draw_bounding_box_on_frame(self.current_frame, bounding_box_coordinates)
     
+    def __update_message_sent_to_phone(self):
+            print(True)
+
     def get_contours_of_current_frame(self):
         return self.contours_of_current_frame
 

@@ -9,15 +9,14 @@ def run():
     try:
         while True:
             if frame_handler.is_movement_detected():
-                if not frame_recorder.is_recording():
-                    if not linked_list.is_empty():
-                        for frame in linked_list.get_list_of_frames_in_linked_list():
-                            frame_recorder.record_frame(frame)
-                        linked_list.clear_linked_list()
-                else:
+                if  frame_recorder.is_recording() or linked_list.is_empty():
                     frame_handler.handle_motion_detection_in_frame_using_contours()
                     # Record based on significant movement detection
                     frame_recorder.record_frame(frame_handler.get_current_frame())
+                else:
+                    for frame in linked_list.get_list_of_frames_in_linked_list():
+                        frame_recorder.record_frame(frame)
+                    linked_list.clear_linked_list()
             
             else:
                 frame_recorder.stop_recording_if_time_elapsed(frame_handler.get_current_frame())
