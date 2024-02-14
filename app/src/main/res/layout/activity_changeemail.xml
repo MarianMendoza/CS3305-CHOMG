@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textViewChangeEmail"
+        android:layout_width="298dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="123dp"
+        android:layout_marginEnd="57dp"
+        android:fontFamily="@font/dela_gothic_one"
+        android:text="CHANGE EMAIL"
+        android:textAlignment="center"
+        android:textColor="#FF0000"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonBack" />
+
+    <TextView
+        android:id="@+id/textViewChangeEmailDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="154dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="155dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Enter new email"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewChangeEmail" />
+
+    <EditText
+        android:id="@+id/editTextTextEmailAddress"
+        style="@style/SignUpButton"
+        android:layout_width="258dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginEnd="77dp"
+        android:drawableLeft="@drawable/mail_24px"
+        android:drawablePadding="20dp"
+        android:drawableTint="#000000"
+        android:ems="10"
+        android:fontFamily="sans-serif-condensed"
+        android:hint="EMAIL ADDRESS"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewChangeEmailDesc" />
+
+    <Button
+        android:id="@+id/buttonResetButton"
+        android:layout_width="258dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="77dp"
+        android:layout_marginBottom="216dp"
+        android:backgroundTint="#C22525"
+        android:text="RESET EMAIL"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
+
+    <Button
+        android:id="@+id/buttonBack"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="63dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="46dp"
+        android:layout_marginEnd="332dp"
+        app:icon="@drawable/chevron_left_24px"
+        app:iconSize="30dp"
+        app:iconTint="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

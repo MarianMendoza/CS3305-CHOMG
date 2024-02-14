@@ -19,36 +19,14 @@
         app:srcCompat="@drawable/person_24px" />
 
     <ImageView
-        android:id="@+id/imageViewPasswordRect"
-        android:layout_width="234dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="89dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewYourPassword"
-        app:srcCompat="@drawable/shape1" />
-
-    <TextView
-        android:id="@+id/textViewPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed"
-        android:text="PASSWORD"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewPasswordRect"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewPasswordRect"
-        app:layout_constraintStart_toStartOf="@+id/imageViewPasswordRect"
-        app:layout_constraintTop_toTopOf="@+id/imageViewPasswordRect" />
-
-    <ImageView
         android:id="@+id/imageViewEmailRect"
         android:layout_width="234dp"
         android:layout_height="36dp"
         android:layout_marginStart="88dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="89dp"
+        android:layout_marginBottom="270dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewYourEmail"
@@ -83,20 +61,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewAccountH" />
-
-    <TextView
-        android:id="@+id/textViewYourPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="157dp"
-        android:fontFamily="sans-serif-condensed"
-        android:text="YOUR PASSWORD"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewEmailRect" />
 
     <TextView
         android:id="@+id/textViewYourEmail"
@@ -138,21 +102,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewAccount" />
-
-    <TextView
-        android:id="@+id/textViewChngeEmailSettings"
-        android:layout_width="256dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="77dp"
-        android:layout_marginTop="117dp"
-        android:layout_marginEnd="78dp"
-        android:fontFamily="sans-serif-condensed"
-        android:text="CHANGE YOUR EMAIL/PASSWORD IN THE SETTINGS"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewPasswordRect" />
 
     <Button
         android:id="@+id/buttonBack"
