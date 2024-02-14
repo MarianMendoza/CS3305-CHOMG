@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                 onForgotButtonClick(v);
             }
         });
+
     }
 
     public void onLoginButtonClick(View view) {
@@ -62,15 +63,17 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void isValidCredentials(final String email, final String password) {
-        Api apiService = Client.getClient("https://178.62.75.31").create(Api.class);
+        Api apiService = Client.getClient("https://178.62.75.31").create(Api.class); // Make sure to use your actual API URL
 
         User user = new User(email, password);
-        Call<Void> call = apiService.loginUser(user);
-        call.enqueue(new Callback<Void>() {
+        Call<TokenResponse> call = apiService.loginUser(user);
+        call.enqueue(new Callback<TokenResponse>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    // Login successful, navigate to the next screen or perform the necessary action
+            public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    String token = response.body().getToken(); // Assuming getToken() retrieves the token
+                    SecureStorage.saveAuthToken(LoginActivity.this, token);
+
                     Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
@@ -83,13 +86,14 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<TokenResponse> call, Throwable t) {
                 // Handle failure, possibly due to no internet connection, or server down
                 View rootView = findViewById(android.R.id.content);
                 Snackbar.make(rootView, "Login failed: " + t.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         });
     }
+
 
     public void onSignUpButtonClick(View view) {
         // Start the UserSignUpActivity when the "SIGN UP" button is clicked
