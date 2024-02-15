@@ -53,4 +53,27 @@ public class SecureStorage {
             return null; // Handle exception or return null
         }
     }
+
+    public static void clearAuthToken(Context context) {
+        try {
+            MasterKey masterKey = new MasterKey.Builder(context)
+                    .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                    .build();
+
+            SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
+                    context,
+                    FILE_NAME,
+                    masterKey,
+                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            );
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.remove(KEY_AUTH_TOKEN);
+            editor.apply();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Consider handling the error more gracefully in a real app
+        }
+    }
 }

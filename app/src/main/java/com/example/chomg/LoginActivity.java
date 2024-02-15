@@ -49,6 +49,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        clearAuthToken();
+
+    }
+
+    private void clearAuthToken() {
+        SecureStorage.clearAuthToken(this);
     }
 
     public void onLoginButtonClick(View view) {

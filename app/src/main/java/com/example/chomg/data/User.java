@@ -9,5 +9,8 @@ public class User {
         this.password = password;
     }
 
-    // Getters and setters
+    public String getEmail() {
+        return this.username;
+    }
+
 }
