@@ -9,16 +9,18 @@ def run():
         while True:
             if frame_handler.is_movement_detected():
                 if  frame_recorder.is_recording() or linked_list.is_empty():
-                    # frame_handler.handle_motion_detection_in_frame_using_contours()
+                    # frame_handler.handle_motion_detection_in_frame_using_contours() # Draw bounding box entity recognition etc
                     # Record based on significant movement detection
                     frame_recorder.record_frame(frame_handler.get_current_frame())
                 else:
+                    # Record the 30 seconds before motion was detected
                     for frame in linked_list.get_list_of_frames_in_linked_list():
                         frame_recorder.record_frame(frame)
                     linked_list.clear_linked_list()
             
-            else:
+            else: # Stop recording after set time is passede
                 frame_recorder.stop_recording_if_time_elapsed(frame_handler.get_current_frame())
+
             # Displaying the current frame and optional foreground
             frame_handler.display_current_frame()
             frame_handler.display_foreground()

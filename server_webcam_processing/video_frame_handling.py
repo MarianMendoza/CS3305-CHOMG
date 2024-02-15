@@ -29,9 +29,10 @@ class VideoFrameHandler(object):
     def get_adjusted_foreground_of_current_frame(self):
         return self.__current_foreground_of_frame
     
-
-    # TODO: Maybe clean this function
     def __set_adjusted_foreground_of_current_frame(self):
+        '''
+        Convert the frame to subtract the background only displaying movement in white
+        '''
         grey_scale_frame = colour_handling.get_frame_in_grey_scale(self.current_frame)
         foreground_of_frame = background_seperator.get_foreground_of_frame_using_subtractor_object(grey_scale_frame, self.__separator)
         foreground_of_frame = noise_reduction.erode_frame_using_kernel(foreground_of_frame, self.kernel)
@@ -41,9 +42,11 @@ class VideoFrameHandler(object):
     def get_current_frame(self):
         return self.current_frame
     
-    # TODO: Clean this function
+    
     def handle_motion_detection_in_frame_using_contours(self):
-        
+        '''
+        Detect if a person is in the frames motion and draws box around motion in frame
+        '''
         approximate_polygonal_curve = bounding_box.get_approximate_curve_from_contour(self.max_contour)
         bounding_box_coordinates = bounding_box.get_bounding_box_from_curve(approximate_polygonal_curve)
         cropped_frame = crop_frame.crop_frame_to_bounding_box(self.current_frame, bounding_box_coordinates)
@@ -54,6 +57,9 @@ class VideoFrameHandler(object):
         bounding_box.draw_bounding_box_on_frame(self.current_frame, bounding_box_coordinates)
     
     def __update_message_sent_to_phone(self):
+            '''
+            Sends a json to the phone for notification purposes
+            '''
             print(True)
 
     def get_contours_of_current_frame(self):
@@ -98,6 +104,9 @@ class VideoFrameHandler(object):
         image_reader.stop_reading(self.__video)
 
     def set_next_frame_as_current(self):
+        '''
+        Sets the next frame in the display as the current and updates variables associated with it.
+        '''
         self.current_frame = image_reader.capture_frame(self.__video)
         self.__set_adjusted_foreground_of_current_frame()
         self.__set_contours_of_current_frame()
