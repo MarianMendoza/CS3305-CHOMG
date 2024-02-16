@@ -1,4 +1,4 @@
-package com.example.chomg;
+package com.example.chomg.userinterface;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.chomg.R;
 import com.example.chomg.data.User;
 import com.example.chomg.network.Api;
 import com.example.chomg.network.Client;

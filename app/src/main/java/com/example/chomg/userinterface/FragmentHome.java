@@ -1,4 +1,4 @@
-package com.example.chomg;
+package com.example.chomg.userinterface;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-public class fragmentHome extends Fragment {
+import com.example.chomg.R;
+
+public class FragmentHome extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

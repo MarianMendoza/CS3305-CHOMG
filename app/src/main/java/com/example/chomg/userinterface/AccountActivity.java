@@ -1,4 +1,4 @@
-package com.example.chomg;
+package com.example.chomg.userinterface;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.chomg.R;
+import com.example.chomg.SecureStorage;
 import com.example.chomg.data.User;
 import com.example.chomg.network.Api;
 import com.example.chomg.network.Client;

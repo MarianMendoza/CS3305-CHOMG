@@ -1,4 +1,4 @@
-package com.example.chomg;
+package com.example.chomg.data;
 
 public class TokenResponse {
     private String token;

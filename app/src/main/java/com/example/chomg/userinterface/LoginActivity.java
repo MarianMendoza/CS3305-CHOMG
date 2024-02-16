@@ -1,4 +1,4 @@
-package com.example.chomg;
+package com.example.chomg.userinterface;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.chomg.R;
+import com.example.chomg.SecureStorage;
+import com.example.chomg.data.TokenResponse;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -108,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onForgotButtonClick(View view){
-        Intent intent = new Intent(LoginActivity.this, forgotPasswordActivity.class);
+        Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
         startActivity(intent);
     }
 

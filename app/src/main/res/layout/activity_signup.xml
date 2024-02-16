@@ -5,7 +5,7 @@
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpActivity"
+    tools:context=".userinterface.SignUpActivity"
     tools:layout_editor_absoluteX="1dp"
     tools:layout_editor_absoluteY="2dp">
 

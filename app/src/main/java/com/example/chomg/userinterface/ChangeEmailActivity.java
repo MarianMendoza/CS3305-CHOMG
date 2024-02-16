@@ -1,4 +1,4 @@
-package com.example.chomg;
+package com.example.chomg.userinterface;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,12 +6,14 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class resetPasswordActivity extends AppCompatActivity {
+import com.example.chomg.R;
+
+public class ChangeEmailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_resetpassword);
+        setContentView(R.layout.activity_changeemail);
 
         Button buttonBack = findViewById(R.id.buttonBack);
 

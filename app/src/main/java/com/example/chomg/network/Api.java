@@ -1,7 +1,7 @@
 package com.example.chomg.network;
 
-import com.example.chomg.EmailWrapper;
-import com.example.chomg.TokenResponse;
+import com.example.chomg.userinterface.EmailWrapper;
+import com.example.chomg.data.TokenResponse;
 import com.example.chomg.data.User;
 
 import okhttp3.ResponseBody;
@@ -17,6 +17,9 @@ public interface Api {
 
     @POST("/login")
     Call<TokenResponse> loginUser(@Body User user);
+
+    @POST("/logout")
+    Call<Void> userLogout(@Header("Authorization") String authToken);
 
     @POST("/forgot-password")
     Call<ResponseBody> forgotPassword(@Body EmailWrapper emailWrapper);
