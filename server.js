@@ -27,6 +27,13 @@ const UserSchema = new mongoose.Schema({
   password: String,
 });
 
+const tokenBlacklistSchema = new mongoose.Schema({
+  token: { type: String, unique: true },
+  expireAt: { type: Date, required: true }
+});
+tokenBlacklistSchema.index({ expireAt: 1 }, { expireAfterSeconds: 0 });
+const TokenBlacklist = mongoose.model('TokenBlacklist', tokenBlacklistSchema);
+
 const User = mongoose.model('User', UserSchema);
 
 const privateKey = fs.readFileSync('server.key', 'utf8');
@@ -91,10 +98,48 @@ app.post('/login', async (req, res) => {
 
 });
 
+const verifyToken = async (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).send('Authorization required');
+  }
+
+  const token = authHeader.substring(7);
+  // Check if the token is blacklisted
+  const isBlacklisted = await TokenBlacklist.findOne({ token: token });
+  if (isBlacklisted) {
+    return res.status(401).send('Token invalidated');
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'YourSecretKey');
+    req.user = decoded;
+    next();
+  } catch (error) {
+    res.status(401).send('Invalid Token');
+  }
+};
+
+app.post('/logout', verifyToken, async (req, res) => {
+  const authHeader = req.headers.authorization;
+  const token = authHeader.substring(7);
+  const decoded = jwt.verify(token, process.env.JWT_SECRET || 'YourSecretKey');
+
+  const expireAt = new Date(decoded.exp * 1000); // Convert JWT expiry from seconds to milliseconds
+
+  try {
+    await new TokenBlacklist({ token, expireAt }).save();
+    res.send('Logged out successfully');
+  } catch (error) {
+    console.error('Error logging out:', error);
+    res.status(500).send('Error during logout');
+  }
+});
+
 // Assuming you have a function to generate a password reset token
 const generatePasswordResetToken = (user) => {
   // Ensure you have a secret key to sign the token; it should be a long, secure, and kept secret
-  const secret = process.env.JWT_SECRET || 'your-very-secure-secret';
+  const secret = process.env.JWT_SECRET || 'YourSecretKey';
   const expiresIn = '1h'; // Token expires in 1 hour
 
   // Payload can include any user-specific information; here, we're using the user's ID
@@ -125,7 +170,7 @@ const sendEmail = (email, token) => {
 };
 
 // Endpoint to handle forgot password request
-app.post('/forgot-password', async (req, res) => {
+app.post('/forgot-password', verifyToken, async (req, res) => {
   const { email } = req.body; // Assuming EmailWrapper wraps the email in a JSON object with key 'email'
 
   const user = await User.findOne({ username: email });
@@ -146,26 +191,7 @@ app.post('/forgot-password', async (req, res) => {
   }
 });
 
-app.delete('/delete-user/:username', async (req, res) => {
-  const { username } = req.params; // Extract the username from the route parameter
 
-  try {
-    // Use Mongoose to delete the user from the database
-    const result = await User.deleteOne({ username: username });
-
-    // If no user was found to delete, send a 404 response
-    if (result.deletedCount === 0) {
-      return res.status(404).send('User not found');
-    }
-
-    // Otherwise, send a success response
-    res.status(200).send('User deleted successfully');
-  } catch (error) {
-    // If an error occurs, send a 500 response
-    console.error('Error deleting user:', error);
-    res.status(500).send('Error deleting user');
-  }
-});
 
 app.post('/motion-detected', async (req, res) => {
   try {
@@ -184,6 +210,115 @@ app.post('/motion-detected', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
+app.get('/user-details', verifyToken,  async (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).send('Authorization header missing or incorrect');
+  }
+
+  const token = authHeader.substring(7);
+
+  try {
+    const decoded = jwt.verify(token, 'YourSecretKey'); // Use the same secret key as when signing the token
+    const user = await User.findById(decoded.userId).select('-password'); // Exclude password from the result
+    if (!user) return res.status(404).send('User not found');
+
+    res.json({ username: user.username}); // Assuming username is the email
+    console.log('Fetched user details:', user);
+
+  } catch (error) {
+    console.error("Error fetching user details:", error.message);
+    const statusCode = error.name === 'JsonWebTokenError' ? 401 : 500;
+    res.status(statusCode).send('Error fetching user details' + error.message);
+  }
+});
+
+app.delete('/delete-account', verifyToken, async (req, res) => {
+  // Assuming `verifyToken` middleware extracts user ID from the token and adds it to `req.user`
+  try {
+    const userId = req.user.userId; // or whatever property you have the ID stored under
+    const deleteResult = await User.deleteOne({ _id: userId });
+
+    if (deleteResult.deletedCount === 0) {
+      return res.status(404).send('User not found');
+    }
+
+    // Optionally, also handle cleanup of any other user-related data here
+
+    res.send('Account deleted successfully');
+  } catch (error) {
+    console.error('Account deletion error:', error);
+    res.status(500).send('Error deleting account');
+  }
+});
+
+app.post('/change-email', verifyToken, async (req, res) => {
+    const { email: newEmail } = req.body; // Extract newEmail from the body using the EmailWrapper structure
+    if (!newEmail) {
+        return res.status(400).send('New email is required.');
+    }
+
+    // Optionally, validate the new email format here
+
+    try {
+        const userId = req.user.userId;
+        const user = await User.findById(userId);
+        const emailExists = await User.findOne({ username: newEmail });
+
+        if (emailExists) {
+            return res.status(400).json({error: 'Email already exists.'});
+        }
+
+        if (!user) {
+            return res.status(404).send('User not found.');
+        }
+
+        user.username = newEmail; // Update the email
+        await user.save();
+
+        res.send('Email updated successfully.');
+    } catch (error) {
+        console.error('Error changing email:', error);
+        res.status(500).send('Error updating email.');
+    }
+});
+
+app.post('/set-new-password', verifyToken, async (req, res) => {
+    console.log(req.body);
+    const { newPassword, confirmPassword } = req.body;
+
+    // Check if newPassword and confirmPassword are provided
+    if (!newPassword || !confirmPassword) {
+        return res.status(400).send('Both new password and confirmation are required.');
+    }
+
+    // Check if newPassword and confirmPassword match
+    if (newPassword !== confirmPassword) {
+        return res.status(400).send('New password and confirmation do not match.');
+    }
+
+    try {
+        const userId = req.user.userId; // User ID is extracted from the token by verifyToken middleware
+
+        // Find the user by ID
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).send('User not found.');
+        }
+
+        // Hash the new password and update it in the database
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        user.password = hashedPassword;
+        await user.save();
+
+        res.send('Password has been updated successfully.');
+    } catch (error) {
+        console.error('Error setting new password:', error);
+        res.status(500).send('Error updating password.');
+    }
+});
+
 
 const httpsServer = https.createServer(credentials, app);
 
