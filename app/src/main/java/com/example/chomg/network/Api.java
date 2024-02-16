@@ -1,5 +1,6 @@
 package com.example.chomg.network;
 
+import com.example.chomg.userinterface.ChangePasswordRequest;
 import com.example.chomg.userinterface.EmailWrapper;
 import com.example.chomg.data.TokenResponse;
 import com.example.chomg.data.User;
@@ -24,6 +25,12 @@ public interface Api {
 
     @POST("/forgot-password")
     Call<ResponseBody> forgotPassword(@Body EmailWrapper emailWrapper);
+
+    @POST("/change-email")
+    Call<ResponseBody> changeEmail(@Header("Authorization") String authToken, @Body EmailWrapper emailChangeRequest);
+
+    @POST("/set-new-password")
+    Call<ResponseBody> setNewPassword(@Header("Authorization") String authToken, @Body ChangePasswordRequest request);
 
     @DELETE("/delete-account")
     Call<Void> deleteAccount(@Header("Authorization") String authToken);
