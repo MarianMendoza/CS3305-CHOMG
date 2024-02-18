@@ -1,6 +1,7 @@
 package com.example.chomg.userinterface;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -85,6 +86,9 @@ public class LoginActivity extends AppCompatActivity {
                     SecureStorage.saveAuthToken(LoginActivity.this, token);
 
                     Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
+
+                    MediaPlayer mediaPlayer = MediaPlayer.create(LoginActivity.this, R.raw.loginsound2);
+                    mediaPlayer.start();
 
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
