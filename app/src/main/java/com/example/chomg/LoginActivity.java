@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 } else {
                     // Login failed, show an error message
-                    Toast.makeText(LoginActivity.this, "Invalid email or password. Please try again.", Toast.LENGTH_SHORT).show();
+                    Toast .makeText(LoginActivity.this, "Invalid email or password. Please try again.", Toast.LENGTH_SHORT).show();
                 }
             }
 
