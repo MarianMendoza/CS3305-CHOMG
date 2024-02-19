@@ -18,7 +18,7 @@ def run():
                         frame_recorder.record_frame(frame)
                     linked_list.clear_linked_list()
             
-            else: # Stop recording after set time is passede
+            else: # Stop recording after set time is passed
                 frame_recorder.stop_recording_if_time_elapsed(frame_handler.get_current_frame())
 
             # Displaying the current frame and optional foreground

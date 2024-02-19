@@ -15,6 +15,7 @@ class Recorder(object):
         self.frame_rate = 20
         self.out = None
         self.last_movement_time = None
+        self.filename = None
         self.four_character_code = cv2.VideoWriter_fourcc(*'avc1') # Define the codec and create VideoWriter object
         self.__create_directory_if_not_existing()
 
@@ -26,8 +27,8 @@ class Recorder(object):
     def __set_new_video_recorder(self):
         self.last_movement_time = datetime.datetime.now()
         timestamp = self.last_movement_time.strftime("%Y%m%d_%H%M%S")
-        filename = os.path.join(self.recordings_dir, f"{timestamp}.mp4")
-        self.out = cv2.VideoWriter(filename, self.four_character_code, self.frame_rate, (self.frame_width, self.frame_height))
+        self.filename = os.path.join(self.recordings_dir, f"{timestamp}.mp4")
+        self.out = cv2.VideoWriter(self.filename, self.four_character_code, self.frame_rate, (self.frame_width, self.frame_height))
 
     def __stop_recording(self):
         # Stop and save the current recording session
@@ -60,6 +61,9 @@ class Recorder(object):
 
     def is_recording(self):
         return self.recording
+    
+    def get_last_recorded_files_name(self):
+        return self.filename
 
     def cleanup(self):
         if self.out is not None:
