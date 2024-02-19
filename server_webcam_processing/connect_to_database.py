@@ -3,20 +3,18 @@
 from pymongo import MongoClient
 
 class Mongo(object):
-    def __init__(self, hostname: str, username: str, password: str, database_name: str, collection_name: str) -> None:
+    def __init__(self, hostname: str, username: str, password: str, port: int, database_name: str, collection_name: str) -> None:
         self.hostname = hostname
         self.username = username
         self.password = password
+        self.port = port
         self.client = None
         self.database_name = database_name
         self.collection_name = collection_name
         
     def open_connection(self):
-        hostname = self.hostname
-        port = 27017  
-        username = self.username
-        password =  self.password
-        client = MongoClient(hostname, port, username = username, password = password)
+        mongo_uri = f"mongodb://{self.username}:{self.password}@{self.hostname}:{self.port}"
+        client = MongoClient(mongo_uri)
         self.client = client
 
     def get_all_database_names(self):
@@ -39,8 +37,8 @@ class Mongo(object):
     def get_collection_in_database_by_name(self):
         return self.client[self.database_name][self.collection_name]
 
-    def insert_into_collection(self, video: dict):
-        self.client[self.database_name][self.collection_name].insert_one(video)
+    def add_video_in_users_collection(self, user_filter, add_video_command):
+        self.client[self.database_name][self.collection_name].update_one(user_filter, add_video_command)
 
     def query_database_by_date(self, date: str):
         date_query = { "__id": f'{date}' }
