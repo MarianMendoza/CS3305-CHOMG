@@ -88,7 +88,7 @@ def upload_file(filename):
 
         local_file_path = f"{filename}"
         # Destination path on the remote server
-        remote_file_path = os.path.join("/root/CHOMG/recordedFootage/liam@healy.comRecordings/", os.path.basename(local_file_path))
+        remote_file_path = os.path.join("/root/CHOMG/recordedFootage/liam@healy.com/", os.path.basename(local_file_path))
 
         # Upload the file
         sftp.put(local_file_path, remote_file_path)
@@ -97,7 +97,7 @@ def add_video_path_to_db(filename, mongo_connection):
     # Define the filter to find the document you want to update
     get_user = {'username': CHOMG_USERNAME}
     # Define the update operation to append to the 'videos' array or create it
-    add_video = {'$addToSet': {'videos': f'/root/CHOMG/recordedFootage/liam@healy.comRecordings/{filename}'}}
+    add_video = {'$addToSet': {'videos': f'/root/CHOMG/recordedFootage/liam@healy.com/{filename}'}}
     mongo_connection.add_video_in_users_collection(get_user, add_video)
 
 if __name__ == "__main__":
