@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".LoginActivity"
+        <activity android:name=".userinterface.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -31,17 +31,17 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SignUpActivity">
+        <activity android:name=".userinterface.SignUpActivity">
         </activity>
 
-        <activity android:name=".forgotPasswordActivity" android:exported="true">
+        <activity android:name=".userinterface.ForgotPasswordActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".HomeActivity" android:exported="true">
+        <activity android:name=".userinterface.HomeActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -50,35 +50,35 @@
 
 
 
-        <activity android:name=".deleteAccountActivity" android:exported="true">
+        <activity android:name=".userinterface.DeleteAccountActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".changeEmailActivity" android:exported="true">
+        <activity android:name=".userinterface.ChangeEmailActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".AccountActivity" android:exported="true">
+        <activity android:name=".userinterface.AccountActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".resetPasswordActivity" android:exported="true">
+        <activity android:name=".userinterface.ResetPasswordActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".setUpActivity" android:exported="true">
+        <activity android:name=".userinterface.SetUpActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

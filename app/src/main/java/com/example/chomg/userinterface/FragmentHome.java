@@ -1,4 +1,4 @@
-package com.example.chomg;
+package com.example.chomg.userinterface;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -15,7 +15,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-public class fragmentHome extends Fragment {
+import com.example.chomg.R;
+
+public class FragmentHome extends Fragment {
 
     private static final int REQUEST_PERMISSION_CODE = 123;
 

@@ -1,9 +1,10 @@
-package com.example.chomg;
+package com.example.chomg.userinterface;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
+import com.example.chomg.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
@@ -14,7 +15,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_layout);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentContainer, new fragmentHome())
+                .replace(R.id.fragmentContainer, new FragmentHome())
                 .commit();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -22,9 +23,9 @@ public class HomeActivity extends AppCompatActivity {
             Fragment selectedFragment = null;
 
             if (item.getItemId() == R.id.menu_itemHome) {
-                selectedFragment = new fragmentHome();
+                selectedFragment = new FragmentHome();
             }  else if (item.getItemId() == R.id.menu_itemSettings) {
-                selectedFragment = new fragmentSettings();
+                selectedFragment = new FragmentSettings();
             }
 
             if (selectedFragment != null) {
