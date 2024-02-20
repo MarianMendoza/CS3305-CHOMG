@@ -25,6 +25,7 @@ class VideoFrameHandler(object):
         self.__set_contours_of_current_frame()
         self.__set_max_contour_of_current_frame()
         self.__set_movement_detected()
+        self.human_detected = False
 
     def get_adjusted_foreground_of_current_frame(self):
         return self.__current_foreground_of_frame
@@ -53,14 +54,15 @@ class VideoFrameHandler(object):
 
         if self.__is_person_detected_in_cropped_frame(cropped_frame):
             self.__update_message_sent_to_phone()
-
+        else:
+            self.human_detected = False
         bounding_box.draw_bounding_box_on_frame(self.current_frame, bounding_box_coordinates)
     
     def __update_message_sent_to_phone(self):
             '''
-            Sends a json to the phone for notification purposes
+            Used when sending a json to the phone for notification purposes
             '''
-            print(True)
+            self.human_detected = True
 
     def get_contours_of_current_frame(self):
         return self.contours_of_current_frame
@@ -115,6 +117,9 @@ class VideoFrameHandler(object):
         
     def is_movement_detected(self):
         return self.movement_detected
+    
+    def is_human_detected(self):
+        return self.human_detected
     
     def stop_detecting(self):
         return image_reader.user_exit_request()

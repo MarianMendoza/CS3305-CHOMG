@@ -7,6 +7,7 @@ import record_on_movement
 import linked_list_file_saver
 import paramiko
 import time
+import send_json
 load_dotenv()
 
 MONGO_USERNAME = os.getenv('MONGO_USERNAME')
@@ -20,12 +21,16 @@ SSH_PASSWORD = os.getenv('SSH_PASSWORD')
 SSH_HOST = os.getenv('SSH_HOST')
 SSH_PORT = os.getenv('SSH_PORT')
 CHOMG_USERNAME = os.getenv('CHOMG_USERNAME')
+JWT_KEY = os.getenv('JWT_KEY')
 # SSH server configuration
 ssh_private_key = 'key'
 
 def run():
+    previous_frame_is_motion_detected = False
+    previous_frame_is_human_detected = False
     frame_handler = video_frame_handling.VideoFrameHandler()
     frame_recorder = record_on_movement.Recorder(frame_handler.get_current_frame())
+    json_generator = send_json.JsonCreator(MONGO_USERNAME, JWT_KEY)
     linked_list = linked_list_file_saver.LinkedList()
     # Create an SSH tunnel
     with SSHTunnelForwarder(
@@ -37,11 +42,17 @@ def run():
     ) as tunnel:
         try:
             # Connect to MongoDB through the tunnel with authentication
-            mongo_connection = Mongo(MONGO_HOST, MONGO_USERNAME, MONGO_PASSWORD, tunnel.local_bind_port, MONGO_DATABASE, MONGO_COLLECTION)
+            mongo_connection = Mongo(MONGO_HOST, MONGO_USERNAME, MONGO_PASSWORD, tunnel.local_bind_port, MONGO_DATABASE, MONGO_COLLECTION, CHOMG_USERNAME)
             mongo_connection.open_connection()
             # Wait 30 seconds before starting
             time.sleep(30)
             while True:
+                current_time_seconds = int(time.time())  # Get current time in seconds as an integer
+                if current_time_seconds % 30 == 0 \
+                    or previous_frame_is_motion_detected != frame_handler.is_movement_detected() \
+                    or previous_frame_is_human_detected != frame_handler.is_human_detected():
+                
+                    update_users_json(json_generator, frame_handler.is_movement_detected(), frame_handler.is_human_detected(), mongo_connection)
                 if frame_handler.is_movement_detected():
                     if  frame_recorder.is_recording():
                         # frame_handler.handle_motion_detection_in_frame_using_contours() # Draw bounding box entity recognition etc
@@ -61,6 +72,11 @@ def run():
                             add_video_path_to_db(filename, mongo_connection)
                             # SCP (Secure Copy) the file to the remote server
                             upload_file(filename)
+                            # Check if the file exists before attempting to delete
+                            if os.path.exists(filename):
+                                # Delete the file
+                                os.remove(filename)
+                                print(f"File '{filename}' deleted successfully.")
                 # Displaying the current frame and optional foreground
                 frame_handler.display_current_frame()
                 frame_handler.display_foreground()
@@ -73,11 +89,12 @@ def run():
                 
                 if frame_handler.stop_detecting():
                     break
+            
 
         finally:
             # Cleanup and release resources on exit
-                frame_recorder.cleanup()
-                mongo_connection.close_connection()
+            frame_recorder.cleanup()
+            mongo_connection.close_connection()
 
 def upload_file(filename):
     with paramiko.Transport((SSH_HOST, int(SSH_PORT))) as transport:
@@ -95,10 +112,15 @@ def upload_file(filename):
 
 def add_video_path_to_db(filename, mongo_connection):
     # Define the filter to find the document you want to update
-    get_user = {'username': CHOMG_USERNAME}
+    filename=filename[len("Recordings\\"):]
     # Define the update operation to append to the 'videos' array or create it
     add_video = {'$addToSet': {'videos': f'/root/CHOMG/recordedFootage/liam@healy.com/{filename}'}}
-    mongo_connection.add_video_in_users_collection(get_user, add_video)
+    mongo_connection.add_video_in_users_collection(add_video)
+
+def update_users_json(json_generator, motion_detected, human_detected, mongo_connection):
+    json = json_generator.generate_jwt(motion_detected, human_detected)
+    # Define the filter to find the document you want to update
+    mongo_connection.add_video_in_users_collection({"$set":{"json": json}})
 
 if __name__ == "__main__":
     run()
