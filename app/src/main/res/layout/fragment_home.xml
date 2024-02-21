@@ -36,10 +36,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textChomg">
 
-        <VideoView
-            android:id="@+id/videoView"
-            android:layout_width="355dp"
-            android:layout_height="196dp" />
+        <androidx.media3.ui.PlayerView
+            android:id="@+id/playerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </androidx.cardview.widget.CardView>
 
 

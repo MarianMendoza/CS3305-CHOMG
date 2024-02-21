@@ -1,72 +1,81 @@
 package com.example.chomg.userinterface;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
+import android.widget.VideoView;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+import androidx.annotation.Nullable;
+import androidx.annotation.OptIn;
 import androidx.fragment.app.Fragment;
 
 import com.example.chomg.R;
+import com.example.chomg.SecureStorage;
+import com.example.chomg.network.Api;
+import com.example.chomg.network.Client;
+
+import androidx.media3.common.util.UnstableApi;
+import androidx.media3.exoplayer.ExoPlayer;
+import androidx.media3.common.MediaItem;
+import androidx.media3.exoplayer.source.MediaSource;
+import androidx.media3.exoplayer.source.ProgressiveMediaSource;
+import androidx.media3.ui.PlayerView;
+import androidx.media3.datasource.DefaultHttpDataSource;
+import androidx.media3.datasource.HttpDataSource;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FragmentHome extends Fragment {
 
-    private static final int REQUEST_PERMISSION_CODE = 123;
+    private PlayerView playerView;
+    private ExoPlayer player;
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-
-        // Find the button and set click listener
-        Button buttonDownload = rootView.findViewById(R.id.buttonDownload);
-        buttonDownload.setOnClickListener(v -> checkPermissionAndDownload());
-
-        return rootView;
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        playerView = view.findViewById(R.id.playerView);
+        initializePlayer();
+        return view;
     }
 
-    private void checkPermissionAndDownload() {
-        // Check if permission is not granted
-        if (ContextCompat.checkSelfPermission(requireContext(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted
-            // Request the permission
-            ActivityCompat.requestPermissions(requireActivity(),
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    REQUEST_PERMISSION_CODE);
-        } else {
-            // Permission has already been granted
-            // Proceed with the download operation
-            downloadFile();
-        }
-    }
+    @OptIn(markerClass = UnstableApi.class) private void initializePlayer() {
+        player = new ExoPlayer.Builder(requireContext()).build();
+        playerView.setPlayer(player);
+        String authToken = SecureStorage.getAuthToken(requireContext()); // Ensure you have this method in your SecureStorage class
+        Map<String, String> requestProperties = new HashMap<>();
+        requestProperties.put("Authorization", "Bearer " + authToken);
 
-    private void downloadFile() {
-        // Implement your file download logic here
-        // For demonstration, show a toast message
-        Toast.makeText(requireContext(), "Downloading file...", Toast.LENGTH_SHORT).show();
+        HttpDataSource.Factory dataSourceFactory = new DefaultHttpDataSource.Factory()
+                .setUserAgent("exoplayer-codelab")
+                .setDefaultRequestProperties(requestProperties);
+
+        MediaSource mediaSource = new ProgressiveMediaSource.Factory(dataSourceFactory)
+                .createMediaSource(MediaItem.fromUri("https://178.62.75.31/get-recent-video"));
+
+        player.setMediaSource(mediaSource);
+        player.prepare();
+        player.play();
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == REQUEST_PERMISSION_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, proceed with the download
-                downloadFile();
-            } else {
-                Toast.makeText(requireContext(), "Permission denied. Cannot download file.", Toast.LENGTH_SHORT).show();
-            }
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (player != null) {
+            player.release();
+            player = null;
         }
     }
 }

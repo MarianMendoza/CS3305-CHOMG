@@ -38,4 +38,6 @@ public interface Api {
     @GET("/user-details")
     Call<User> getUserDetails(@Header("Authorization") String authToken);
 
+    @GET("/get-recent-video")
+    Call<ResponseBody> getRecentVideo(@Header("Authorization") String authToken);
 }
