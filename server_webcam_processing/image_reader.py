@@ -1,6 +1,3 @@
-# Tutorial https://www.geeksforgeeks.org/python-opencv-capture-video-from-camera/?ref=lbp
-
-# import the opencv library 
 import cv2 
 
 def read_video_from_camera():

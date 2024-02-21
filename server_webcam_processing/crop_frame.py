@@ -1,4 +1,3 @@
-# Reference - https://stackoverflow.com/questions/60869306/how-to-simple-crop-the-bounding-box-in-python-opencv
 def crop_frame_to_bounding_box(frame, bounding_box):
     x = bounding_box.x
     y = bounding_box.y

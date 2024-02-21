@@ -1,7 +1,4 @@
-# Tutorial Reference:
-# https://www.analyticsvidhya.com/blog/2021/08/getting-started-with-object-tracking-using-opencv/
 import cv2
-
 
 class BoundingBox(object):
     def __init__(self, x, y, width, height) -> None:

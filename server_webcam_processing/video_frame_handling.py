@@ -1,7 +1,3 @@
-# Tutorial https://www.geeksforgeeks.org/python-opencv-capture-video-from-camera/?ref=lbp
-# tutorial https://www.geeksforgeeks.org/detect-an-object-with-opencv-python/
-# xml file - https://github.com/anaustinbeing/haar-cascade-files/blob/master/haarcascade_fullbody.xml
-
 import image_reader
 import background_seperator
 import noise_reduction

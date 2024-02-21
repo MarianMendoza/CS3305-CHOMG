@@ -1,4 +1,3 @@
-# Based on tutorial - https://hackthedeveloper.com/motion-detection-opencv-python/
 import cv2
 def get_frame_in_grey_scale(frame):
     '''

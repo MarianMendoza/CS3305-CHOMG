@@ -1,5 +1,3 @@
-# Reference - https://www.w3schools.com/python/python_mongodb_getstarted.asp
-
 from pymongo import MongoClient
 
 class Mongo(object):

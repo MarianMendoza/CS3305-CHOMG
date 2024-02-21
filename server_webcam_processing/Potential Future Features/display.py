@@ -1,4 +1,3 @@
-# https://python-win32.python.narkive.com/3e75rNuo/turning-monitors-off-from-python
 import  win32con
 import win32gui
 def turn_off_monitor_display():

@@ -1,4 +1,3 @@
-# Reference - https://reqbin.com/code/python/m2g4va4a/python-requests-post-json-example
 import jwt
 from datetime import datetime, timedelta
 
