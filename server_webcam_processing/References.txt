@@ -29,5 +29,5 @@ https://www.geeksforgeeks.org/python-opencv-capture-video-from-camera/?ref=lbp
 https://www.geeksforgeeks.org/detect-an-object-with-opencv-python/
 
 display.py:
-# https://python-win32.python.narkive.com/3e75rNuo/turning-monitors-off-from-python
+https://python-win32.python.narkive.com/3e75rNuo/turning-monitors-off-from-python
 ---------------------
