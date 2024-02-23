@@ -17,8 +17,13 @@ import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import com.example.chomg.R;
 import com.example.chomg.SecureStorage;
+import com.example.chomg.data.MotionDetectionResponse;
 import com.example.chomg.network.Api;
 import com.example.chomg.network.Client;
+
+
+import java.util.Arrays;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,6 +46,7 @@ public class FragmentSettings extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
 
+
         switchAppNot = view.findViewById(R.id.switchAppNot);
         switchEmailNot = view.findViewById(R.id.switchEmailNot);
         buttonLogout = view.findViewById(R.id.buttonLogout);
@@ -51,7 +57,6 @@ public class FragmentSettings extends Fragment {
         buttonChangeEmail = view.findViewById(R.id.buttonChangeEmail);
         buttonSetUp = view.findViewById(R.id.buttonSetUp);
 
-        fetchMotionDetectionData();
 
         switchAppNot.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -68,6 +73,8 @@ public class FragmentSettings extends Fragment {
             if (isChecked) {
                 switchEmailNot.setThumbTintList(getResources().getColorStateList(R.color.your_new_thumb_color_true));
                 switchEmailNot.setTrackTintList(getResources().getColorStateList(R.color.your_new_track_color_true));
+                new TestMotionDetectionResponse();
+
             } else {
                 switchEmailNot.setThumbTintList(getResources().getColorStateList(R.color.your_new_thumb_color_false));
                 switchEmailNot.setTrackTintList(getResources().getColorStateList(R.color.your_new_track_color_false));
@@ -106,53 +113,36 @@ public class FragmentSettings extends Fragment {
         });
 
 
+
+
         return view;
     }
+    public class TestMotionDetectionResponse {
+        public void main(String[] args) {
+            // Create an instance of MotionDetectionResponse
+            MotionDetectionResponse response = new MotionDetectionResponse();
 
-    private void fetchMotionDetectionData() {
-        Api apiService = Client.getClient("https://178.62.75.31").create(Api.class);
-        Call<MotionDetectionResponse> call = apiService.getMotionDetectionData();
-        call.enqueue(new Callback<MotionDetectionResponse>() {
-            @Override
-            public void onResponse(Call<MotionDetectionResponse> call, Response<MotionDetectionResponse> response) {
-                if (response.isSuccessful()) {
-                    MotionDetectionResponse motionDetectionResponse = response.body();
-                    handleNotification(motionDetectionResponse);
+            // Set some dummy values
+            response.setId("1");
+            response.setUsername("exampleUser");
+            response.setPassword("examplePassword");
+            response.setVersion(1);
+            response.setVideos(Arrays.asList("video1.mp4", "video2.mp4", "video3.mp4"));
+            response.setJson("exampleJsonString");
 
-                    // Call the payload decoder here
-                    if (motionDetectionResponse != null) {
-                        PayloadDecoder decoder = new PayloadDecoder();
-                        decoder.decodeJsonPayload(motionDetectionResponse.getJson());
-                    }
-                } else {
-                    Toast.makeText(getActivity(), "Failed to fetch notification data", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MotionDetectionResponse> call, Throwable t) {
-                Log.e("FetchNotificationData", "Error fetching notification data: " + t.getMessage());
-                Toast.makeText(getActivity(), "Failed to fetch notification data", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-
-
-
-    private void handleNotification(MotionDetectionResponse motionDetectionResponse) {
-        if (motionDetectionResponse != null && motionDetectionResponse.isMotionDetected()) {
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(requireContext(), "your_notification_channel_id")
-                    .setSmallIcon(R.drawable.chomgiconwb)
-                    .setContentTitle("Motion Detected")
-                    .setContentText("Motion has been detected!")
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-            // Trigger the notification
-            NotificationManager notificationManager = (NotificationManager) requireContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.notify();
+            // Print the values using getters
+            System.out.println("Id: " + response.getId());
+            System.out.println("Username: " + response.getUsername());
+            System.out.println("Password: " + response.getPassword());
+            System.out.println("Version: " + response.getVersion());
+            System.out.println("Videos: " + response.getVideos());
+            System.out.println("Json: " + response.getJson());
         }
     }
+
+
+
+
 
 
     public void logout(){
