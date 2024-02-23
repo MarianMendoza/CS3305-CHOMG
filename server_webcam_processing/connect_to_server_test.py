@@ -26,8 +26,6 @@ JWT_KEY = os.getenv('JWT_KEY')
 ssh_private_key = 'key'
 
 def run():
-    previous_frame_is_motion_detected = False
-    previous_frame_is_human_detected = False
     frame_handler = video_frame_handling.VideoFrameHandler()
     frame_recorder = record_on_movement.Recorder(frame_handler.get_current_frame())
     json_generator = send_json.JsonCreator(MONGO_USERNAME, JWT_KEY)
@@ -49,8 +47,8 @@ def run():
             while True:
                 current_time_seconds = int(time.time())  # Get current time in seconds as an integer
                 if current_time_seconds % 30 == 0 \
-                    or previous_frame_is_motion_detected != frame_handler.is_movement_detected() \
-                    or previous_frame_is_human_detected != frame_handler.is_human_detected():
+                    or frame_handler.is_movement_detected() \
+                    or frame_handler.is_human_detected():
                 
                     update_users_json(json_generator, frame_handler.is_movement_detected(), frame_handler.is_human_detected(), mongo_connection)
                 if frame_handler.is_movement_detected():
