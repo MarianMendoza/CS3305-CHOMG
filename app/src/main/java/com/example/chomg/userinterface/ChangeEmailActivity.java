@@ -34,7 +34,6 @@ public class ChangeEmailActivity extends AppCompatActivity {
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Finish the current activity to return to the previous one (fragmentSettings)
                 finish();
             }
         });
