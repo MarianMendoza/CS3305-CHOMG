@@ -1,6 +1,8 @@
 package com.example.chomg.userinterface;
 
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import com.example.chomg.R;
 import com.example.chomg.SecureStorage;
@@ -114,10 +118,17 @@ public class FragmentSettings extends Fragment {
                 if (response.isSuccessful()) {
                     MotionDetectionResponse motionDetectionResponse = response.body();
                     handleNotification(motionDetectionResponse);
+
+                    // Call the payload decoder here
+                    if (motionDetectionResponse != null) {
+                        PayloadDecoder decoder = new PayloadDecoder();
+                        decoder.decodeJsonPayload(motionDetectionResponse.getJson());
+                    }
                 } else {
                     Toast.makeText(getActivity(), "Failed to fetch notification data", Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
             public void onFailure(Call<MotionDetectionResponse> call, Throwable t) {
                 Log.e("FetchNotificationData", "Error fetching notification data: " + t.getMessage());
@@ -126,11 +137,21 @@ public class FragmentSettings extends Fragment {
         });
     }
 
+
+
+
     private void handleNotification(MotionDetectionResponse motionDetectionResponse) {
-        Log.d("MotionDetection", "User ID: " + motionDetectionResponse.getUserId());
-        Log.d("MotionDetection", "Motion Detected: " + motionDetectionResponse.isMotionDetected());
-        Log.d("MotionDetection", "Person Detected: " + motionDetectionResponse.isPersonDetected());
-        Log.d("MotionDetection", "Expiration Time: " + motionDetectionResponse.getExpirationTime());
+        if (motionDetectionResponse != null && motionDetectionResponse.isMotionDetected()) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(requireContext(), "your_notification_channel_id")
+                    .setSmallIcon(R.drawable.chomgiconwb)
+                    .setContentTitle("Motion Detected")
+                    .setContentText("Motion has been detected!")
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+            // Trigger the notification
+            NotificationManager notificationManager = (NotificationManager) requireContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.notify();
+        }
     }
 
 
@@ -169,8 +190,6 @@ public class FragmentSettings extends Fragment {
         startActivity(intent);
         getActivity().finish();
     }
-
-
 
 
 }

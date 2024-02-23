@@ -2,6 +2,7 @@ package com.example.chomg.userinterface;
 
 import com.google.gson.annotations.SerializedName;
 
+
 public class MotionDetectionResponse {
     @SerializedName("user_id")
     private String userId;
@@ -12,9 +13,13 @@ public class MotionDetectionResponse {
     @SerializedName("person_detected")
     private boolean personDetected;
 
-    @SerializedName("exp")
+    @SerializedName("expiration_time")
     private long expirationTime;
 
+    @SerializedName("json")
+    private String json; // Add this field
+
+    // Constructor
     public MotionDetectionResponse(String userId, boolean motionDetected, boolean personDetected, long expirationTime) {
         this.userId = userId;
         this.motionDetected = motionDetected;
@@ -22,7 +27,10 @@ public class MotionDetectionResponse {
         this.expirationTime = expirationTime;
     }
 
-    // Getters and setters
+
+    public String getJson() {
+        return json;
+    }
     public String getUserId() {
         return userId;
     }
@@ -55,3 +63,4 @@ public class MotionDetectionResponse {
         this.expirationTime = expirationTime;
     }
 }
+
