@@ -28,7 +28,7 @@ ssh_private_key = 'key'
 def run():
     frame_handler = video_frame_handling.VideoFrameHandler()
     frame_recorder = record_on_movement.Recorder(frame_handler.get_current_frame())
-    json_generator = send_json.JsonCreator(MONGO_USERNAME, JWT_KEY)
+    json_generator = send_json.JsonCreator(CHOMG_USERNAME, JWT_KEY)
     linked_list = linked_list_file_saver.LinkedList()
     # Create an SSH tunnel
     with SSHTunnelForwarder(
