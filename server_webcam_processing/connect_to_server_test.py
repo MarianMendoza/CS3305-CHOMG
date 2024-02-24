@@ -7,9 +7,8 @@ import record_on_movement
 import linked_list_file_saver
 import paramiko
 import time
-import requests
+import post_data
 load_dotenv()
-
 MONGO_USERNAME = os.getenv('MONGO_USERNAME')
 MONGO_PASSWORD = os.getenv('MONGO_PASSWORD')
 MONGO_HOST = os.getenv('MONGO_HOST')
@@ -17,17 +16,16 @@ MONGO_PORT = os.getenv('MONGO_PORT')
 MONGO_DATABASE = os.getenv('MONGO_DATABASE')
 MONGO_COLLECTION  = os.getenv('MONGO_COLLECTION')
 SSH_USERNAME = os.getenv('SSH_USERNAME')
-SSH_PASSWORD = os.getenv('SSH_PASSWORD')
 SSH_HOST = os.getenv('SSH_HOST')
 SSH_PORT = os.getenv('SSH_PORT')
 CHOMG_USERNAME = os.getenv('CHOMG_USERNAME')
-# SSH server configuration
-ssh_private_key = 'key'
+ssh_private_key = 'key' #Path to private key
 
 def run():
     frame_handler = video_frame_handling.VideoFrameHandler()
     frame_recorder = record_on_movement.Recorder(frame_handler.get_current_frame())
     linked_list = linked_list_file_saver.LinkedList()
+    post_to_server_handler = post_data.Server_Poster(SSH_HOST, 443)
     # Create an SSH tunnel
     with SSHTunnelForwarder(
         (SSH_HOST, int(SSH_PORT)),
@@ -47,11 +45,10 @@ def run():
                 if current_time_seconds % 30 == 0 \
                     or frame_handler.is_movement_detected() \
                     or frame_handler.is_human_detected():
-                
-                    update_users_notification_payload( frame_handler.is_movement_detected(), frame_handler.is_human_detected(), mongo_connection)
+                    data = {"is_movement_detected": frame_handler.is_movement_detected(), "is_human_detected": frame_handler.is_human_detected()}
+                    post_to_server_handler.post_to_server(data)
                 if frame_handler.is_movement_detected():
                     if  frame_recorder.is_recording():
-                        # Draw bounding box entity recognition etc
                         # Record based on significant movement detection
                         frame_recorder.record_frame(frame_handler.get_current_frame())
                     else:
@@ -112,9 +109,6 @@ def add_video_path_to_db(filename, mongo_connection):
     # Define the update operation to append to the 'videos' array or create it
     add_video = {'$addToSet': {'videos': f'/root/CHOMG/recordedFootage/liam@healy.com/{filename}'}}
     mongo_connection.add_video_in_users_collection(add_video)
-
-def update_users_notification_payload(motion_detected, human_detected):
-    pass
 
 if __name__ == "__main__":
     run()
