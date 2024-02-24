@@ -7,7 +7,7 @@ import record_on_movement
 import linked_list_file_saver
 import paramiko
 import time
-import send_json
+import requests
 load_dotenv()
 
 MONGO_USERNAME = os.getenv('MONGO_USERNAME')
@@ -21,14 +21,12 @@ SSH_PASSWORD = os.getenv('SSH_PASSWORD')
 SSH_HOST = os.getenv('SSH_HOST')
 SSH_PORT = os.getenv('SSH_PORT')
 CHOMG_USERNAME = os.getenv('CHOMG_USERNAME')
-JWT_KEY = os.getenv('JWT_KEY')
 # SSH server configuration
 ssh_private_key = 'key'
 
 def run():
     frame_handler = video_frame_handling.VideoFrameHandler()
     frame_recorder = record_on_movement.Recorder(frame_handler.get_current_frame())
-    json_generator = send_json.JsonCreator(CHOMG_USERNAME, JWT_KEY)
     linked_list = linked_list_file_saver.LinkedList()
     # Create an SSH tunnel
     with SSHTunnelForwarder(
@@ -50,10 +48,10 @@ def run():
                     or frame_handler.is_movement_detected() \
                     or frame_handler.is_human_detected():
                 
-                    update_users_json(json_generator, frame_handler.is_movement_detected(), frame_handler.is_human_detected(), mongo_connection)
+                    update_users_notification_payload( frame_handler.is_movement_detected(), frame_handler.is_human_detected(), mongo_connection)
                 if frame_handler.is_movement_detected():
                     if  frame_recorder.is_recording():
-                        # frame_handler.handle_motion_detection_in_frame_using_contours() # Draw bounding box entity recognition etc
+                        # Draw bounding box entity recognition etc
                         # Record based on significant movement detection
                         frame_recorder.record_frame(frame_handler.get_current_frame())
                     else:
@@ -76,8 +74,8 @@ def run():
                                 os.remove(filename)
                                 print(f"File '{filename}' deleted successfully.")
                 # Displaying the current frame and optional foreground
-                frame_handler.display_current_frame()
-                frame_handler.display_foreground()
+                # frame_handler.display_current_frame()
+                # frame_handler.display_foreground()
     
                 if not frame_recorder.is_recording():
                     # Save frame in linked list
@@ -115,10 +113,8 @@ def add_video_path_to_db(filename, mongo_connection):
     add_video = {'$addToSet': {'videos': f'/root/CHOMG/recordedFootage/liam@healy.com/{filename}'}}
     mongo_connection.add_video_in_users_collection(add_video)
 
-def update_users_json(json_generator, motion_detected, human_detected, mongo_connection):
-    json = json_generator.generate_jwt(motion_detected, human_detected)
-    # Define the filter to find the document you want to update
-    mongo_connection.add_video_in_users_collection({"$set":{"json": json}})
+def update_users_notification_payload(motion_detected, human_detected):
+    pass
 
 if __name__ == "__main__":
     run()
