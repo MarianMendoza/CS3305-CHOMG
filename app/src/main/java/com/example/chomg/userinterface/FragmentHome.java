@@ -65,41 +65,50 @@ public class FragmentHome extends Fragment {
             ));
             horizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-            TextView textView = new TextView(requireContext());
+            Button videoButton = new Button(requireContext());
+
             LinearLayout.LayoutParams textLayoutParams = new LinearLayout.LayoutParams(
                     0,
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     1
             );
             textLayoutParams.setMargins(0, 8, 0, 0);
-            textView.setLayoutParams(textLayoutParams);
-            textView.setBackgroundResource(R.drawable.shape1);
-            textView.setPadding(8, 8, 8, 8);
-            textView.setWidth(2000);
-            textView.setHeight(150);
-            textView.setText(activityName);
-            textView.setGravity(Gravity.START);
-            textView.setTextSize(16);
+            videoButton.setLayoutParams(textLayoutParams);
+            videoButton.setBackgroundResource(R.drawable.shape1);
+            videoButton.setPadding(8, 8, 8, 8);
+            videoButton.setWidth(2000);
+            videoButton.setHeight(150);
+            videoButton.setText(activityName);
+            videoButton.setGravity(Gravity.START);
+            videoButton.setTextSize(16);
 
-            // Create Button
-            Button button = new Button(requireContext());
-            LinearLayout.LayoutParams buttonLayoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            );
-            buttonLayoutParams.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-            button.setLayoutParams(buttonLayoutParams);
-            button.setCompoundDrawablesWithIntrinsicBounds(R.drawable.download_24px, 0, 0, 0); // Set icon drawable
-
-            button.setOnClickListener(new View.OnClickListener() {
+            videoButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // Handle button click here
                     handleButtonClick(activityName);
                 }
             });
-            horizontalLayout.addView(textView);
-            horizontalLayout.addView(button);
+
+            // Create Button
+            Button downloadButton = new Button(requireContext());
+            LinearLayout.LayoutParams buttonLayoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            buttonLayoutParams.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
+            downloadButton.setLayoutParams(buttonLayoutParams);
+            downloadButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.download_24px, 0, 0, 0); // Set icon drawable
+
+            downloadButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Handle button click here
+                    handleButtonClick(activityName);
+                }
+            });
+            horizontalLayout.addView(videoButton);
+            horizontalLayout.addView(downloadButton);
 
             chatContainer.addView(horizontalLayout);
         }
