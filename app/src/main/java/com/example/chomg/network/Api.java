@@ -43,7 +43,7 @@ public interface Api {
     @GET("/get-recent-video")
     Call<ResponseBody> getRecentVideo(@Header("Authorization") String authToken);
 
-    @GET("/motion-detected")
+    @POST("/motion-detected")
     Call<MotionDetectionResponse> getMotionDetectionData();
 
 }

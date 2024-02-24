@@ -3,28 +3,13 @@ package com.example.chomg.data;
 import java.util.List;
 
 public class MotionDetectionResponse {
-    private String id;
-    private String username;
-    private String password;
-    private int version;
+    private String userId;
     private List<String> videos;
     private String json;
 
     // Setters
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public void setVideos(List<String> videos) {
@@ -36,20 +21,8 @@ public class MotionDetectionResponse {
     }
 
     // Getters
-    public String getId() {
-        return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public int getVersion() {
-        return version;
+    public String getUserId() {
+        return userId;
     }
 
     public List<String> getVideos() {
@@ -60,3 +33,4 @@ public class MotionDetectionResponse {
         return json;
     }
 }
+
