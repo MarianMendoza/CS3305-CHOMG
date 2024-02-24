@@ -1,11 +1,10 @@
 package com.example.chomg.network;
 
-import com.example.chomg.data.MotionDetectionResponse;
 import com.example.chomg.userinterface.ChangePasswordRequest;
 import com.example.chomg.userinterface.EmailWrapper;
 import com.example.chomg.data.TokenResponse;
 import com.example.chomg.data.User;
-
+import com.example.chomg.userinterface.MotionDetectionResponse;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

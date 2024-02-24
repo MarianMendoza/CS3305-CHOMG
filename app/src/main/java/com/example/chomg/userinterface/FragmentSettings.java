@@ -1,10 +1,11 @@
 package com.example.chomg.userinterface;
 
 
-
-
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,12 @@ import android.widget.Button;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 import com.example.chomg.R;
 import com.example.chomg.SecureStorage;
 import com.example.chomg.network.Api;
 import com.example.chomg.network.Client;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,7 +51,7 @@ public class FragmentSettings extends Fragment {
         buttonChangeEmail = view.findViewById(R.id.buttonChangeEmail);
         buttonSetUp = view.findViewById(R.id.buttonSetUp);
 
-
+        fetchMotionDetectionData();
 
         switchAppNot.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -98,6 +99,7 @@ public class FragmentSettings extends Fragment {
         });
 
 
+
         buttonSetUp.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), SetUpActivity.class);
             startActivity(intent);
@@ -107,48 +109,87 @@ public class FragmentSettings extends Fragment {
         return view;
     }
 
+    private void fetchMotionDetectionData() {
+        Api apiService = Client.getClient("https://178.62.75.31").create(Api.class);
+        Call<MotionDetectionResponse> call = apiService.getMotionDetectionData();
+        call.enqueue(new Callback<MotionDetectionResponse>() {
+            @Override
+            public void onResponse(Call<MotionDetectionResponse> call, Response<MotionDetectionResponse> response) {
+                if (response.isSuccessful()) {
+                    MotionDetectionResponse motionDetectionResponse = response.body();
+                    handleNotification(motionDetectionResponse);
 
-
-
-
-        public void logout() {
-            String token = SecureStorage.getAuthToken(requireContext());
-            if (token != null) {
-                Api apiService = Client.getClient("https://178.62.75.31").create(Api.class);
-                Call<Void> call = apiService.userLogout("Bearer " + token);
-                call.enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        if (response.isSuccessful()) {
-                            Toast.makeText(getActivity(), "Logged out successfully", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getActivity(), "Logout failed", Toast.LENGTH_SHORT).show();
-                        }
-                        SecureStorage.clearAuthToken(requireContext());
-                        goToLogin();
+                    // Call the payload decoder here
+                    if (motionDetectionResponse != null) {
+                        PayloadDecoder decoder = new PayloadDecoder();
+                        decoder.decodeJsonPayload(motionDetectionResponse.getJson());
                     }
-
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        Toast.makeText(getActivity(), "Logout error: " + t.getMessage(), Toast.LENGTH_LONG).show();
-                        SecureStorage.clearAuthToken(requireContext());
-                        goToLogin();
-                    }
-                });
-            } else {
-                goToLogin();
+                } else {
+                    Toast.makeText(getActivity(), "Failed to fetch notification data", Toast.LENGTH_SHORT).show();
+                }
             }
-        }
 
-
-
-
-        private void goToLogin() {
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(intent);
-            getActivity().finish();
-        }
-
-
+            @Override
+            public void onFailure(Call<MotionDetectionResponse> call, Throwable t) {
+                Log.e("FetchNotificationData", "Error fetching notification data: " + t.getMessage());
+                Toast.makeText(getActivity(), "Failed to fetch notification data", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
+
+
+
+    private void handleNotification(MotionDetectionResponse motionDetectionResponse) {
+        if (motionDetectionResponse != null && motionDetectionResponse.isMotionDetected()) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(requireContext(), "your_notification_channel_id")
+                    .setSmallIcon(R.drawable.chomgiconwb)
+                    .setContentTitle("Motion Detected")
+                    .setContentText("Motion has been detected!")
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+            // Trigger the notification
+            NotificationManager notificationManager = (NotificationManager) requireContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.notify();
+        }
+    }
+
+
+    public void logout(){
+        String token = SecureStorage.getAuthToken(requireContext());
+        if (token != null) {
+            Api apiService = Client.getClient("https://178.62.75.31").create(Api.class);
+            Call<Void> call = apiService.userLogout("Bearer " + token);
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(getActivity(), "Logged out successfully", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), "Logout failed", Toast.LENGTH_SHORT).show();
+                    }
+                    SecureStorage.clearAuthToken(requireContext());
+                    goToLogin();
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Toast.makeText(getActivity(), "Logout error: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                    SecureStorage.clearAuthToken(requireContext());
+                    goToLogin();
+                }
+            });
+        } else {
+            goToLogin();
+        }
+    }
+
+
+    private void goToLogin() {
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
+
+
+}
