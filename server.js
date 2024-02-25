@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const admin = require('firebase-admin');
 const express = require('express');
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
@@ -11,6 +12,8 @@ const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
+const path = require('path');
+const fsPromises = require('fs').promises;
 
 const app = express();
 const port = 443;
@@ -25,6 +28,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 const UserSchema = new mongoose.Schema({
   username: { type: String, unique: true },
   password: String,
+  fcmToken: { type: String, required: false}
 });
 
 const tokenBlacklistSchema = new mongoose.Schema({
@@ -53,49 +57,10 @@ app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.post('/register',
-  // Validation rules
-  [
-    body('username').isEmail(),
-    body('password').isLength({ min: 6 })
-  ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
+let serviceAccount = require('./chomgFirebaseServiceKey.json');
 
-    try {
-      const { username, password } = req.body;
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const newUser = new User({ username, password: hashedPassword });
-      await newUser.save();
-      res.status(201).send('User created');
-    } catch (error) {
-      if (error.code === 11000) {
-        res.status(400).send('Username already exists');
-      } else {
-        res.status(500).send('Error registering new user');
-      }
-    }
-  }
-);
-
-app.post('/login', async (req, res) => {
-  try {
-    const { username, password } = req.body;
-    const user = await User.findOne({ username });
-
-    if (user && await bcrypt.compare(password, user.password)) {
-      const token = jwt.sign({ userId: user._id }, 'YourSecretKey', { expiresIn: '1h' });
-      res.status(200).json({ token });
-    } else {
-      res.status(400).send('Invalid credentials');
-    }
-  } catch (error) {
-    res.status(500).send('Error logging in');
-  }
-
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
 });
 
 const verifyToken = async (req, res, next) => {
@@ -119,6 +84,103 @@ const verifyToken = async (req, res, next) => {
     res.status(401).send('Invalid Token');
   }
 };
+
+app.post('/send-notification', verifyToken, async (req, res) => {
+    const { user_id, motion_detected, person_detected, exp } = req.body;
+
+    // Assuming `user_id` can be used to retrieve the user's FCM token
+    const user = await User.findById(user_id);
+    if (!user) {
+        return res.status(404).send('User not found.');
+    }
+
+    // Assuming you store the user's FCM token in their document
+    const fcmToken = user.fcmToken;
+
+    if (!fcmToken) {
+        return res.status(404).send('FCM token not found for user.');
+    }
+
+    let message = {
+        notification: {
+            title: '',
+            body: ''
+        },
+        token: fcmToken
+    };
+
+    if (motion_detected) {
+        message.notification.title = 'Motion Detected';
+        message.notification.body = 'Motion has been detected in your monitored area.';
+    } else if (person_detected) {
+        message.notification.title = 'Person Detected';
+        message.notification.body = 'A person has been detected in your monitored area.';
+    } else {
+        // Handle other types of notifications or errors
+        return res.status(400).send('Invalid detection type.');
+    }
+
+    // Send a message to the device corresponding to the provided FCM token
+    admin.messaging().send(message)
+        .then((response) => {
+            // Response is a message ID string
+            console.log('Successfully sent message:', response);
+            res.send('Notification sent successfully');
+        })
+        .catch((error) => {
+            console.log('Error sending message:', error);
+            res.status(500).send('Error sending notification');
+        });
+});
+
+app.post('/register',
+  // Validation rules
+  [
+    body('username').isEmail(),
+    body('password').isLength({ min: 6 })
+  ],
+  async (req, res) => {
+    console.log('Request Body:', req.body);
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const { username, password, fcmToken } = req.body;
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const newUser = new User({ username, password: hashedPassword, fcmToken });
+      await newUser.save();
+      res.status(201).send('User created');
+    } catch (error) {
+      if (error.code === 11000) {
+        res.status(400).send('Username already exists');
+      } else {
+        res.status(500).send('Error registering new user');
+      }
+    }
+  }
+);
+
+app.post('/login', async (req, res) => {
+  try {
+    const { username, password, fcmToken } = req.body;
+    const user = await User.findOne({ username });
+
+    if (user && await bcrypt.compare(password, user.password)) {
+      user.fcmToken = fcmToken;
+      await user.save();
+
+      const token = jwt.sign({ userId: user._id }, 'YourSecretKey', { expiresIn: '1h' });
+      res.status(200).json({ token });
+    } else {
+      res.status(400).send('Invalid credentials');
+    }
+  } catch (error) {
+    res.status(500).send('Error logging in');
+  }
+
+});
 
 app.post('/logout', verifyToken, async (req, res) => {
   const authHeader = req.headers.authorization;
@@ -319,6 +381,67 @@ app.post('/set-new-password', verifyToken, async (req, res) => {
     }
 });
 
+async function getMostRecentFile(dir) {
+  const files = await fsPromises.readdir(dir);
+  const sortedFiles = files
+      .map(fileName => ({
+          name: fileName,
+          time: fs.statSync(`${dir}/${fileName}`).mtime.getTime()
+      }))
+      .sort((a, b) => b.time - a.time)
+      .map(file => file.name);
+  return sortedFiles.length ? sortedFiles[0] : null;
+}
+
+app.get('/get-recent-video', verifyToken, async (req, res) => {
+  try {
+      const userId = req.user.userId;
+      const user = await User.findById(userId);
+      if (!user) {
+          return res.status(404).send('User not found.');
+      }
+
+      const videosDir = path.join('/root', 'CHOMG', 'recordedFootage', user.username);
+      const mostRecentVideo = await getMostRecentFile(videosDir);
+
+      if (!mostRecentVideo) {
+          return res.status(404).send('No videos found.');
+      }
+
+      const videoPath = path.join(videosDir, mostRecentVideo);
+
+      // Stream the video
+      const stat = fs.statSync(videoPath);
+      const fileSize = stat.size;
+      const range = req.headers.range;
+
+      if (range) {
+          const parts = range.replace(/bytes=/, "").split("-");
+          const start = parseInt(parts[0], 10);
+          const end = parts[1] ? parseInt(parts[1], 10) : fileSize-1;
+          const chunksize = (end-start)+1;
+          const file = fs.createReadStream(videoPath, {start, end});
+          const head = {
+              'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+              'Accept-Ranges': 'bytes',
+              'Content-Length': chunksize,
+              'Content-Type': 'video/mp4',
+          };
+          res.writeHead(206, head);
+          file.pipe(res);
+      } else {
+          const head = {
+              'Content-Length': fileSize,
+              'Content-Type': 'video/mp4',
+          };
+          res.writeHead(200, head);
+          fs.createReadStream(videoPath).pipe(res);
+      }
+  } catch (error) {
+      console.error('Error fetching recent video:', error);
+      res.status(500).send('Error fetching recent video');
+  }
+});
 
 const httpsServer = https.createServer(credentials, app);
 
