@@ -1,20 +1,28 @@
 package com.example.chomg.userinterface;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.chomg.R;
 import com.example.chomg.data.User;
 import com.example.chomg.network.Api;
 import com.example.chomg.network.Client;
+import com.example.chomg.service.FirebaseMessagingService;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.regex.Pattern;
 
@@ -64,16 +72,37 @@ public class SignUpActivity extends AppCompatActivity {
             Toast.makeText(SignUpActivity.this, "Password must contain numbers, letters, a capital letter, and a special character", Toast.LENGTH_SHORT).show();
         } else if (!passwordString.equals(passwordConfirmationString)){
             Toast.makeText(SignUpActivity.this, "Passwords do not match!", Toast.LENGTH_SHORT).show();
-        } else {
-            registerUser(emailString, passwordString);
-        }
+        } else FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            // Log the exception details
+                            if (task.getException() != null) {
+                                task.getException().printStackTrace();
+                            }
+                            return;
+                        }
 
+                        // Get new FCM registration token
+                        String token = task.getResult();
+
+                        // Log and toast
+                        Log.d(TAG, "FCM Token: " + token);
+
+
+                        registerUser(emailString, passwordString, token); // Modify your registerUser method to accept a User object
+                    }
+                });
     }
 
-    private void registerUser(final String email, final String password){
+
+
+    private void registerUser(final String email, final String password, final String token){
         Api apiService = Client.getClient("https://178.62.75.31").create(Api.class);
 
-        User user = new User(email, password);
+        User user = new User(email, password, token);
         Call<Void> call = apiService.registerUser(user);
 
         call.enqueue(new Callback<Void>() {
@@ -86,9 +115,7 @@ public class SignUpActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(SignUpActivity.this, "Error!", Toast.LENGTH_SHORT).show();
                 }
-
             }
-
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 View rootView = findViewById(android.R.id.content);

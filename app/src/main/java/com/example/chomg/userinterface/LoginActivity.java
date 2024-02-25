@@ -1,8 +1,11 @@
 package com.example.chomg.userinterface;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,12 +14,17 @@ import android.widget.Toast;
 import com.example.chomg.R;
 import com.example.chomg.SecureStorage;
 import com.example.chomg.data.TokenResponse;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.chomg.data.User;
 import com.example.chomg.network.Api;
 import com.example.chomg.network.Client;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -68,15 +76,29 @@ public class LoginActivity extends AppCompatActivity {
 
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
 
-        isValidCredentials(email, password);
+                        // Get new FCM registration token
+                        String fcmToken = task.getResult();
+
+                        // Proceed with validating credentials and logging in
+                        isValidCredentials(email, password, fcmToken);
+                    }
+                });
     }
 
 
-    private void isValidCredentials(final String email, final String password) {
+    private void isValidCredentials(final String email, final String password, final String fcmToken) {
         Api apiService = Client.getClient("https://178.62.75.31").create(Api.class); // Make sure to use your actual API URL
 
-        User user = new User(email, password);
+        User user = new User(email, password, fcmToken);
         Call<TokenResponse> call = apiService.loginUser(user);
         call.enqueue(new Callback<TokenResponse>() {
             @Override

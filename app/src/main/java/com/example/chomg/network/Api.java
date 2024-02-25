@@ -1,5 +1,6 @@
 package com.example.chomg.network;
 
+import com.example.chomg.data.FcmToken;
 import com.example.chomg.userinterface.ChangePasswordRequest;
 import com.example.chomg.userinterface.EmailWrapper;
 import com.example.chomg.data.TokenResponse;
@@ -40,4 +41,7 @@ public interface Api {
 
     @GET("/get-recent-video")
     Call<ResponseBody> getRecentVideo(@Header("Authorization") String authToken);
+
+    @POST("/update-fcm-token")
+    Call<Void> updateFcmToken(@Header("Authorization") String authToken, @Body String fcmToken);
 }

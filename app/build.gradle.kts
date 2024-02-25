@@ -1,6 +1,3 @@
-plugins {
-    id("com.android.application")
-}
 
 android {
     namespace = "com.example.chomg"
@@ -29,9 +26,13 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
+
 }
 
+
 dependencies {
+    implementation("com.google.firebase:firebase-messaging:23.4.1")
     implementation("androidx.media3:media3-exoplayer:1.2.1")
     implementation("androidx.media3:media3-ui:1.2.1")
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
@@ -56,7 +57,11 @@ dependencies {
     implementation ("com.google.android.material:material:1.11.0")
     implementation ("androidx.cardview:cardview:1.0.0")
 
-
-
-
 }
+
+plugins {
+    id("com.android.application")
+    id("com.google.gms.google-services")
+}
+
+

@@ -14,6 +14,8 @@
     <base-config>
         <trust-anchors>
             <certificates src="@raw/cert"/>
+            <certificates src="system" />  <!-- for Firebase -->
+            <certificates src="user" /> <!-- for tooling.   Ex:Charles -->
         </trust-anchors>
     </base-config>
 </network-security-config>
