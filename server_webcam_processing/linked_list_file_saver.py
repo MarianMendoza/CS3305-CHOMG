@@ -91,6 +91,7 @@ class LinkedList(object):
     def clear_linked_list(self):
         self.start.set_next_node(self.end)
         self.end.set_previous_node(self.start)
+        LinkedList.amount_of_nodes = 0
         self.empty = True
 
     def is_empty(self):
