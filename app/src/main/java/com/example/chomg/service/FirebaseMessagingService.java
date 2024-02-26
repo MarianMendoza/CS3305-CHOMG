@@ -42,8 +42,9 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         }
 
         Api apiService = Client.getClient("https://178.62.75.31").create(Api.class);
+        FcmToken tokenObject = new FcmToken(fcmToken);
         // Assuming you have an API method to update the user's FCM token
-        Call<Void> call = apiService.updateFcmToken(authToken, fcmToken);
+        Call<Void> call = apiService.updateFcmToken(authToken, tokenObject);
 
         call.enqueue(new Callback<Void>() {
             @Override

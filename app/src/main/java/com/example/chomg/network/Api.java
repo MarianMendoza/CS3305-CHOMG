@@ -13,6 +13,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface Api {
     @POST("/register")
@@ -42,6 +43,9 @@ public interface Api {
     @GET("/get-recent-video")
     Call<ResponseBody> getRecentVideo(@Header("Authorization") String authToken);
 
+    @GET("/get-video")
+    Call<ResponseBody> getVideo(@Header("Authorization") String authToken, @Query("index") int videoIndex);
+
     @POST("/update-fcm-token")
-    Call<Void> updateFcmToken(@Header("Authorization") String authToken, @Body String fcmToken);
+    Call<Void> updateFcmToken(@Header("Authorization") String authToken, @Body FcmToken fcmToken);
 }

@@ -78,18 +78,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewDetails" />
 
     <TextView
-        android:id="@+id/textViewEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-condensed"
-        android:text="EMAIL"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewEmailRect"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewEmailRect"
-        app:layout_constraintStart_toStartOf="@+id/imageViewEmailRect"
-        app:layout_constraintTop_toTopOf="@+id/imageViewEmailRect" />
-
-    <TextView
         android:id="@+id/textViewYour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
