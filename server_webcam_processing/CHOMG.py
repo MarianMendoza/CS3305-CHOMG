@@ -98,8 +98,8 @@ def upload_file(filename):
 
         local_file_path = f"{filename}"
         # Destination path on the remote server
-        remote_file_path = os.path.join("/root/CHOMG/recordedFootage/{CHOMG_USERNAME}.com/", os.path.basename(local_file_path))
-
+        remote_file_path = os.path.join(f"/root/CHOMG/recordedFootage/{CHOMG_USERNAME}.com/", os.path.basename(local_file_path))
+        
         # Upload the file
         sftp.put(local_file_path, remote_file_path)
 
