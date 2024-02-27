@@ -8,6 +8,8 @@ import linked_list_file_saver
 import paramiko
 import time
 import post_data
+from datetime import datetime, timedelta
+
 load_dotenv()
 MONGO_USERNAME = os.getenv('MONGO_USERNAME')
 MONGO_PASSWORD = os.getenv('MONGO_PASSWORD')
@@ -45,7 +47,8 @@ def run():
                 if current_time_seconds % 30 == 0 \
                     or frame_handler.is_movement_detected() \
                     or frame_handler.is_human_detected():
-                    data = {"is_movement_detected": frame_handler.is_movement_detected(), "is_human_detected": frame_handler.is_human_detected()}
+                    expiration_time = datetime.utcnow() + timedelta(minutes=5)
+                    data = {"user_id": CHOMG_USERNAME, "is_movement_detected": frame_handler.is_movement_detected(), "is_human_detected": frame_handler.is_human_detected(), "exp": expiration_time}
                     post_to_server_handler.post_to_server(data)
                 if frame_handler.is_movement_detected():
                     if  frame_recorder.is_recording():
