@@ -21,7 +21,7 @@ import retrofit2.Response;
 
 public class AccountActivity extends AppCompatActivity {
 
-    private TextView emailTextView; // Declare the TextView at the class level to access it in the callback
+    private TextView emailTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +29,12 @@ public class AccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_accountdetails);
 
         Button buttonBack = findViewById(R.id.buttonBack);
-        emailTextView = findViewById(R.id.textViewEmailRect); // Initialize the TextView
+        emailTextView = findViewById(R.id.textViewEmailRect);
 
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish(); // Finish the current activity to return to the previous one
+                finish();
             }
         });
 
@@ -42,14 +42,14 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     private void getUserDetails() {
-        // Assuming SecureStorage.getAuthToken(this) is a method to retrieve the stored auth token securely
+        // retrieve the stored authentication token securely
         String authToken = "Bearer " + SecureStorage.getAuthToken(this);
         if (authToken == null) {
             View rootView = findViewById(android.R.id.content);
             Snackbar.make(rootView, "Authentication token missing. Please log in again.", Snackbar.LENGTH_LONG).show();
             return;
-        }// Retrieve your stored auth token correctly
-        Api service = Client.getClient("https://178.62.75.31").create(Api.class); // Ensure to use your actual API base URL
+        }
+        Api service = Client.getClient("https://178.62.75.31").create(Api.class);
 
         // Adjust the call object to match the expected response type, assuming getUserDetails returns a User object
         Call<User> call = service.getUserDetails(authToken);
