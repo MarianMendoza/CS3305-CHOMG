@@ -20,6 +20,7 @@ import com.example.chomg.data.FcmToken;
 import com.example.chomg.network.Api;
 import com.example.chomg.network.Client;
 import com.example.chomg.userinterface.FragmentHome;
+import com.example.chomg.userinterface.FragmentSettings;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -30,32 +31,42 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
+public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService implements FragmentSettings.SwitchListener {
 
     private static final String TAG = "tag";
 
+    private boolean switchChecked = false;
 
 
 
     @Override
+    public void onSwitchChanged(boolean isChecked) {
+        switchChecked = isChecked;
+    }
+
+    @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        if (remoteMessage.getData().size() > 0) {
-            String userId = remoteMessage.getData().get("user_id");
-            boolean motionDetected = Boolean.parseBoolean(remoteMessage.getData().get("is_motion_detected"));
-            boolean humanDetected = Boolean.parseBoolean(remoteMessage.getData().get("is_human_detected"));
-            String expirationTime = remoteMessage.getData().get("exp");
+        FragmentSettings fragmentSettings = new FragmentSettings();
 
-            System.out.println(motionDetected);
-            System.out.println(humanDetected);
-            System.out.println(expirationTime);
+        if (!switchChecked || remoteMessage.getData().size() == 0) {
+            return;
+        }
+        String userId = remoteMessage.getData().get("user_id");
+        boolean motionDetected = Boolean.parseBoolean(remoteMessage.getData().get("is_motion_detected"));
+        boolean humanDetected = Boolean.parseBoolean(remoteMessage.getData().get("is_human_detected"));
+        String expirationTime = remoteMessage.getData().get("exp");
 
-            int expTime = Optional.ofNullable(expirationTime)
-                    .map(Integer::parseInt)
-                    .orElse(-1);
+        System.out.println(motionDetected);
+        System.out.println(humanDetected);
+        System.out.println(expirationTime);
 
-            Instant currentTime = null;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        int expTime = Optional.ofNullable(expirationTime)
+                .map(Integer::parseInt)
+                .orElse(-1);
+
+        Instant currentTime = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 currentTime = Instant.now();
             }
             if (motionDetected) {
@@ -69,10 +80,12 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                     createNotification("Connection Lost", "Connection has been lost.");
                 }
 
-
             }
         }
-        }
+
+
+
+
 
 
     private void createNotification(String title, String body) {

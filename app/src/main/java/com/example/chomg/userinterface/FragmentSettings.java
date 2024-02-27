@@ -22,8 +22,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FragmentSettings extends Fragment {
 
+public class FragmentSettings extends Fragment {
+    public interface SwitchListener {
+        void onSwitchChanged(boolean isChecked);
+    }
     private Switch switchAppNot;
     private Switch switchEmailNot;
     private Button buttonLogout;
@@ -64,7 +67,10 @@ public class FragmentSettings extends Fragment {
             } else {
                 switchAppNot.setThumbTintList(getResources().getColorStateList(R.color.your_new_thumb_color_false));
                 switchAppNot.setTrackTintList(getResources().getColorStateList(R.color.your_new_track_color_false));
+            }
 
+            if (switchListener != null) {
+                switchListener.onSwitchChanged(isChecked);
             }
         });
 
@@ -100,6 +106,13 @@ public class FragmentSettings extends Fragment {
 
 
         return view;
+    }
+
+
+    private SwitchListener switchListener;
+
+    public void setSwitchListener(SwitchListener listener) {
+        this.switchListener = listener;
     }
 
     public void logout(){
