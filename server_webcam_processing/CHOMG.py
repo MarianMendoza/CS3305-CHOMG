@@ -41,14 +41,14 @@ def run():
             mongo_connection = Mongo(MONGO_HOST, MONGO_USERNAME, MONGO_PASSWORD, tunnel.local_bind_port, MONGO_DATABASE, MONGO_COLLECTION, CHOMG_USERNAME)
             mongo_connection.open_connection()
             # Wait 30 seconds before starting
-            time.sleep(30)
+            # time.sleep(30)
             while True:
                 current_time_seconds = int(time.time())  # Get current time in seconds as an integer
                 if current_time_seconds % 30 == 0 \
                     or frame_handler.is_movement_detected() \
                     or frame_handler.is_human_detected():
                     expiration_time = datetime.utcnow() + timedelta(minutes=5)
-                    data = {"user_id": CHOMG_USERNAME, "is_movement_detected": frame_handler.is_movement_detected(), "is_human_detected": frame_handler.is_human_detected(), "exp": expiration_time}
+                    data = {"user_id": CHOMG_USERNAME, "is_movement_detected": frame_handler.is_movement_detected(), "is_human_detected": frame_handler.is_human_detected(), "exp": str(expiration_time)}
                     post_to_server_handler.post_to_server(data)
                 if frame_handler.is_movement_detected():
                     if  frame_recorder.is_recording():
@@ -72,10 +72,9 @@ def run():
                             if os.path.exists(filename):
                                 # Delete the file
                                 os.remove(filename)
-                                print(f"File '{filename}' deleted successfully.")
                 # Displaying the current frame and optional foreground
-                # frame_handler.display_current_frame()
-                # frame_handler.display_foreground()
+                frame_handler.display_current_frame()
+                frame_handler.display_foreground()
     
                 if not frame_recorder.is_recording():
                     # Save frame in linked list
@@ -101,8 +100,7 @@ def upload_file(filename):
 
         local_file_path = f"{filename}"
         # Destination path on the remote server
-        remote_file_path = os.path.join(f"/root/CHOMG/recordedFootage/{CHOMG_USERNAME}.com/", os.path.basename(local_file_path))
-        
+        remote_file_path = os.path.join(f"/root/CHOMG/recordedFootage/{CHOMG_USERNAME}/", os.path.basename(local_file_path))
         # Upload the file
         sftp.put(local_file_path, remote_file_path)
 

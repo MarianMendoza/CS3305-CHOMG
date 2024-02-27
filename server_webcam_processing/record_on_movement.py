@@ -12,7 +12,7 @@ class Recorder(object):
         self.recordings_dir = "Recordings"
         self.frame_width = int(reference_frame.shape[1])
         self.frame_height = int(reference_frame.shape[0])
-        self.frame_rate = 20
+        self.frame_rate = 3
         self.out = None
         self.last_movement_time = None
         self.filename = None

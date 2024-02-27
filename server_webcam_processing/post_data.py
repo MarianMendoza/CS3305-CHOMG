@@ -5,8 +5,10 @@ class Server_Poster(object):
         '''
         Initialized with ip_address and port number
         '''
-        self.url = f"https://{ip_address}:{port}/send-notification"
+        self.url = f"https://{ip_address}/send-notification"
 
-def post_to_server(self, dic_of_data):
-    #  Post data to endpoint
-    requests.post(self.url, json=dic_of_data)
+    def post_to_server(self, dic_of_data):
+        #  Post data to endpoint
+
+        # cert = ("server.crt", "server.key")
+        requests.post(url=self.url, verify=False, json=dic_of_data)
