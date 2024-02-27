@@ -42,12 +42,12 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         super.onMessageReceived(remoteMessage);
         if (remoteMessage.getData().size() > 0) {
             String userId = remoteMessage.getData().get("user_id");
-            boolean motionDetected = Boolean.parseBoolean(remoteMessage.getData().get("motion_detected"));
-            boolean personDetected = Boolean.parseBoolean(remoteMessage.getData().get("person_detected"));
+            boolean motionDetected = Boolean.parseBoolean(remoteMessage.getData().get("is_motion_detected"));
+            boolean humanDetected = Boolean.parseBoolean(remoteMessage.getData().get("is_human_detected"));
             String expirationTime = remoteMessage.getData().get("exp");
 
             System.out.println(motionDetected);
-            System.out.println(personDetected);
+            System.out.println(humanDetected);
             System.out.println(expirationTime);
 
             int expTime = Optional.ofNullable(expirationTime)
@@ -60,7 +60,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             }
             if (motionDetected) {
                 createNotification("Motion Detected", "Motion has been detected.");
-            } else if (personDetected) {
+            } else if (humanDetected) {
                 createNotification("Person Detected", "A person has been detected.");
             }
 
