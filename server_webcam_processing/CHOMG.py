@@ -21,6 +21,7 @@ SSH_USERNAME = os.getenv('SSH_USERNAME')
 SSH_HOST = os.getenv('SSH_HOST')
 SSH_PORT = os.getenv('SSH_PORT')
 CHOMG_USERNAME = os.getenv('CHOMG_USERNAME')
+SECRET_KEY = os.getenv('JWT_KEY')
 ssh_private_key = 'key' #Path to private key
 
 def run():
@@ -41,15 +42,16 @@ def run():
             mongo_connection = Mongo(MONGO_HOST, MONGO_USERNAME, MONGO_PASSWORD, tunnel.local_bind_port, MONGO_DATABASE, MONGO_COLLECTION, CHOMG_USERNAME)
             mongo_connection.open_connection()
             # Wait 30 seconds before starting
-            # time.sleep(30)
+            time.sleep(30)
             while True:
                 current_time_seconds = int(time.time())  # Get current time in seconds as an integer
                 if current_time_seconds % 30 == 0 \
                     or frame_handler.is_movement_detected() \
                     or frame_handler.is_human_detected():
                     expiration_time = datetime.utcnow() + timedelta(minutes=5)
-                    data = {"user_id": CHOMG_USERNAME, "is_movement_detected": frame_handler.is_movement_detected(), "is_human_detected": frame_handler.is_human_detected(), "exp": str(expiration_time)}
-                    post_to_server_handler.post_to_server(data)
+                    exp = int(expiration_time.timestamp())
+                    data = {"user_id": CHOMG_USERNAME, "is_movement_detected": frame_handler.is_movement_detected(), "is_human_detected": frame_handler.is_human_detected(), "exp": exp}
+                    post_to_server_handler.post_to_server(SECRET_KEY, data)
                 if frame_handler.is_movement_detected():
                     if  frame_recorder.is_recording():
                         # Record based on significant movement detection
@@ -72,9 +74,9 @@ def run():
                             if os.path.exists(filename):
                                 # Delete the file
                                 os.remove(filename)
-                # Displaying the current frame and optional foreground
-                frame_handler.display_current_frame()
-                frame_handler.display_foreground()
+                # Displaying the current frame and optional foreground (Only for Debugging)
+                # frame_handler.display_current_frame()
+                # frame_handler.display_foreground()
     
                 if not frame_recorder.is_recording():
                     # Save frame in linked list

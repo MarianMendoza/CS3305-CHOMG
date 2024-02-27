@@ -1,2 +1,3 @@
 server_webcam_processing/.env
 server_webcam_processing/key
+server_webcam_processing/server.crt

@@ -1,4 +1,5 @@
 import requests
+import jwt
 
 class Server_Poster(object):
     def __init__(self, ip_address: str, port: int) -> None:
@@ -7,8 +8,13 @@ class Server_Poster(object):
         '''
         self.url = f"https://{ip_address}/send-notification"
 
-    def post_to_server(self, dic_of_data):
-        #  Post data to endpoint
+    def post_to_server(self, secret_key, dic_of_data):
 
-        # cert = ("server.crt", "server.key")
-        requests.post(url=self.url, verify=False, json=dic_of_data)
+        # Generate the JWT
+        token = jwt.encode(payload=dic_of_data, key=secret_key, algorithm='HS256')
+
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {token}'
+        }
+        requests.post(url=self.url, headers=headers, json=dic_of_data, verify="server.crt")
