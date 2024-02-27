@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="278dp"
         android:drawableLeft="@drawable/help_24px"
         android:drawablePadding="10dp"
@@ -36,7 +36,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textAppNotif" />
+        app:layout_constraintTop_toBottomOf="@+id/textNotif" />
 
     <Button
         android:id="@+id/buttonSetUp"
@@ -80,8 +80,8 @@
         android:id="@+id/textNotif"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="67dp"
-        android:layout_marginTop="17dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="100dp"
         android:fontFamily="sans-serif-condensed"
         android:text="APP NOTIFICATIONS"
@@ -90,36 +90,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewhNOTIF" />
 
-    <TextView
-        android:id="@+id/textAppNotif"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="67dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="87dp"
-        android:fontFamily="sans-serif-condensed"
-        android:text="EMAIL NOTIFICATIONS"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toStartOf="@+id/switchEmailNot"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textNotif" />
-
     <Switch
         android:id="@+id/switchAppNot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="54dp"
-        android:layout_marginEnd="84dp"
+        android:layout_marginEnd="60dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonChangePassword" />
-
-    <Switch
-        android:id="@+id/switchEmailNot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="89dp"
-        android:layout_marginEnd="84dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textNotif"
         app:layout_constraintTop_toBottomOf="@+id/buttonChangePassword" />
 
     <TextView

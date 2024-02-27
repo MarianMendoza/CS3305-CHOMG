@@ -45,7 +45,6 @@ public class FragmentSettings extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
         switchAppNot = view.findViewById(R.id.switchAppNot);
-        switchEmailNot = view.findViewById(R.id.switchEmailNot);
         buttonLogout = view.findViewById(R.id.buttonLogout);
 
         buttonViewAccount = view.findViewById(R.id.buttonViewAccount);
@@ -66,15 +65,6 @@ public class FragmentSettings extends Fragment {
             }
         });
 
-        switchEmailNot.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                switchEmailNot.setThumbTintList(getResources().getColorStateList(R.color.your_new_thumb_color_true));
-                switchEmailNot.setTrackTintList(getResources().getColorStateList(R.color.your_new_track_color_true));
-            } else {
-                switchAppNot.setThumbTintList(getResources().getColorStateList(R.color.your_new_thumb_color_false));
-                switchAppNot.setTrackTintList(getResources().getColorStateList(R.color.your_new_track_color_false));
-            }
-        });
 
         buttonLogout.setOnClickListener(v -> {
             logout();

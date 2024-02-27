@@ -33,13 +33,13 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        if (remoteMessage.getNotification() != null) {
-            // Handle notification payload
-            String title = remoteMessage.getNotification().getTitle();
-            String body = remoteMessage.getNotification().getBody();
-
-            createNotification(title, body);
-
+        if (remoteMessage.getData().size() > 0) {
+            String userId = remoteMessage.getData().get("user_id");
+            boolean motionDetected = Boolean.parseBoolean(remoteMessage.getData().get("motion_detected"));
+            boolean personDetected = Boolean.parseBoolean(remoteMessage.getData().get("person_detected"));
+            String expirationTime = remoteMessage.getData().get("exp");
+            //If current time is greater than exp time, then say connection lost.
+            //Date time. UTC now.
         }
     }
 
@@ -70,7 +70,6 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     public void onNewToken(@NonNull String token) {
         Log.d(TAG, "Refreshed token: " + token);
 
-        // Send the token to your app server to keep the user's token up-to-date.
         sendRegistrationToServer(token);
     }
 
