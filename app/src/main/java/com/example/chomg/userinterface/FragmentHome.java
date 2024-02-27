@@ -1,7 +1,9 @@
 package com.example.chomg.userinterface;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.chomg.R;
@@ -78,12 +81,26 @@ public class FragmentHome extends Fragment {
 
         downloadButton.setOnClickListener(new View.OnClickListener(){
             @Override
+
             public void onClick(View v){
-                downloadCurrentVideo(currentVideoUri);
+                if (checkPermission()){
+                    downloadCurrentVideo(currentVideoUri);
+                } else {
+                    Toast.makeText(getContext(), "Grant permission to download in app setting.", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
         return view;
+    }
+
+    private boolean checkPermission() {
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void handleButtonClick(int activityIndex) {
@@ -108,9 +125,9 @@ public class FragmentHome extends Fragment {
 
         Uri videoUri;
         if (videoIndex.length > 0 && videoIndex[0] != null) {
-            currentVideoUri = Uri.parse("https:/178.62.75.31/get-video?index=" + videoIndex[0]); // Adjusted for a hypothetical URL
+            currentVideoUri = Uri.parse("https:/178.62.75.31/get-video?index=" + videoIndex[0]);
         } else {
-            currentVideoUri = Uri.parse("https:/178.62.75.31/get-recent-video"); // Adjusted for a hypothetical URL
+            currentVideoUri = Uri.parse("https:/178.62.75.31/get-recent-video");
         }
 
         MediaSource mediaSource = new ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(MediaItem.fromUri(currentVideoUri));
@@ -130,7 +147,7 @@ public class FragmentHome extends Fragment {
             contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_MOVIES + "/chomg");
 
             Uri uri = resolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, contentValues);
-            boolean downloadSuccessful = false; // Flag to track download success
+            boolean downloadSuccessful = false;
 
             try (ParcelFileDescriptor pfd = resolver.openFileDescriptor(uri, "w", null)) {
                 FileOutputStream outputStream = new FileOutputStream(pfd.getFileDescriptor());

@@ -17,11 +17,9 @@ public class SetUpActivity extends AppCompatActivity {
 
         Button buttonBack = findViewById(R.id.buttonBack);
 
-        // Set click listener for the buttonBack
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Finish the current activity to return to the previous one (fragmentSettings)
                 finish();
             }
         });

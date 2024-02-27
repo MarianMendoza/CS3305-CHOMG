@@ -132,7 +132,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void onSignUpButtonClick(View view) {
-        // Start the UserSignUpActivity when the "SIGN UP" button is clicked
         Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
         startActivity(intent);
     }
