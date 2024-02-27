@@ -1,13 +1,19 @@
 package com.example.chomg.userinterface;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,6 +45,8 @@ public class FragmentHome extends Fragment {
     private PlayerView playerView;
     private ExoPlayer player;
 
+    private Uri currentVideoUri;
+
     Map<String, String> requestProperties = new HashMap<>();
 
     @Nullable
@@ -48,6 +56,7 @@ public class FragmentHome extends Fragment {
         playerView = view.findViewById(R.id.playerView);
         initializePlayer(); // This will load the most recent video by default
 
+        Button downloadButton = view.findViewById(R.id.downloadButton);
         LinearLayout chatContainer = view.findViewById(R.id.chatContainer);
         String[] activityNames = {"Activity 1", "Activity 2", "Activity 3", "Activity 4", "Activity 5", "Activity 6", "Activity 7", "Activity 8"};
 
@@ -66,6 +75,13 @@ public class FragmentHome extends Fragment {
             horizontalLayout.addView(videoButton);
             chatContainer.addView(horizontalLayout);
         }
+
+        downloadButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                downloadCurrentVideo(currentVideoUri);
+            }
+        });
 
         return view;
     }
@@ -92,21 +108,33 @@ public class FragmentHome extends Fragment {
 
         Uri videoUri;
         if (videoIndex.length > 0 && videoIndex[0] != null) {
-            videoUri = Uri.parse("https:/178.62.75.31/get-video?index=" + videoIndex[0]); // Adjusted for a hypothetical URL
+            currentVideoUri = Uri.parse("https:/178.62.75.31/get-video?index=" + videoIndex[0]); // Adjusted for a hypothetical URL
         } else {
-            videoUri = Uri.parse("https:/178.62.75.31/get-recent-video"); // Adjusted for a hypothetical URL
+            currentVideoUri = Uri.parse("https:/178.62.75.31/get-recent-video"); // Adjusted for a hypothetical URL
         }
 
-        MediaSource mediaSource = new ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(MediaItem.fromUri(videoUri));
+        MediaSource mediaSource = new ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(MediaItem.fromUri(currentVideoUri));
 
         player.setMediaSource(mediaSource);
         player.prepare();
         player.play();
     }
 
-    @OptIn(markerClass = UnstableApi.class) private void downloadCurrentVideo(Uri videoUri) {
+    @OptIn(markerClass = UnstableApi.class)
+    private void downloadCurrentVideo(Uri videoUri) {
         new Thread(() -> {
-            try {
+            ContentResolver resolver = requireContext().getContentResolver();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, "chomg_" + System.currentTimeMillis());
+            contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "video/mp4");
+            contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_MOVIES + "/chomg");
+
+            Uri uri = resolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, contentValues);
+            boolean downloadSuccessful = false; // Flag to track download success
+
+            try (ParcelFileDescriptor pfd = resolver.openFileDescriptor(uri, "w", null)) {
+                FileOutputStream outputStream = new FileOutputStream(pfd.getFileDescriptor());
+
                 HttpDataSource.Factory dataSourceFactory = new DefaultHttpDataSource.Factory()
                         .setUserAgent("exoplayer-codelab")
                         .setDefaultRequestProperties(requestProperties);
@@ -114,36 +142,28 @@ public class FragmentHome extends Fragment {
                 HttpDataSource dataSource = dataSourceFactory.createDataSource();
                 DataSpec dataSpec = new DataSpec(videoUri);
 
-                // Open the data source and get the data length
                 long dataLength = dataSource.open(dataSpec);
-
-                // Extract the filename from the URL
-                String path = videoUri.getPath();
-                String fileName = path.substring(path.lastIndexOf('/') + 1);
-                // If the URL does not have a file name, you can fallback to a default name with timestamp
-                if (fileName.isEmpty()) {
-                    fileName = "downloaded_video_" + System.currentTimeMillis() + ".mp4";
+                byte[] buffer = new byte[4096];
+                int bytesRead;
+                while ((bytesRead = dataSource.read(buffer, 0, 4096)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
                 }
-
-                File outputFile = new File(requireContext().getExternalFilesDir(null), fileName);
-
-                try (FileOutputStream fileOutputStream = new FileOutputStream(outputFile)) {
-                    byte[] buffer = new byte[4096];
-                    int bytesRead;
-                    while ((bytesRead = dataSource.read(buffer, 0, 4096)) != -1) {
-                        fileOutputStream.write(buffer, 0, bytesRead);
-                    }
-                    Log.d(TAG, "Video downloaded to " + outputFile.getAbsolutePath());
-                } finally {
-                    dataSource.close(); // Make sure to close the data source
-                }
+                downloadSuccessful = true; // Download completed successfully
+                String downloadLocation = "Downloaded to: " + Environment.DIRECTORY_MOVIES + "/chomg";
+                getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "File Downloaded. " + downloadLocation, Toast.LENGTH_LONG).show());
             } catch (Exception e) {
                 Log.e(TAG, "Error downloading video", e);
+            } finally {
+                if (!downloadSuccessful && uri != null) { // Check if download was unsuccessful
+                    try {
+                        resolver.delete(uri, null, null); // Only delete if download failed
+                    } catch (Exception e) {
+                        Log.e(TAG, "Error deleting video", e);
+                    }
+                }
             }
         }).start();
     }
-
-
 
 
     @Override
