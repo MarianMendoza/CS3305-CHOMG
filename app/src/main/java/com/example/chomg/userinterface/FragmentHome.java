@@ -19,6 +19,7 @@ import com.example.chomg.SecureStorage;
 
 import androidx.media3.common.MediaItem;
 import androidx.media3.common.util.UnstableApi;
+import androidx.media3.datasource.DataSpec;
 import androidx.media3.datasource.DefaultHttpDataSource;
 import androidx.media3.datasource.HttpDataSource;
 import androidx.media3.exoplayer.ExoPlayer;
@@ -26,6 +27,9 @@ import androidx.media3.exoplayer.source.MediaSource;
 import androidx.media3.exoplayer.source.ProgressiveMediaSource;
 import androidx.media3.ui.PlayerView;
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +38,8 @@ public class FragmentHome extends Fragment {
     private static final String TAG = "FragmentHome";
     private PlayerView playerView;
     private ExoPlayer player;
+
+    Map<String, String> requestProperties = new HashMap<>();
 
     @Nullable
     @Override
@@ -78,7 +84,6 @@ public class FragmentHome extends Fragment {
         playerView.setPlayer(player);
 
         String authToken = SecureStorage.getAuthToken(requireContext());
-        Map<String, String> requestProperties = new HashMap<>();
         requestProperties.put("Authorization", "Bearer " + authToken);
 
         HttpDataSource.Factory dataSourceFactory = new DefaultHttpDataSource.Factory()
@@ -98,6 +103,48 @@ public class FragmentHome extends Fragment {
         player.prepare();
         player.play();
     }
+
+    @OptIn(markerClass = UnstableApi.class) private void downloadCurrentVideo(Uri videoUri) {
+        new Thread(() -> {
+            try {
+                HttpDataSource.Factory dataSourceFactory = new DefaultHttpDataSource.Factory()
+                        .setUserAgent("exoplayer-codelab")
+                        .setDefaultRequestProperties(requestProperties);
+
+                HttpDataSource dataSource = dataSourceFactory.createDataSource();
+                DataSpec dataSpec = new DataSpec(videoUri);
+
+                // Open the data source and get the data length
+                long dataLength = dataSource.open(dataSpec);
+
+                // Extract the filename from the URL
+                String path = videoUri.getPath();
+                String fileName = path.substring(path.lastIndexOf('/') + 1);
+                // If the URL does not have a file name, you can fallback to a default name with timestamp
+                if (fileName.isEmpty()) {
+                    fileName = "downloaded_video_" + System.currentTimeMillis() + ".mp4";
+                }
+
+                File outputFile = new File(requireContext().getExternalFilesDir(null), fileName);
+
+                try (FileOutputStream fileOutputStream = new FileOutputStream(outputFile)) {
+                    byte[] buffer = new byte[4096];
+                    int bytesRead;
+                    while ((bytesRead = dataSource.read(buffer, 0, 4096)) != -1) {
+                        fileOutputStream.write(buffer, 0, bytesRead);
+                    }
+                    Log.d(TAG, "Video downloaded to " + outputFile.getAbsolutePath());
+                } finally {
+                    dataSource.close(); // Make sure to close the data source
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Error downloading video", e);
+            }
+        }).start();
+    }
+
+
+
 
     @Override
     public void onDestroyView() {
