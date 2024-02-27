@@ -56,12 +56,15 @@ public class FragmentSettings extends Fragment {
 
         // Set switch listeners to change color
         switchAppNot.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
             if (isChecked) {
                 switchAppNot.setThumbTintList(getResources().getColorStateList(R.color.your_new_thumb_color_true));
                 switchAppNot.setTrackTintList(getResources().getColorStateList(R.color.your_new_track_color_true));
+
             } else {
                 switchAppNot.setThumbTintList(getResources().getColorStateList(R.color.your_new_thumb_color_false));
                 switchAppNot.setTrackTintList(getResources().getColorStateList(R.color.your_new_track_color_false));
+
             }
         });
 

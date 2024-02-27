@@ -4,11 +4,11 @@ import static com.example.chomg.SecureStorage.getAuthToken;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.bluetooth.BluetoothGattCharacteristic;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
+
 
 
 import androidx.annotation.NonNull;
@@ -20,7 +20,11 @@ import com.example.chomg.data.FcmToken;
 import com.example.chomg.network.Api;
 import com.example.chomg.network.Client;
 import com.example.chomg.userinterface.FragmentHome;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.RemoteMessage;
+
+import java.time.Instant;
+import java.util.Optional;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +34,9 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
     private static final String TAG = "tag";
 
+
+
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
@@ -38,13 +45,37 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             boolean motionDetected = Boolean.parseBoolean(remoteMessage.getData().get("motion_detected"));
             boolean personDetected = Boolean.parseBoolean(remoteMessage.getData().get("person_detected"));
             String expirationTime = remoteMessage.getData().get("exp");
-            //If current time is greater than exp time, then say connection lost.
-            //Date time. UTC now.
+
+            System.out.println(motionDetected);
+            System.out.println(personDetected);
+            System.out.println(expirationTime);
+
+            int expTime = Optional.ofNullable(expirationTime)
+                    .map(Integer::parseInt)
+                    .orElse(-1);
+
+            Instant currentTime = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                currentTime = Instant.now();
+            }
+            if (motionDetected) {
+                createNotification("Motion Detected", "Motion has been detected.");
+            } else if (personDetected) {
+                createNotification("Person Detected", "A person has been detected.");
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if (expTime != -1 && currentTime.getEpochSecond() > expTime) {
+                    createNotification("Connection Lost", "Connection has been lost.");
+                }
+
+
+            }
         }
-    }
+        }
+
 
     private void createNotification(String title, String body) {
-        // Create an Intent for the activity you want to open when the notification is clicked
         Intent intent = new Intent(this, FragmentHome.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
@@ -66,6 +97,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
         notificationManager.notify(0, notificationBuilder.build());
     }
+
     @Override
     public void onNewToken(@NonNull String token) {
         Log.d(TAG, "Refreshed token: " + token);
@@ -102,5 +134,4 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             }
         });
     }
-    // Implement other overrides as needed
 }
