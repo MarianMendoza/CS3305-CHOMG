@@ -58,7 +58,6 @@ public class FragmentSettings extends Fragment {
         // Set switch listeners to change color
         switchAppNot.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-//                Notification settings
                 switchAppNot.setThumbTintList(getResources().getColorStateList(R.color.your_new_thumb_color_true));
                 switchAppNot.setTrackTintList(getResources().getColorStateList(R.color.your_new_track_color_true));
             } else {
@@ -77,38 +76,31 @@ public class FragmentSettings extends Fragment {
             }
         });
 
-        // Set button click listener to logout
         buttonLogout.setOnClickListener(v -> {
             logout();
         });
 
-        // Set button click listener to go to AccountActivity
         buttonViewAccount.setOnClickListener(v -> {
-            // Navigate to AccountActivity
             Intent intent = new Intent(getActivity(), AccountActivity.class);
             startActivity(intent);
         });
 
         buttonChangePassword.setOnClickListener(v -> {
-            // Navigate to AccountActivity
             Intent intent = new Intent(getActivity(), ResetPasswordActivity.class);
             startActivity(intent);
         });
 
         buttonChangeEmail.setOnClickListener(v -> {
-            // Navigate to AccountActivity
             Intent intent = new Intent(getActivity(), ChangeEmailActivity.class);
             startActivity(intent);
         });
 
         buttonDeleteAccount.setOnClickListener(v -> {
-            // Navigate to AccountActivity
             Intent intent = new Intent(getActivity(), DeleteAccountActivity.class);
             startActivity(intent);
         });
 
         buttonSetUp.setOnClickListener(v -> {
-            // Navigate to AccountActivity
             Intent intent = new Intent(getActivity(), SetUpActivity.class);
             startActivity(intent);
         });
@@ -144,7 +136,6 @@ public class FragmentSettings extends Fragment {
                 }
             });
         } else {
-            // If there's no token, just navigate back to login
             goToLogin();
         }
     }

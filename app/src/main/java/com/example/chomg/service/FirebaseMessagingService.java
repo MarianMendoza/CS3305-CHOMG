@@ -1,15 +1,25 @@
 package com.example.chomg.service;
 import static com.example.chomg.SecureStorage.getAuthToken;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothGattCharacteristic;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+
+import com.example.chomg.R;
 import com.example.chomg.SecureStorage;
 import com.example.chomg.data.FcmToken;
 import com.example.chomg.network.Api;
 import com.example.chomg.network.Client;
+import com.example.chomg.userinterface.FragmentHome;
 import com.google.firebase.messaging.RemoteMessage;
 
 import retrofit2.Call;
@@ -23,7 +33,38 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        // Handle FCM messages here
+        if (remoteMessage.getNotification() != null) {
+            // Handle notification payload
+            String title = remoteMessage.getNotification().getTitle();
+            String body = remoteMessage.getNotification().getBody();
+
+            createNotification(title, body);
+
+        }
+    }
+
+    private void createNotification(String title, String body) {
+        // Create an Intent for the activity you want to open when the notification is clicked
+        Intent intent = new Intent(this, FragmentHome.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
+
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "channel_id")
+                .setSmallIcon(R.drawable.chomgiconwb)
+                .setContentTitle(title)
+                .setContentText(body)
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("MotionDetect", "DetectMotion", NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        notificationManager.notify(0, notificationBuilder.build());
     }
     @Override
     public void onNewToken(@NonNull String token) {
