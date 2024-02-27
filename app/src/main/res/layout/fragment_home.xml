@@ -115,13 +115,13 @@
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/downloadButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="9dp"
         android:backgroundTint="#FFDDDD"
-        android:text="Button"
+        android:text="Download"
         android:textColor="#000000"
         app:icon="@drawable/download_24px"
         app:iconTint="#000000"
