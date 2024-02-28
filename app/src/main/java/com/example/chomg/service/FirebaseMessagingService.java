@@ -47,53 +47,48 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        // Log the message for debugging purposes
         Log.d("FCM Message", "From: " + remoteMessage.getFrom());
 
-        // Assuming you want to use the notification payload
+        if (!switchChecked || remoteMessage.getData().size() == 0) {
+            return;
+        }
+
         String title = "";
         String body = "";
 
-        // Check if the message contains a notification payload
         if (remoteMessage.getNotification() != null) {
             title = remoteMessage.getNotification().getTitle();
             body = remoteMessage.getNotification().getBody();
 
-            // Log title and body for debugging
             Log.d("FCM Notification", "Title: " + title + ", Body: " + body);
 
-            // Display the notification
             createNotification(title, body);
         }
 
-        // If you want to handle data payloads for background messages or additional data, you can check remoteMessage.getData() here
     }
 
 
 
     private void createNotification(String title, String body) {
-        // Intent that restarts the app or brings it to the foreground
         Intent intent = new Intent(this, FragmentHome.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
 
-        String channelId = "MotionDetectChannel"; // Channel ID
+        String channelId = "MotionDetectChannel";
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.drawable.chomgiconwb) // Set the icon
-                .setContentTitle(title) // Set the title of the notification
-                .setContentText(body) // Set the text body of the notification
-                .setAutoCancel(true) // Dismiss notification after being tapped
-                .setContentIntent(pendingIntent); // Set the intent that will fire when the user taps the notification
+                .setSmallIcon(R.drawable.chomgiconwb)
+                .setContentTitle(title)
+                .setContentText(body)
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        // Since Android Oreo, notification channels are required.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(channelId, "Motion Detection Notifications", NotificationManager.IMPORTANCE_DEFAULT);
             notificationManager.createNotificationChannel(channel);
         }
 
-        // Generate a unique ID for each notification to prevent overriding
         int notificationId = (int) System.currentTimeMillis();
         notificationManager.notify(notificationId, notificationBuilder.build());
     }
