@@ -47,69 +47,57 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        FragmentSettings fragmentSettings = new FragmentSettings();
+        // Log the message for debugging purposes
+        Log.d("FCM Message", "From: " + remoteMessage.getFrom());
 
-        if (!switchChecked || remoteMessage.getData().size() == 0) {
-            return;
+        // Assuming you want to use the notification payload
+        String title = "";
+        String body = "";
+
+        // Check if the message contains a notification payload
+        if (remoteMessage.getNotification() != null) {
+            title = remoteMessage.getNotification().getTitle();
+            body = remoteMessage.getNotification().getBody();
+
+            // Log title and body for debugging
+            Log.d("FCM Notification", "Title: " + title + ", Body: " + body);
+
+            // Display the notification
+            createNotification(title, body);
         }
-        String title = remoteMessage.getData().get("title");
-        String body = remoteMessage.getData().get("body");
 
-        System.out.println(title);
-        System.out.println(body);
-
-        createNotification(title,body);
-
-//        System.out.println(motionDetected);
-//        System.out.println(humanDetected);
-//        System.out.println(expirationTime);
-//
-//        int expTime = Optional.ofNullable(expirationTime)
-//                .map(Integer::parseInt)
-//                .orElse(-1);
-//
-//        Instant currentTime = null;
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-//                currentTime = Instant.now();
-//            }
-//            if (motionDetected) {
-//                createNotification("Motion Detected", "Motion has been detected.");
-//            } else if (humanDetected) {
-//                createNotification("Person Detected", "A person has been detected.");
-//            }
-//
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                if (expTime != -1 && currentTime.getEpochSecond() > expTime) {
-//                    createNotification("Connection Lost", "Connection has been lost.");
-//                }
-//
-//            }
-        }
+        // If you want to handle data payloads for background messages or additional data, you can check remoteMessage.getData() here
+    }
 
 
 
     private void createNotification(String title, String body) {
+        // Intent that restarts the app or brings it to the foreground
         Intent intent = new Intent(this, FragmentHome.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, "channel_id")
-                .setSmallIcon(R.drawable.chomgiconwb)
-                .setContentTitle(title)
-                .setContentText(body)
-                .setAutoCancel(true)
-                .setContentIntent(pendingIntent);
+        String channelId = "MotionDetectChannel"; // Channel ID
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(R.drawable.chomgiconwb) // Set the icon
+                .setContentTitle(title) // Set the title of the notification
+                .setContentText(body) // Set the text body of the notification
+                .setAutoCancel(true) // Dismiss notification after being tapped
+                .setContentIntent(pendingIntent); // Set the intent that will fire when the user taps the notification
 
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
+        // Since Android Oreo, notification channels are required.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("MotionDetect", "DetectMotion", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel = new NotificationChannel(channelId, "Motion Detection Notifications", NotificationManager.IMPORTANCE_DEFAULT);
             notificationManager.createNotificationChannel(channel);
         }
 
-        notificationManager.notify(0, notificationBuilder.build());
+        // Generate a unique ID for each notification to prevent overriding
+        int notificationId = (int) System.currentTimeMillis();
+        notificationManager.notify(notificationId, notificationBuilder.build());
     }
+
 
     @Override
     public void onNewToken(@NonNull String token) {
