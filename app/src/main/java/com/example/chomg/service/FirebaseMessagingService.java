@@ -52,39 +52,39 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         if (!switchChecked || remoteMessage.getData().size() == 0) {
             return;
         }
-        String userId = remoteMessage.getData().get("user_id");
-        boolean motionDetected = Boolean.parseBoolean(remoteMessage.getData().get("is_motion_detected"));
-        boolean humanDetected = Boolean.parseBoolean(remoteMessage.getData().get("is_human_detected"));
-        String expirationTime = remoteMessage.getData().get("exp");
+        String title = remoteMessage.getData().get("title");
+        String body = remoteMessage.getData().get("body");
 
-        System.out.println(motionDetected);
-        System.out.println(humanDetected);
-        System.out.println(expirationTime);
+        System.out.println(title);
+        System.out.println(body);
 
-        int expTime = Optional.ofNullable(expirationTime)
-                .map(Integer::parseInt)
-                .orElse(-1);
+        createNotification(title,body);
 
-        Instant currentTime = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                currentTime = Instant.now();
-            }
-            if (motionDetected) {
-                createNotification("Motion Detected", "Motion has been detected.");
-            } else if (humanDetected) {
-                createNotification("Person Detected", "A person has been detected.");
-            }
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                if (expTime != -1 && currentTime.getEpochSecond() > expTime) {
-                    createNotification("Connection Lost", "Connection has been lost.");
-                }
-
-            }
+//        System.out.println(motionDetected);
+//        System.out.println(humanDetected);
+//        System.out.println(expirationTime);
+//
+//        int expTime = Optional.ofNullable(expirationTime)
+//                .map(Integer::parseInt)
+//                .orElse(-1);
+//
+//        Instant currentTime = null;
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//                currentTime = Instant.now();
+//            }
+//            if (motionDetected) {
+//                createNotification("Motion Detected", "Motion has been detected.");
+//            } else if (humanDetected) {
+//                createNotification("Person Detected", "A person has been detected.");
+//            }
+//
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                if (expTime != -1 && currentTime.getEpochSecond() > expTime) {
+//                    createNotification("Connection Lost", "Connection has been lost.");
+//                }
+//
+//            }
         }
-
-
-
 
 
 
