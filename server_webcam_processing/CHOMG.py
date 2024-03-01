@@ -46,7 +46,7 @@ class CHOMG(object):
                 mongo_connection = Mongo(self.MONGO_HOST, self.MONGO_USERNAME, self.MONGO_PASSWORD, tunnel.local_bind_port, self.MONGO_DATABASE, self.MONGO_COLLECTION, self.CHOMG_USERNAME)
                 mongo_connection.open_connection()
                 # Wait 30 seconds before starting
-                # time.sleep(30)
+                time.sleep(30)
                 while True:
                     if self.frame_handler.is_movement_detected():
                         self.frame_handler.handle_motion_detection_in_frame_using_contours()
@@ -75,8 +75,8 @@ class CHOMG(object):
                                     os.remove(filename)
                                 self.person_detected_notification_sent = False
                     # Displaying the current frame and optional foreground (Only for Debugging)
-                    self.frame_handler.display_current_frame()
-                    self.frame_handler.display_foreground()
+                    # self.frame_handler.display_current_frame()
+                    # self.frame_handler.display_foreground()
                     if not self.person_detected_notification_sent and self.frame_handler.is_human_detected(): 
                         self.send_notification()
                         self.person_detected_notification_sent = True
