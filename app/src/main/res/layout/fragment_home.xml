@@ -21,6 +21,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/videoNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Video Name"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textChomg"/>
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -34,7 +44,7 @@
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textChomg">
+        app:layout_constraintTop_toBottomOf="@+id/videoNameTextView">
 
         <androidx.media3.ui.PlayerView
             android:id="@+id/playerView"
@@ -130,13 +140,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
-
-    <TextView
-        android:id="@+id/videoNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Video Name"
-        android:layout_marginTop="8dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
