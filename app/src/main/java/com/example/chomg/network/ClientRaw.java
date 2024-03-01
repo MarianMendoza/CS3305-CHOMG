@@ -1,33 +1,29 @@
 package com.example.chomg.network;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Client {
-    private static Retrofit retrofit = null;
+public class ClientRaw {
+    private static Retrofit retrofitRaw = null;
 
-    public static Retrofit getClient(String baseUrl) {
-        if (retrofit == null) {
+    public static Retrofit getClientRaw(String baseUrl) {
+        if (retrofitRaw == null) {
+            // Set up logging interceptor
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
+            // Configure OkHttpClient
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
             httpClient.addInterceptor(logging);
 
-            Gson gson = new GsonBuilder().setLenient().create();
-
-            retrofit = new Retrofit.Builder()
+            // Initialize Retrofit instance for raw responses
+            retrofitRaw = new Retrofit.Builder()
                     .baseUrl(baseUrl)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    // Notice: No GsonConverterFactory is added here
                     .client(httpClient.build())
                     .build();
         }
-        return retrofit;
+        return retrofitRaw;
     }
 }
-

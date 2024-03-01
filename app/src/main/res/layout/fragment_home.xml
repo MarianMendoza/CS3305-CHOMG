@@ -40,6 +40,7 @@
             android:id="@+id/playerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
     </androidx.cardview.widget.CardView>
 
 
@@ -129,6 +130,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+    <TextView
+        android:id="@+id/videoNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Video Name"
+        android:layout_marginTop="8dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.example.chomg.userinterface;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.pm.PackageManager;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,8 +27,13 @@ import androidx.fragment.app.Fragment;
 
 import com.example.chomg.R;
 import com.example.chomg.SecureStorage;
+import com.example.chomg.network.Api;
+import com.example.chomg.network.Client;
+import com.example.chomg.network.ClientRaw;
 
 import androidx.media3.common.MediaItem;
+import androidx.media3.common.PlaybackException;
+import androidx.media3.common.Player;
 import androidx.media3.common.util.UnstableApi;
 import androidx.media3.datasource.DataSpec;
 import androidx.media3.datasource.DefaultHttpDataSource;
@@ -36,17 +43,26 @@ import androidx.media3.exoplayer.source.MediaSource;
 import androidx.media3.exoplayer.source.ProgressiveMediaSource;
 import androidx.media3.ui.PlayerView;
 
-import java.io.DataInputStream;
-import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.HttpException;
+import retrofit2.Response;
 
 public class FragmentHome extends Fragment {
 
     private static final String TAG = "FragmentHome";
     private PlayerView playerView;
     private ExoPlayer player;
+
+    private TextView videoNameTextView;
 
     private Uri currentVideoUri;
 
@@ -57,8 +73,9 @@ public class FragmentHome extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         playerView = view.findViewById(R.id.playerView);
-        initializePlayer(); // This will load the most recent video by default
+        initializePlayer(-1);// This will load the most recent video by default
 
+        videoNameTextView = view.findViewById(R.id.videoNameTextView);
         Button downloadButton = view.findViewById(R.id.downloadButton);
         LinearLayout chatContainer = view.findViewById(R.id.chatContainer);
         String[] activityNames = {"Activity 1", "Activity 2", "Activity 3", "Activity 4", "Activity 5", "Activity 6", "Activity 7", "Activity 8"};
@@ -109,7 +126,7 @@ public class FragmentHome extends Fragment {
     }
 
     @OptIn(markerClass = UnstableApi.class)
-    private void initializePlayer(Integer... videoIndex) {
+    private void initializePlayer(int videoIndex) {
         if (player != null) {
             player.release();
         }
@@ -123,19 +140,27 @@ public class FragmentHome extends Fragment {
                 .setUserAgent("exoplayer-codelab")
                 .setDefaultRequestProperties(requestProperties);
 
-        Uri videoUri;
-        if (videoIndex.length > 0 && videoIndex[0] != null) {
-            currentVideoUri = Uri.parse("https:/178.62.75.31/get-video?index=" + videoIndex[0]);
+        // Determine the URI based on videoIndex; adjust the API call accordingly
+        if (videoIndex >= 0) {
+            // Fetching a specific video by index
+            currentVideoUri = Uri.parse("https://178.62.75.31/get-video?index=" + videoIndex);
         } else {
-            currentVideoUri = Uri.parse("https:/178.62.75.31/get-recent-video");
+            // Fetching the most recent video, assuming -1 (or any other designated value) indicates "most recent"
+            currentVideoUri = Uri.parse("https://178.62.75.31/get-recent-video");
         }
 
-        MediaSource mediaSource = new ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(MediaItem.fromUri(currentVideoUri));
+        // Fetch video details for displaying the video name
+        fetchVideoDetails(videoIndex);
+        Log.d(TAG, "fetchVideoDetails called" );
 
+        MediaSource mediaSource = new ProgressiveMediaSource.Factory(dataSourceFactory)
+                .createMediaSource(MediaItem.fromUri(currentVideoUri));
         player.setMediaSource(mediaSource);
         player.prepare();
         player.play();
     }
+
+
 
     @OptIn(markerClass = UnstableApi.class)
     private void downloadCurrentVideo(Uri videoUri) {
@@ -181,6 +206,55 @@ public class FragmentHome extends Fragment {
             }
         }).start();
     }
+
+    private void fetchVideoDetails(int videoIndex) {
+        Api apiService = ClientRaw.getClientRaw("https://178.62.75.31").create(Api.class); // Adjusted to use the modified getClient method
+        String authToken = SecureStorage.getAuthToken(getContext()); // Assuming you store the auth token similarly
+
+        Call<ResponseBody> call;
+        if (videoIndex >= 0) {
+            call = apiService.getVideo("Bearer " + authToken, videoIndex);
+        } else {
+            call = apiService.getRecentVideo("Bearer " + authToken);
+        }
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(TAG, "Response received");
+                if (response.isSuccessful()) {
+                    String contentDisposition = response.headers().get("Content-Disposition");
+                    Log.d(TAG, "Content-Disposition: " + contentDisposition);
+                    String videoName = null;
+                    if (contentDisposition != null) {
+                        Pattern pattern = Pattern.compile("filename\\s*=\\s*\"([^\"]+)\"");
+                        Matcher matcher = pattern.matcher(contentDisposition);
+                        if (matcher.find()) {
+                            videoName = matcher.group(1);
+                            Log.d(TAG, "Video name extracted: " + videoName);
+                        }
+                    }
+
+                    // Ensure UI updates are run on the UI thread
+                    final String finalVideoName = videoName != null ? videoName : "Unknown";
+                    Activity activity = getActivity();
+                    if (activity != null) {
+                        activity.runOnUiThread(() -> videoNameTextView.setText(finalVideoName));
+                    } else {
+                        Log.e(TAG, "Activity is null, cannot update TextView.");
+                    }
+                } else {
+                    Log.e(TAG, "Failed to fetch video details: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e(TAG, "Network call failed: " + t.getMessage());
+            }
+        });
+    }
+
 
 
     @Override
