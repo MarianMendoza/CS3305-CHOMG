@@ -52,7 +52,8 @@ class VideoFrameHandler(object):
             self.__update_message_sent_to_phone()
         else:
             self.human_detected = False
-        bounding_box.draw_bounding_box_on_frame(self.current_frame, bounding_box_coordinates)
+        # Debugging Only
+        # bounding_box.draw_bounding_box_on_frame(self.current_frame, bounding_box_coordinates)
     
     def __update_message_sent_to_phone(self):
             '''

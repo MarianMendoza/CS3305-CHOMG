@@ -26,7 +26,7 @@ class Recorder(object):
     
     def __set_new_video_recorder(self):
         self.last_movement_time = datetime.datetime.now()
-        timestamp = self.last_movement_time.strftime("%Y%m%d_%H%M%S")
+        timestamp = self.last_movement_time.strftime("%d-%m-%Y__%H-%M")
         self.filename = os.path.join(self.recordings_dir, f"{timestamp}.mp4")
         self.out = cv2.VideoWriter(self.filename, self.four_character_code, self.frame_rate, (self.frame_width, self.frame_height))
 
