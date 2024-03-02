@@ -6,12 +6,10 @@ import video_frame_handling
 import record_on_movement
 import linked_list_file_saver
 import paramiko
-import time
 import post_data
 from datetime import datetime, timedelta
 
 class CHOMG(object):
-
     def __init__(self):
         load_dotenv()
         self.MONGO_USERNAME = os.getenv('MONGO_USERNAME')
@@ -47,18 +45,15 @@ class CHOMG(object):
                 mongo_connection = Mongo(self.MONGO_HOST, self.MONGO_USERNAME, self.MONGO_PASSWORD, tunnel.local_bind_port, self.MONGO_DATABASE, self.MONGO_COLLECTION, self.CHOMG_USERNAME)
                 mongo_connection.open_connection()
                 # Wait 30 seconds before starting
-                time.sleep(30)
+                # time.sleep(30)
                 while True:
-                    if self.frame_handler.is_movement_detected():
+                    if self.frame_handler.is_movement_detected() and not first_run:
                         self.frame_handler.handle_motion_detection_in_frame_using_contours()
                         if  self.frame_recorder.is_recording():
                             # Record based on significant movement detection
                             self.frame_recorder.record_frame(self.frame_handler.get_current_frame())
                         else:
-                            if first_run: 
-                                first_run = False
-                            else:
-                                self.send_notification()
+                            self.send_notification()
                             # Record the 30 seconds before motion was detected
                             for frame in self.linked_list.get_list_of_frames_in_linked_list():
                                 self.frame_recorder.record_frame(frame)
@@ -93,7 +88,7 @@ class CHOMG(object):
                     if self.frame_handler.stop_detecting():
                         break
                 
-
+                    first_run = False
             finally:
                 # Cleanup and release resources on exit
                 self.frame_recorder.cleanup()
