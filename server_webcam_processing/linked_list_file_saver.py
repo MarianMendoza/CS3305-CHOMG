@@ -53,7 +53,7 @@ class LinkedList(object):
         '''
         Adds frame to linked list
         '''
-        if LinkedList.amount_of_nodes < 600: 
+        if LinkedList.amount_of_nodes < 100: 
             self.__add_frame_at_end(frame)
         else:
             self.__remove_first_frame_and_add_new_frame_at_end(frame)
