@@ -33,6 +33,7 @@ class CHOMG(object):
         self.linked_list = linked_list_file_saver.LinkedList()
         self.post_to_server_handler = post_data.Server_Poster(self.SSH_HOST, 443)
         self.person_detected_notification_sent = False
+        first_run = True
         # Create an SSH tunnel
         with SSHTunnelForwarder(
             (self.SSH_HOST, int(self.SSH_PORT)),
@@ -54,7 +55,10 @@ class CHOMG(object):
                             # Record based on significant movement detection
                             self.frame_recorder.record_frame(self.frame_handler.get_current_frame())
                         else:
-                            self.send_notification()
+                            if first_run: 
+                                first_run = False
+                            else:
+                                self.send_notification()
                             # Record the 30 seconds before motion was detected
                             for frame in self.linked_list.get_list_of_frames_in_linked_list():
                                 self.frame_recorder.record_frame(frame)
