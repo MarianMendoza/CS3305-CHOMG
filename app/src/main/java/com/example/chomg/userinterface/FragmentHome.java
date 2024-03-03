@@ -100,24 +100,11 @@ public class FragmentHome extends Fragment {
             @Override
 
             public void onClick(View v){
-                if (checkPermission()){
-                    downloadCurrentVideo(currentVideoUri);
-                } else {
-                    Toast.makeText(getContext(), "Grant permission to download in app setting.", Toast.LENGTH_SHORT).show();
-                }
-
+                downloadCurrentVideo(currentVideoUri);
             }
         });
 
         return view;
-    }
-
-    private boolean checkPermission() {
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     private void handleButtonClick(int activityIndex) {

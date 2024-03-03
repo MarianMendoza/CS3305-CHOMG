@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
 
@@ -49,7 +50,11 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         super.onMessageReceived(remoteMessage);
         Log.d("FCM Message", "From: " + remoteMessage.getFrom());
 
-        if (!switchChecked || remoteMessage.getData().size() == 0) {
+        SharedPreferences sharedPreferences = getSharedPreferences("AppSettingsPrefs", Context.MODE_PRIVATE);
+        boolean notificationsEnabled = sharedPreferences.getBoolean("NotificationsEnabled", true); // Default is true
+        Log.d("FirebaseMsgService", "Read NotificationsEnabled: " + notificationsEnabled);
+
+        if (!notificationsEnabled) {
             return;
         }
 

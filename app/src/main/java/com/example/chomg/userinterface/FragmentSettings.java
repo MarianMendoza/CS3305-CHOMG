@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,8 +58,18 @@ public class FragmentSettings extends Fragment {
         buttonSetUp = view.findViewById(R.id.buttonSetUp);
 
 
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("AppSettingsPrefs", Context.MODE_PRIVATE);
+        boolean isNotificationsEnabled = sharedPreferences.getBoolean("NotificationsEnabled", true); // Default is true
+        switchAppNot.setChecked(isNotificationsEnabled);
+
         // Set switch listeners to change color
         switchAppNot.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("NotificationsEnabled", isChecked);
+            editor.apply();
+
+            Log.d("FragmentSettings", "Saved NotificationsEnabled: " + isChecked);
 
             if (isChecked) {
                 switchAppNot.setThumbTintList(getResources().getColorStateList(R.color.your_new_thumb_color_true));
