@@ -22,6 +22,7 @@ import com.example.chomg.network.Api;
 import com.example.chomg.network.Client;
 import com.example.chomg.userinterface.FragmentHome;
 import com.example.chomg.userinterface.FragmentSettings;
+import com.example.chomg.userinterface.HomeActivity;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -75,8 +76,9 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
 
     private void createNotification(String title, String body) {
-        Intent intent = new Intent(this, FragmentHome.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra("openFragment", "FragmentHome");
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
 
         String channelId = "MotionDetectChannel";
@@ -102,7 +104,6 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     @Override
     public void onNewToken(@NonNull String token) {
         Log.d(TAG, "Refreshed token: " + token);
-
         sendRegistrationToServer(token);
     }
 
@@ -116,7 +117,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
         Api apiService = Client.getClient("https://178.62.75.31").create(Api.class);
         FcmToken tokenObject = new FcmToken(fcmToken);
-        // Assuming you have an API method to update the user's FCM token
+
         Call<Void> call = apiService.updateFcmToken(authToken, tokenObject);
 
         call.enqueue(new Callback<Void>() {

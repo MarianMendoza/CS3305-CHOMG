@@ -39,7 +39,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start the SignUpActivity when the sign-up button is pressed
                 Intent intent = new Intent(ForgotPasswordActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
@@ -54,8 +53,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    // Password reset email successfully sent
-                    // Handle the successful response here
                     Toast.makeText(ForgotPasswordActivity.this, "Forgot email password successfully sent!", Toast.LENGTH_SHORT).show();
                 } else {
                     switch (response.code()) {
@@ -68,7 +65,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                // An error occurred during the network request
                 System.out.println("Error sending password reset email: " + t.getMessage());
             }
         });

@@ -146,7 +146,6 @@ public class FragmentSettings extends Fragment {
 
                 @Override
                 public void onFailure(Call<Void> call, Throwable t) {
-                    // Handle failure, maybe due to no internet
                     Toast.makeText(getActivity(), "Logout error: " + t.getMessage(), Toast.LENGTH_LONG).show();
                     SecureStorage.clearAuthToken(requireContext());
                     goToLogin();

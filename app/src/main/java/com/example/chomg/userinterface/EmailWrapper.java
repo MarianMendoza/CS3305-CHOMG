@@ -7,7 +7,6 @@ public class EmailWrapper {
         this.email = email;
     }
 
-    // Getter and Setter
     public String getEmail() {
         return email;
     }

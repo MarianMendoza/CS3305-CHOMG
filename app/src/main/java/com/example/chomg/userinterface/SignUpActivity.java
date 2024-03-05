@@ -42,10 +42,9 @@ public class SignUpActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate back to LoginActivity
                 Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                 startActivity(intent);
-                finish(); // Optional: finish the SignUpActivity to remove it from the stack
+                finish();
             }
         });
 
@@ -78,21 +77,19 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<String> task) {
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "Fetching FCM registration token failed", task.getException());
-                            // Log the exception details
+
                             if (task.getException() != null) {
                                 task.getException().printStackTrace();
                             }
                             return;
                         }
-
                         // Get new FCM registration token
                         String token = task.getResult();
 
-                        // Log and toast
                         Log.d(TAG, "FCM Token: " + token);
 
 
-                        registerUser(emailString, passwordString, token); // Modify your registerUser method to accept a User object
+                        registerUser(emailString, passwordString, token);
                     }
                 });
     }
@@ -153,7 +150,6 @@ public class SignUpActivity extends AppCompatActivity {
     private void updatePasswordStrength(String password) {
         boolean isFormatValid = checkPasswordFormat(password);
 
-        // Update the images based on the result
         updateImageView(imageViewMinLen, isFormatValid);
         updateImageView(imageViewUppercase, isFormatValid);
         updateImageView(imageViewNumeric, isFormatValid);
@@ -167,10 +163,11 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void updateImageView(ImageView imageView, boolean isConditionMet) {
+        // set image when condition is met
         if (isConditionMet) {
-            imageView.setImageResource(R.drawable.check_circle_24px); // Image when condition is met
+            imageView.setImageResource(R.drawable.check_circle_24px);
         } else {
-            imageView.setImageResource(R.drawable.check_circle_24q); // Image when condition is not met
+            imageView.setImageResource(R.drawable.check_circle_24q);
         }
     }
 

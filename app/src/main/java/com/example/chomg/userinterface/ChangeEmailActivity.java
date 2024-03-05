@@ -34,7 +34,6 @@ public class ChangeEmailActivity extends AppCompatActivity {
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Finish the current activity to return to the previous one (fragmentSettings)
                 finish();
             }
         });
@@ -58,11 +57,9 @@ public class ChangeEmailActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(ChangeEmailActivity.this, "Email updated successfully.", Toast.LENGTH_SHORT).show();
-                    // Handle successful email update
                 } else {
-                    // Handle non-successful response, e.g., email already exists
                     try {
-                        // Attempt to parse the error message from the response body
+                        // parse the error message from the body of the response
                         String errorBody = response.errorBody().string();
                         JSONObject jsonObject = new JSONObject(errorBody);
                         String errorMessage = jsonObject.optString("error", "Failed to update email."); // "error" is the key in your JSON error response

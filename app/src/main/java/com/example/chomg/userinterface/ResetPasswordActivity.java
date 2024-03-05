@@ -76,15 +76,14 @@ public class ResetPasswordActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(ResetPasswordActivity.this, "Password changed successfully.", Toast.LENGTH_SHORT).show();
-                    finish(); // Optionally close the activity or navigate as needed
+                    finish();
                 } else {
                     String errorBody = null;
                     try {
                         errorBody = response.errorBody().string();
-                        Log.e("ResetPasswordError", errorBody); // Correctly use Log.e without declaring a Log object
-                        // Optionally, parse the error body to display a more specific error message
+                        Log.e("ResetPasswordError", errorBody);
                     } catch (IOException e) {
-                        Log.e("ResetPasswordError", "Error parsing error body", e); // Correctly use Log.e
+                        Log.e("ResetPasswordError", "Error parsing error body", e);
                     }
                     Toast.makeText(ResetPasswordActivity.this, "Failed to change password. Error: " + errorBody, Toast.LENGTH_SHORT).show();
                 }

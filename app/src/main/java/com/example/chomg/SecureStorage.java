@@ -28,12 +28,11 @@ public class SecureStorage {
             editor.apply();
         } catch (Exception e) {
             e.printStackTrace();
-            // Consider handling the error more gracefully in a real app
         }
     }
     public static String getAuthToken(Context context) {
         try {
-            // Correct way to create a MasterKey with default specification
+            // Create masterKey with default specification
             MasterKey masterKey = new MasterKey.Builder(context)
                     .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
                     .build();
@@ -41,16 +40,15 @@ public class SecureStorage {
             SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(
                     context,
                     FILE_NAME,
-                    masterKey, // Use the created masterKey here
+                    masterKey,
                     EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
                     EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
             );
 
-            // Return the token, or null if not found
             return sharedPreferences.getString(KEY_AUTH_TOKEN, null);
         } catch (Exception e) {
             e.printStackTrace();
-            return null; // Handle exception or return null
+            return null;
         }
     }
 
@@ -73,7 +71,7 @@ public class SecureStorage {
             editor.apply();
         } catch (Exception e) {
             e.printStackTrace();
-            // Consider handling the error more gracefully in a real app
+
         }
     }
 }

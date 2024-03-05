@@ -73,7 +73,8 @@ public class FragmentHome extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         playerView = view.findViewById(R.id.playerView);
-        initializePlayer(-1);// This will load the most recent video by default
+        // load the most recent video by default
+        initializePlayer(-1);
 
         videoNameTextView = view.findViewById(R.id.videoNameTextView);
         Button downloadButton = view.findViewById(R.id.downloadButton);
@@ -132,11 +133,11 @@ public class FragmentHome extends Fragment {
             // Fetching a specific video by index
             currentVideoUri = Uri.parse("https://178.62.75.31/get-video?index=" + videoIndex);
         } else {
-            // Fetching the most recent video, assuming -1 (or any other designated value) indicates "most recent"
+            // Fetching the most recent video, assuming -1 points to the most recent
             currentVideoUri = Uri.parse("https://178.62.75.31/get-recent-video");
         }
 
-        // Fetch video details for displaying the video name
+        // Fetch video name (the time and date)
         fetchVideoDetails(videoIndex);
         Log.d(TAG, "fetchVideoDetails called" );
 
@@ -177,15 +178,16 @@ public class FragmentHome extends Fragment {
                 while ((bytesRead = dataSource.read(buffer, 0, 4096)) != -1) {
                     outputStream.write(buffer, 0, bytesRead);
                 }
-                downloadSuccessful = true; // Download completed successfully
+                downloadSuccessful = true;
                 String downloadLocation = "Downloaded to: " + Environment.DIRECTORY_MOVIES + "/chomg";
                 getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "File Downloaded. " + downloadLocation, Toast.LENGTH_LONG).show());
             } catch (Exception e) {
                 Log.e(TAG, "Error downloading video", e);
             } finally {
-                if (!downloadSuccessful && uri != null) { // Check if download was unsuccessful
+                if (!downloadSuccessful && uri != null) {
                     try {
-                        resolver.delete(uri, null, null); // Only delete if download failed
+                        // delete the video if the download was unsuccessful
+                        resolver.delete(uri, null, null);
                     } catch (Exception e) {
                         Log.e(TAG, "Error deleting video", e);
                     }
@@ -195,8 +197,9 @@ public class FragmentHome extends Fragment {
     }
 
     private void fetchVideoDetails(int videoIndex) {
-        Api apiService = ClientRaw.getClientRaw("https://178.62.75.31").create(Api.class); // Adjusted to use the modified getClient method
-        String authToken = SecureStorage.getAuthToken(getContext()); // Assuming you store the auth token similarly
+        // uses ClientRaw to account for video details not being sent over in JSON format
+        Api apiService = ClientRaw.getClientRaw("https://178.62.75.31").create(Api.class);
+        String authToken = SecureStorage.getAuthToken(getContext());
 
         Call<ResponseBody> call;
         if (videoIndex >= 0) {
@@ -222,7 +225,7 @@ public class FragmentHome extends Fragment {
                         }
                     }
 
-                    // Ensure UI updates are run on the UI thread
+                    // Ensures that UI updates are run on the UI thread
                     final String finalVideoName = videoName != null ? videoName : "Unknown";
                     Activity activity = getActivity();
                     if (activity != null) {

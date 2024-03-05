@@ -9,18 +9,16 @@ public class ClientRaw {
 
     public static Retrofit getClientRaw(String baseUrl) {
         if (retrofitRaw == null) {
-            // Set up logging interceptor
+
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-            // Configure OkHttpClient
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
             httpClient.addInterceptor(logging);
 
-            // Initialize Retrofit instance for raw responses
+            // build without gson converter
             retrofitRaw = new Retrofit.Builder()
                     .baseUrl(baseUrl)
-                    // Notice: No GsonConverterFactory is added here
                     .client(httpClient.build())
                     .build();
         }

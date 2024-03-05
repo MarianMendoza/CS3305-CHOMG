@@ -42,7 +42,7 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     private void getUserDetails() {
-        // retrieve the stored authentication token securely
+        // retrieve the authentication token securely from SecureStorage
         String authToken = "Bearer " + SecureStorage.getAuthToken(this);
         if (authToken == null) {
             View rootView = findViewById(android.R.id.content);
@@ -51,7 +51,6 @@ public class AccountActivity extends AppCompatActivity {
         }
         Api service = Client.getClient("https://178.62.75.31").create(Api.class);
 
-        // Adjust the call object to match the expected response type, assuming getUserDetails returns a User object
         Call<User> call = service.getUserDetails(authToken);
         call.enqueue(new Callback<User>() {
             @Override
@@ -71,7 +70,6 @@ public class AccountActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                // Handle failure, for example, by showing an error message or logging the failure
                 emailTextView.setText("Error fetching details.");
             }
         });

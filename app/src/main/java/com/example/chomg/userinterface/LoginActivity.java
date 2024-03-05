@@ -36,6 +36,16 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getIntent().hasExtra("openFragment")) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.putExtras(getIntent());
+            startActivity(intent);
+            finish();
+            return;
+        }
+
         setContentView(R.layout.activity_login);
 
         Button loginButton = findViewById(R.id.buttonLogIn);
@@ -85,10 +95,9 @@ public class LoginActivity extends AppCompatActivity {
                             return;
                         }
 
-                        // Get new FCM registration token
+                        // Obtain new Firebase cloud messaging registration token
                         String fcmToken = task.getResult();
 
-                        // Proceed with validating credentials and logging in
                         isValidCredentials(email, password, fcmToken);
                     }
                 });
@@ -96,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void isValidCredentials(final String email, final String password, final String fcmToken) {
-        Api apiService = Client.getClient("https://178.62.75.31").create(Api.class); // Make sure to use your actual API URL
+        Api apiService = Client.getClient("https://178.62.75.31").create(Api.class);
 
         User user = new User(email, password, fcmToken);
         Call<TokenResponse> call = apiService.loginUser(user);
@@ -104,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    String token = response.body().getToken(); // Assuming getToken() retrieves the token
+                    String token = response.body().getToken();
                     SecureStorage.saveAuthToken(LoginActivity.this, token);
 
                     Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
@@ -116,14 +125,12 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
 
                 } else {
-                    // Login failed, show an error message
                     Toast.makeText(LoginActivity.this, "Invalid email or password. Please try again.", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<TokenResponse> call, Throwable t) {
-                // Handle failure, possibly due to no internet connection, or server down
                 View rootView = findViewById(android.R.id.content);
                 Snackbar.make(rootView, "Login failed: " + t.getMessage(), Snackbar.LENGTH_LONG).show();
             }
