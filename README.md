@@ -16,6 +16,7 @@ The directories featured in this master branch are all the branches we utilized 
 * appBackEnd
 * appDev
 * emailSending
+* raspberryPi
 
 ### Code Featured
 ## Image Detection
@@ -33,6 +34,10 @@ This branch features everything need to run in android studio. This includes a l
 ## emailSending
 
 Small branch that jut hosts dailyEmail.py script which runs on the Node.js server. The file is hardcoded as it is for development purposes, however commented out at the bottom is the mongoDB implementation that would be used in true deployment.
+
+## raspberryPi
+
+Script in crontab to run CHOMGs upon setup
 
 ## Help
 
