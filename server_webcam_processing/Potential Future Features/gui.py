@@ -1,3 +1,7 @@
+# Run following in terminal to convert main folder to .exe
+# pyinstaller --onefile --add-data "image_reader.py;." --add-data "background_seperator.py;." --add-data "bounding_box.py;." --add-data "colour_handling.py;." --add-data "haarcascade_fullbody.xml;." --add-data "crop_frame.py;." --add-data "entity_recognition.py;." --add-data "noise_reduction.py;." --add-data "record_on_movement.py;." --add-data "video_frame_handling.py;." --hidden-import cv2 sample.py  
+
+
 # ChatGTP
 import tkinter as tk
 from tkinter import messagebox
