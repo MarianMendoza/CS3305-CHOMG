@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const admin = require('firebase-admin');
 const express = require('express');
+const morgan = require('morgan');
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
@@ -14,15 +15,33 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const path = require('path');
 const fsPromises = require('fs').promises;
+const { spawn } = require('child_process');
 
 const app = express();
 const port = 443;
 
-// Replace with your MongoDB URI
 const mongoURI = `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}:27017/${process.env.MONGO_DB}?authSource=admin`;
 
+// Function to start the Python watcher script
+function startPythonWatcher() {
+  const pythonProcess = spawn('python3', ['dailyEmail.py']);
+
+  pythonProcess.stdout.on('data', (data) => {
+    console.log(`Python stdout: ${data}`);
+  });
+
+  pythonProcess.stderr.on('data', (data) => {
+    console.error(`Python stderr: ${data}`);
+  });
+
+  pythonProcess.on('close', (code) => {
+    console.log(`Python script exited with code ${code}`);
+  });
+}
+
+
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected'))
+  .then(() => {console.log('MongoDB connected'); startPythonWatcher();})
   .catch(err => console.log(err));
 
 const UserSchema = new mongoose.Schema({
@@ -44,12 +63,13 @@ const privateKey = fs.readFileSync('server.key', 'utf8');
 const certificate = fs.readFileSync('server.crt', 'utf8');
 const credentials = { key: privateKey, cert: certificate };
 
+// use helmet for security
 app.use(helmet());
 
 // Rate limiter
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per windowMs
+  windowMs: 15 * 60 * 1000,
+  max: 10000,
 });
 
 app.use(limiter);
@@ -70,7 +90,7 @@ const verifyToken = async (req, res, next) => {
   }
 
   const token = authHeader.substring(7);
-  // Check if the token is blacklisted
+
   const isBlacklisted = await TokenBlacklist.findOne({ token: token });
   if (isBlacklisted) {
     return res.status(401).send('Token invalidated');
@@ -81,22 +101,31 @@ const verifyToken = async (req, res, next) => {
     req.user = decoded;
     next();
   } catch (error) {
-    res.status(401).send('Invalid Token');
+    res.status(401).send(error.message);
   }
+
 };
 
-app.post('/send-notification', verifyToken, async (req, res) => {
-    const { user_id, motion_detected, person_detected, exp } = req.body;
+const unless = (middleware, ...paths) => {
+    return (req, res, next) => {
+        const pathCheck = paths.some(path => path === req.path);
+        pathCheck ? next() : middleware(req, res, next);
+    };
+};
 
-    // Assuming `user_id` can be used to retrieve the user's FCM token
-    const user = await User.findById(user_id);
+app.use(unless(verifyToken, '/login', '/register', '/send-notification'));
+app.use(morgan('dev'));
+
+
+app.post('/send-notification', async (req, res) => {
+    const { user_id, is_movement_detected, is_human_detected, exp } = req.body;
+    const user = await User.findOne({username: user_id});
+
     if (!user) {
         return res.status(404).send('User not found.');
     }
-
-    // Assuming you store the user's FCM token in their document
+    // Retrieve fcm token from user document
     const fcmToken = user.fcmToken;
-
     if (!fcmToken) {
         return res.status(404).send('FCM token not found for user.');
     }
@@ -109,22 +138,20 @@ app.post('/send-notification', verifyToken, async (req, res) => {
         token: fcmToken
     };
 
-    if (motion_detected) {
-        message.notification.title = 'Motion Detected';
-        message.notification.body = 'Motion has been detected in your monitored area.';
-    } else if (person_detected) {
+    if (is_human_detected) {
         message.notification.title = 'Person Detected';
         message.notification.body = 'A person has been detected in your monitored area.';
+    } else if (is_movement_detected) {
+        message.notification.title = 'Motion Detected';
+        message.notification.body = 'Motion has been detected in your monitored area.';
     } else {
-        // Handle other types of notifications or errors
         return res.status(400).send('Invalid detection type.');
     }
 
     // Send a message to the device corresponding to the provided FCM token
     admin.messaging().send(message)
         .then((response) => {
-            // Response is a message ID string
-            console.log('Successfully sent message:', response);
+            console.log(message);
             res.send('Notification sent successfully');
         })
         .catch((error) => {
@@ -133,23 +160,46 @@ app.post('/send-notification', verifyToken, async (req, res) => {
         });
 });
 
+app.post('/update-fcm-token', verifyToken, async (req, res) => {
+    const { fcmToken } = req.body;
+    if (!fcmToken) {
+        return res.status(400).send('FCM token is required');
+    }
+
+    try {
+        const userId = req.user.userId;
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        user.fcmToken = fcmToken;
+        await user.save();
+
+        res.send('FCM token updated successfully');
+    } catch (error) {
+        console.error('Error updating FCM token:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 app.post('/register',
-  // Validation rules
+
   [
     body('username').isEmail(),
     body('password').isLength({ min: 6 })
   ],
   async (req, res) => {
-    console.log('Request Body:', req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
 
     try {
-      const { username, password, fcmToken } = req.body;
+      const { username, password, token: fcmToken } = req.body;
       const hashedPassword = await bcrypt.hash(password, 10);
-      const newUser = new User({ username, password: hashedPassword, fcmToken });
+      const newUser = new User({ fcmToken,  username, password: hashedPassword });
       await newUser.save();
       res.status(201).send('User created');
     } catch (error) {
@@ -163,11 +213,12 @@ app.post('/register',
 );
 
 app.post('/login', async (req, res) => {
-  try {
-    const { username, password, fcmToken } = req.body;
+        try {
+    const { username, password, token: fcmToken } = req.body;
     const user = await User.findOne({ username });
 
     if (user && await bcrypt.compare(password, user.password)) {
+
       user.fcmToken = fcmToken;
       await user.save();
 
@@ -198,16 +249,13 @@ app.post('/logout', verifyToken, async (req, res) => {
   }
 });
 
-// Assuming you have a function to generate a password reset token
 const generatePasswordResetToken = (user) => {
-  // Ensure you have a secret key to sign the token; it should be a long, secure, and kept secret
   const secret = process.env.JWT_SECRET || 'YourSecretKey';
-  const expiresIn = '1h'; // Token expires in 1 hour
+  const expiresIn = '1h';
 
-  // Payload can include any user-specific information; here, we're using the user's ID
   const payload = {
     id: user._id,
-    email: user.username, // Assuming 'username' field is used for the email
+    email: user.username,
   };
 
   // Sign the token with the user's payload and expiry time
@@ -231,45 +279,22 @@ const sendEmail = (email, token) => {
   });
 };
 
-// Endpoint to handle forgot password request
 app.post('/forgot-password', verifyToken, async (req, res) => {
-  const { email } = req.body; // Assuming EmailWrapper wraps the email in a JSON object with key 'email'
+  const { email } = req.body;
 
   const user = await User.findOne({ username: email });
   if (!user) {
     return res.status(404).send('User not found');
   }
 
-  // Generate a password reset token or link
-  const token = generatePasswordResetToken(user); // Implement this function based on your logic
+  const token = generatePasswordResetToken(user);
 
-  // Send the email
   try {
-    await sendEmail(user.username, token); // Adjust this function to match your email sending logic
+    await sendEmail(user.username, token);
     res.status(200).send('Password reset email sent');
   } catch (error) {
     console.error('Failed to send password reset email:', error);
     res.status(500).send('Failed to send password reset email');
-  }
-});
-
-
-
-app.post('/motion-detected', async (req, res) => {
-  try {
-    // Extract data from request body
-    const { motion_detected, person_detected, connection_lost, program_terminated } = req.body;
-
-    // Example logging
-    console.log(`Motion detected: ${motion_detected}, Person detected: ${person_detected}, Connection lost: ${connection_lost}, Program terminated: ${program_terminated}`);
-
-    // Here, implement the notification logic, e.g., calling a function to handle notifications.
-    // sendNotificationToApp(motion_detected, person_detected, connection_lost, program_terminated);
-
-    res.status(200).send('Notification processed');
-  } catch (error) {
-    console.error('Error handling motion detection:', error);
-    res.status(500).send('Internal Server Error');
   }
 });
 
@@ -282,12 +307,11 @@ app.get('/user-details', verifyToken,  async (req, res) => {
   const token = authHeader.substring(7);
 
   try {
-    const decoded = jwt.verify(token, 'YourSecretKey'); // Use the same secret key as when signing the token
+    const decoded = jwt.verify(token, 'YourSecretKey');
     const user = await User.findById(decoded.userId).select('-password'); // Exclude password from the result
     if (!user) return res.status(404).send('User not found');
 
-    res.json({ username: user.username}); // Assuming username is the email
-    console.log('Fetched user details:', user);
+    res.json({ username: user.username});
 
   } catch (error) {
     console.error("Error fetching user details:", error.message);
@@ -297,16 +321,13 @@ app.get('/user-details', verifyToken,  async (req, res) => {
 });
 
 app.delete('/delete-account', verifyToken, async (req, res) => {
-  // Assuming `verifyToken` middleware extracts user ID from the token and adds it to `req.user`
   try {
-    const userId = req.user.userId; // or whatever property you have the ID stored under
+    const userId = req.user.userId;
     const deleteResult = await User.deleteOne({ _id: userId });
 
     if (deleteResult.deletedCount === 0) {
       return res.status(404).send('User not found');
     }
-
-    // Optionally, also handle cleanup of any other user-related data here
 
     res.send('Account deleted successfully');
   } catch (error) {
@@ -316,12 +337,10 @@ app.delete('/delete-account', verifyToken, async (req, res) => {
 });
 
 app.post('/change-email', verifyToken, async (req, res) => {
-    const { email: newEmail } = req.body; // Extract newEmail from the body using the EmailWrapper structure
+    const { email: newEmail } = req.body;
     if (!newEmail) {
         return res.status(400).send('New email is required.');
     }
-
-    // Optionally, validate the new email format here
 
     try {
         const userId = req.user.userId;
@@ -336,7 +355,7 @@ app.post('/change-email', verifyToken, async (req, res) => {
             return res.status(404).send('User not found.');
         }
 
-        user.username = newEmail; // Update the email
+        user.username = newEmail;
         await user.save();
 
         res.send('Email updated successfully.');
@@ -347,23 +366,19 @@ app.post('/change-email', verifyToken, async (req, res) => {
 });
 
 app.post('/set-new-password', verifyToken, async (req, res) => {
-    console.log(req.body);
     const { newPassword, confirmPassword } = req.body;
 
-    // Check if newPassword and confirmPassword are provided
     if (!newPassword || !confirmPassword) {
         return res.status(400).send('Both new password and confirmation are required.');
     }
 
-    // Check if newPassword and confirmPassword match
     if (newPassword !== confirmPassword) {
         return res.status(400).send('New password and confirmation do not match.');
     }
 
     try {
-        const userId = req.user.userId; // User ID is extracted from the token by verifyToken middleware
+        const userId = req.user.userId;
 
-        // Find the user by ID
         const user = await User.findById(userId);
         if (!user) {
             return res.status(404).send('User not found.');
@@ -393,6 +408,56 @@ async function getMostRecentFile(dir) {
   return sortedFiles.length ? sortedFiles[0] : null;
 }
 
+async function getSortedVideoFiles(videosDir) {
+    try {
+        // Read the directory's contents
+        const files = await fsPromises.readdir(videosDir);
+        const fileDetails = await Promise.all(files.map(async (file) => {
+            const filePath = path.join(videosDir, file);
+            const stat = await fsPromises.stat(filePath);
+            return { name: file, time: stat.mtime.getTime() };
+        }));
+
+        // Sort files by last modified time in descending order
+        fileDetails.sort((a, b) => b.time - a.time);
+
+        // Return sorted file names
+        return fileDetails.map(file => file.name);
+    } catch (error) {
+        console.error('Error getting sorted video files:', error);
+        throw error;
+    }
+}
+
+module.exports = getSortedVideoFiles;
+
+app.get('/get-video', verifyToken, async (req, res) => {
+    const index = req.query.index ? parseInt(req.query.index, 10) : 0; // Default to the most recent if no index
+
+    try {
+        const userId = req.user.userId;
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).send('User not found.');
+        }
+
+        const videosDir = path.join('/root/CHOMG/recordedFootage', user.username);
+        const videoFiles = await getSortedVideoFiles(videosDir);
+        if (index < 0 || index >= videoFiles.length) {
+            return res.status(404).send('Video not found.');
+        }
+
+        const videoPath = path.join(videosDir, videoFiles[index]);
+        const videoName = path.basename(videoPath);
+        res.setHeader('Content-Disposition', `inline; filename="${videoName}"`);
+        console.log(`Sending video with Content-Disposition: ${res.getHeader('Content-Disposition')}`);
+        res.sendFile(videoPath);
+    } catch (error) {
+        console.error('Error fetching video:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 app.get('/get-recent-video', verifyToken, async (req, res) => {
   try {
       const userId = req.user.userId;
@@ -409,6 +474,7 @@ app.get('/get-recent-video', verifyToken, async (req, res) => {
       }
 
       const videoPath = path.join(videosDir, mostRecentVideo);
+      const videoName = path.basename(videoPath);
 
       // Stream the video
       const stat = fs.statSync(videoPath);
@@ -427,14 +493,17 @@ app.get('/get-recent-video', verifyToken, async (req, res) => {
               'Content-Length': chunksize,
               'Content-Type': 'video/mp4',
           };
+          console.log(`Sending video with Content-Disposition: ${res.getHeader('Content-Disposition')}`);
           res.writeHead(206, head);
           file.pipe(res);
       } else {
           const head = {
               'Content-Length': fileSize,
               'Content-Type': 'video/mp4',
+              'Content-Disposition': `inline; filename="${videoName}"`
           };
-          res.writeHead(200, head);
+          console.log(`Sending video with Content-Disposition: ${res.getHeader('Content-Disposition')}`);
+          res.writeHead(206, head);
           fs.createReadStream(videoPath).pipe(res);
       }
   } catch (error) {
@@ -442,6 +511,9 @@ app.get('/get-recent-video', verifyToken, async (req, res) => {
       res.status(500).send('Error fetching recent video');
   }
 });
+
+
+
 
 const httpsServer = https.createServer(credentials, app);
 
