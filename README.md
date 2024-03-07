@@ -12,9 +12,9 @@ The directories featured in this master branch are all the branches we utilized 
 
 ### Branches (Seen as directories)
 
-* ImageDetection
-* AppBackEnd
-* AppDev
+* imageDetection
+* appBackEnd
+* appDev
 * emailSending
 
 ### Code Featured
