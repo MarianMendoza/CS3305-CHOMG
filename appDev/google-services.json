@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1041816947019",
+    "project_id": "chomg-cs3505",
+    "storage_bucket": "chomg-cs3505.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041816947019:android:d37cc8669a4ff1712340ce",
+        "android_client_info": {
+          "package_name": "com.example.chomg"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAmkgyVTrw5dzzPJV1hfeDPO7cS60sB-w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

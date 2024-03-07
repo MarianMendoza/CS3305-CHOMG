@@ -1,0 +1,282 @@
+[
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_lock_24px.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/lock_24px.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_schedule_24px.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/schedule_24px.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/font_bebas_neue.xml.flat",
+        "source": "com.example.chomg.app-main-59:/font/bebas_neue.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/layout_activity_deletaaccount.xml.flat",
+        "source": "com.example.chomg.app-main-59:/layout/activity_deletaaccount.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/font_dela_gothic_one.xml.flat",
+        "source": "com.example.chomg.app-main-59:/font/dela_gothic_one.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_notifications_24px.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/notifications_24px.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_shape1.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/shape1.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/layout_activity_changeemail.xml.flat",
+        "source": "com.example.chomg.app-main-59:/layout/activity_changeemail.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_density_medium_fill0_wght400_grad0_opsz24.png.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/density_medium_fill0_wght400_grad0_opsz24.png"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.chomg.app-main-59:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.chomg.app-main-59:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_t3.png.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/t3.png"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/xml_network_security_configuration.xml.flat",
+        "source": "com.example.chomg.app-main-59:/xml/network_security_configuration.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_chomgicon.png.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/chomgicon.png"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/layout_activity_signup.xml.flat",
+        "source": "com.example.chomg.app-main-59:/layout/activity_signup.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/layout_activity_accountdetails.xml.flat",
+        "source": "com.example.chomg.app-main-59:/layout/activity_accountdetails.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/font_candal.xml.flat",
+        "source": "com.example.chomg.app-main-59:/font/candal.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/menu_bottom_nav_menu.xml.flat",
+        "source": "com.example.chomg.app-main-59:/menu/bottom_nav_menu.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_rounded_rectangle.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/rounded_rectangle.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.chomg.app-main-59:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_chevron_left_24px.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/chevron_left_24px.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.chomg.app-main-59:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_check_circle_24q.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/check_circle_24q.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.chomg.app-main-59:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.chomg.app-main-59:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_shape.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/shape.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/xml_backup_rules.xml.flat",
+        "source": "com.example.chomg.app-main-59:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/raw_loginsound2.mp3.flat",
+        "source": "com.example.chomg.app-main-59:/raw/loginsound2.mp3"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/layout_fragment_home.xml.flat",
+        "source": "com.example.chomg.app-main-59:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_account_circle_24px.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/account_circle_24px.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.chomg.app-main-59:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_person_24px.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/person_24px.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_t2.png.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/t2.png"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/raw_notification_sound.wav.flat",
+        "source": "com.example.chomg.app-main-59:/raw/notification_sound.wav"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_settings_24px.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/settings_24px.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_home_24px.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/home_24px.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_t4.png.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/t4.png"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.chomg.app-main-59:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/layout_activity_login.xml.flat",
+        "source": "com.example.chomg.app-main-59:/layout/activity_login.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_logout_24px.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/logout_24px.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.chomg.app-main-59:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_mail_24px.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/mail_24px.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_chevron_right_24px.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/chevron_right_24px.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.chomg.app-main-59:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/layout_activity_main.xml.flat",
+        "source": "com.example.chomg.app-main-59:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/raw_loginsound.mp3.flat",
+        "source": "com.example.chomg.app-main-59:/raw/loginsound.mp3"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/layout_activity_resetpassword.xml.flat",
+        "source": "com.example.chomg.app-main-59:/layout/activity_resetpassword.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_chomgiconwb.png.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/chomgiconwb.png"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_check_circle_24px.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/check_circle_24px.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/raw_motiondetectedsound.mp3.flat",
+        "source": "com.example.chomg.app-main-59:/raw/motiondetectedsound.mp3"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_download_24px.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/download_24px.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_history_24px.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/history_24px.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.chomg.app-main-59:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_settings_photo_camera_24px.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/settings_photo_camera_24px.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/layout_activity_layout.xml.flat",
+        "source": "com.example.chomg.app-main-59:/layout/activity_layout.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_bg_button_borderless.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/bg_button_borderless.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_my_location_24px.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/my_location_24px.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.chomg.app-main-59:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/layout_fragment_settings.xml.flat",
+        "source": "com.example.chomg.app-main-59:/layout/fragment_settings.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.chomg.app-main-59:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_password_24px.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/password_24px.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/layout_activity_setup.xml.flat",
+        "source": "com.example.chomg.app-main-59:/layout/activity_setup.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/layout_activity_forgotpassword.xml.flat",
+        "source": "com.example.chomg.app-main-59:/layout/activity_forgotpassword.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_ic_notification.png.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/ic_notification.png"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/raw_cert.der.flat",
+        "source": "com.example.chomg.app-main-59:/raw/cert.der"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_bottom_nav_color_selector.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/bottom_nav_color_selector.xml"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_turtorial1.png.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/turtorial1.png"
+    },
+    {
+        "merged": "com.example.chomg.app-merged_res-57:/drawable_help_24px.xml.flat",
+        "source": "com.example.chomg.app-main-59:/drawable/help_24px.xml"
+    }
+]

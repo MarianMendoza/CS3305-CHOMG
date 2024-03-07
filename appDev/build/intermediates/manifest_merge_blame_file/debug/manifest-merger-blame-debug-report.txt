@@ -1,0 +1,589 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.chomg"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="34" />
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:4:5-67
+11-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:4:22-64
+12    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+12-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:5:5-77
+12-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:5:22-74
+13    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+13-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:6:5-80
+13-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:6:22-77
+14
+15    <uses-feature android:name="android.hardware.camera" />
+15-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:102:5-60
+15-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:102:19-57
+16
+17    <uses-permission android:name="android.permission.CAMERA" />
+17-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:103:5-65
+17-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:103:22-62
+18
+19    <uses-feature android:name="android.hardware.camera.autofocus" />
+19-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:104:5-70
+19-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:104:19-67
+20
+21    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+21-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:107:5-79
+21-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:107:22-76
+22    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+22-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:108:5-81
+22-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:108:22-78
+23    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+23-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:22:5-79
+23-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:22:22-76
+24    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+24-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:24:5-68
+24-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:24:22-65
+25    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+25-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:26:5-82
+25-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:26:22-79
+26
+27    <queries>
+27-->[androidx.camera:camera-extensions:1.3.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\fbba6c1b03ef951a72e2a65191bee101\transformed\jetified-camera-extensions-1.3.1\AndroidManifest.xml:22:5-26:15
+28        <intent>
+28-->[androidx.camera:camera-extensions:1.3.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\fbba6c1b03ef951a72e2a65191bee101\transformed\jetified-camera-extensions-1.3.1\AndroidManifest.xml:23:9-25:18
+29            <action android:name="androidx.camera.extensions.action.VENDOR_ACTION" />
+29-->[androidx.camera:camera-extensions:1.3.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\fbba6c1b03ef951a72e2a65191bee101\transformed\jetified-camera-extensions-1.3.1\AndroidManifest.xml:24:13-86
+29-->[androidx.camera:camera-extensions:1.3.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\fbba6c1b03ef951a72e2a65191bee101\transformed\jetified-camera-extensions-1.3.1\AndroidManifest.xml:24:21-83
+30        </intent>
+31    </queries>
+32
+33    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+33-->[com.google.android.gms:play-services-measurement:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\d939210734c304b98429604c20b50894\transformed\jetified-play-services-measurement-21.5.1\AndroidManifest.xml:26:5-110
+33-->[com.google.android.gms:play-services-measurement:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\d939210734c304b98429604c20b50894\transformed\jetified-play-services-measurement-21.5.1\AndroidManifest.xml:26:22-107
+34    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+34-->[com.google.android.gms:play-services-measurement-api:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\590b1ef2e9ebf25fea84424c03e11a32\transformed\jetified-play-services-measurement-api-21.5.1\AndroidManifest.xml:25:5-79
+34-->[com.google.android.gms:play-services-measurement-api:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\590b1ef2e9ebf25fea84424c03e11a32\transformed\jetified-play-services-measurement-api-21.5.1\AndroidManifest.xml:25:22-76
+35    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_ATTRIBUTION" />
+35-->[com.google.android.gms:play-services-measurement-api:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\590b1ef2e9ebf25fea84424c03e11a32\transformed\jetified-play-services-measurement-api-21.5.1\AndroidManifest.xml:26:5-88
+35-->[com.google.android.gms:play-services-measurement-api:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\590b1ef2e9ebf25fea84424c03e11a32\transformed\jetified-play-services-measurement-api-21.5.1\AndroidManifest.xml:26:22-85
+36    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_AD_ID" />
+36-->[com.google.android.gms:play-services-measurement-api:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\590b1ef2e9ebf25fea84424c03e11a32\transformed\jetified-play-services-measurement-api-21.5.1\AndroidManifest.xml:27:5-82
+36-->[com.google.android.gms:play-services-measurement-api:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\590b1ef2e9ebf25fea84424c03e11a32\transformed\jetified-play-services-measurement-api-21.5.1\AndroidManifest.xml:27:22-79
+37
+38    <permission
+38-->[androidx.core:core:1.12.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\6b19c63777ad255fbe53880862023601\transformed\core-1.12.0\AndroidManifest.xml:22:5-24:47
+39        android:name="com.example.chomg.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+39-->[androidx.core:core:1.12.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\6b19c63777ad255fbe53880862023601\transformed\core-1.12.0\AndroidManifest.xml:23:9-81
+40        android:protectionLevel="signature" />
+40-->[androidx.core:core:1.12.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\6b19c63777ad255fbe53880862023601\transformed\core-1.12.0\AndroidManifest.xml:24:9-44
+41
+42    <uses-permission android:name="com.example.chomg.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+42-->[androidx.core:core:1.12.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\6b19c63777ad255fbe53880862023601\transformed\core-1.12.0\AndroidManifest.xml:26:5-97
+42-->[androidx.core:core:1.12.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\6b19c63777ad255fbe53880862023601\transformed\core-1.12.0\AndroidManifest.xml:26:22-94
+43
+44    <application
+44-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:8:5-100:19
+45        android:allowBackup="true"
+45-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:10:9-35
+46        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+46-->[androidx.core:core:1.12.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\6b19c63777ad255fbe53880862023601\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
+47        android:dataExtractionRules="@xml/data_extraction_rules"
+47-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:11:9-65
+48        android:debuggable="true"
+49        android:extractNativeLibs="false"
+50        android:fullBackupContent="@xml/backup_rules"
+50-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:12:9-54
+51        android:icon="@drawable/chomgiconwb"
+51-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:13:9-45
+52        android:label="@string/app_name"
+52-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:14:9-41
+53        android:networkSecurityConfig="@xml/network_security_configuration"
+53-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:9:9-76
+54        android:roundIcon="@drawable/chomgiconwb"
+54-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:15:9-50
+55        android:supportsRtl="true"
+55-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:16:9-35
+56        android:testOnly="true"
+57        android:theme="@style/Theme.Chomg" >
+57-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:17:9-43
+58        <activity
+58-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:19:9-25:20
+59            android:name="com.example.chomg.userinterface.MainActivity"
+59-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:19:19-61
+60            android:exported="true" >
+60-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:20:13-36
+61            <intent-filter>
+61-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:21:13-24:29
+62                <action android:name="android.intent.action.MAIN" />
+62-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:22:17-68
+62-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:22:25-66
+63
+64                <category android:name="android.intent.category.LAUNCHER" />
+64-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:23:17-76
+64-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:23:27-74
+65            </intent-filter>
+66        </activity>
+67        <activity
+67-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:27:9-33:20
+68            android:name="com.example.chomg.userinterface.LoginActivity"
+68-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:27:19-62
+69            android:exported="true" >
+69-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:28:13-36
+70            <intent-filter>
+70-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:21:13-24:29
+71                <action android:name="android.intent.action.MAIN" />
+71-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:22:17-68
+71-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:22:25-66
+72
+73                <category android:name="android.intent.category.LAUNCHER" />
+73-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:23:17-76
+73-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:23:27-74
+74            </intent-filter>
+75        </activity>
+76        <activity android:name="com.example.chomg.userinterface.SignUpActivity" >
+76-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:35:9-36:20
+76-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:35:19-63
+77        </activity>
+78        <activity
+78-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:38:9-43:20
+79            android:name="com.example.chomg.userinterface.ForgotPasswordActivity"
+79-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:38:19-71
+80            android:exported="true" >
+80-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:38:72-95
+81            <intent-filter>
+81-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:21:13-24:29
+82                <action android:name="android.intent.action.MAIN" />
+82-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:22:17-68
+82-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:22:25-66
+83
+84                <category android:name="android.intent.category.LAUNCHER" />
+84-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:23:17-76
+84-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:23:27-74
+85            </intent-filter>
+86        </activity>
+87        <activity
+87-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:45:9-50:20
+88            android:name="com.example.chomg.userinterface.HomeActivity"
+88-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:45:19-61
+89            android:exported="true" >
+89-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:45:62-85
+90            <intent-filter>
+90-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:21:13-24:29
+91                <action android:name="android.intent.action.MAIN" />
+91-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:22:17-68
+91-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:22:25-66
+92
+93                <category android:name="android.intent.category.LAUNCHER" />
+93-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:23:17-76
+93-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:23:27-74
+94            </intent-filter>
+95        </activity>
+96        <activity
+96-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:54:9-59:20
+97            android:name="com.example.chomg.userinterface.DeleteAccountActivity"
+97-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:54:19-70
+98            android:exported="true" >
+98-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:54:71-94
+99            <intent-filter>
+99-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:21:13-24:29
+100                <action android:name="android.intent.action.MAIN" />
+100-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:22:17-68
+100-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:22:25-66
+101
+102                <category android:name="android.intent.category.LAUNCHER" />
+102-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:23:17-76
+102-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:23:27-74
+103            </intent-filter>
+104        </activity>
+105        <activity
+105-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:61:9-66:20
+106            android:name="com.example.chomg.userinterface.ChangeEmailActivity"
+106-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:61:19-68
+107            android:exported="true" >
+107-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:61:69-92
+108            <intent-filter>
+108-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:21:13-24:29
+109                <action android:name="android.intent.action.MAIN" />
+109-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:22:17-68
+109-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:22:25-66
+110
+111                <category android:name="android.intent.category.LAUNCHER" />
+111-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:23:17-76
+111-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:23:27-74
+112            </intent-filter>
+113        </activity>
+114        <activity
+114-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:68:9-73:20
+115            android:name="com.example.chomg.userinterface.AccountActivity"
+115-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:68:19-64
+116            android:exported="true" >
+116-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:68:65-88
+117            <intent-filter>
+117-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:21:13-24:29
+118                <action android:name="android.intent.action.MAIN" />
+118-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:22:17-68
+118-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:22:25-66
+119
+120                <category android:name="android.intent.category.LAUNCHER" />
+120-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:23:17-76
+120-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:23:27-74
+121            </intent-filter>
+122        </activity>
+123        <activity
+123-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:75:9-80:20
+124            android:name="com.example.chomg.userinterface.ResetPasswordActivity"
+124-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:75:19-70
+125            android:exported="true" >
+125-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:75:71-94
+126            <intent-filter>
+126-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:21:13-24:29
+127                <action android:name="android.intent.action.MAIN" />
+127-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:22:17-68
+127-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:22:25-66
+128
+129                <category android:name="android.intent.category.LAUNCHER" />
+129-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:23:17-76
+129-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:23:27-74
+130            </intent-filter>
+131        </activity>
+132        <activity
+132-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:82:9-87:20
+133            android:name="com.example.chomg.userinterface.SetUpActivity"
+133-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:82:19-62
+134            android:exported="true" >
+134-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:82:63-86
+135            <intent-filter>
+135-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:21:13-24:29
+136                <action android:name="android.intent.action.MAIN" />
+136-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:22:17-68
+136-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:22:25-66
+137
+138                <category android:name="android.intent.category.LAUNCHER" />
+138-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:23:17-76
+138-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:23:27-74
+139            </intent-filter>
+140        </activity>
+141
+142        <meta-data
+142-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:89:9-91:57
+143            android:name="preloaded_fonts"
+143-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:90:13-43
+144            android:resource="@array/preloaded_fonts" />
+144-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:91:13-54
+145
+146        <service
+146-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:93:9-98:19
+147            android:name="com.example.chomg.service.FirebaseMessagingService"
+147-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:93:18-66
+148            android:exported="true" >
+148-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:94:13-36
+149            <intent-filter>
+149-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:95:13-97:29
+150                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+150-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:96:17-78
+150-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:96:25-75
+151            </intent-filter>
+152        </service>
+153
+154        <receiver
+154-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:29:9-40:20
+155            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+155-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:30:13-78
+156            android:exported="true"
+156-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:31:13-36
+157            android:permission="com.google.android.c2dm.permission.SEND" >
+157-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:32:13-73
+158            <intent-filter>
+158-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:33:13-35:29
+159                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+159-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:34:17-81
+159-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:34:25-78
+160            </intent-filter>
+161
+162            <meta-data
+162-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:37:13-39:40
+163                android:name="com.google.android.gms.cloudmessaging.FINISHED_AFTER_HANDLED"
+163-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:38:17-92
+164                android:value="true" />
+164-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:39:17-37
+165        </receiver>
+166        <!--
+167             FirebaseMessagingService performs security checks at runtime,
+168             but set to not exported to explicitly avoid allowing another app to call it.
+169        -->
+170        <service
+170-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:46:9-53:19
+171            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+171-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:47:13-82
+172            android:directBootAware="true"
+172-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:48:13-43
+173            android:exported="false" >
+173-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:49:13-37
+174            <intent-filter android:priority="-500" >
+174-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:95:13-97:29
+175                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+175-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:96:17-78
+175-->C:\Users\maria\AndroidStudioProjects\CS3305\app\src\main\AndroidManifest.xml:96:25-75
+176            </intent-filter>
+177        </service>
+178        <service
+178-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:54:9-63:19
+179            android:name="com.google.firebase.components.ComponentDiscoveryService"
+179-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:55:13-84
+180            android:directBootAware="true"
+180-->[com.google.firebase:firebase-common:20.4.2] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\0206a66f3ba2852a6aadd56ffbaa4fb4\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:32:13-43
+181            android:exported="false" >
+181-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:56:13-37
+182            <meta-data
+182-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:57:13-59:85
+183                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingKtxRegistrar"
+183-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:58:17-122
+184                android:value="com.google.firebase.components.ComponentRegistrar" />
+184-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:59:17-82
+185            <meta-data
+185-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:60:13-62:85
+186                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
+186-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:61:17-119
+187                android:value="com.google.firebase.components.ComponentRegistrar" />
+187-->[com.google.firebase:firebase-messaging:23.4.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\108df9edde446059064e01d5c123c4a3\transformed\jetified-firebase-messaging-23.4.1\AndroidManifest.xml:62:17-82
+188            <meta-data
+188-->[com.google.android.gms:play-services-measurement-api:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\590b1ef2e9ebf25fea84424c03e11a32\transformed\jetified-play-services-measurement-api-21.5.1\AndroidManifest.xml:37:13-39:85
+189                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+189-->[com.google.android.gms:play-services-measurement-api:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\590b1ef2e9ebf25fea84424c03e11a32\transformed\jetified-play-services-measurement-api-21.5.1\AndroidManifest.xml:38:17-139
+190                android:value="com.google.firebase.components.ComponentRegistrar" />
+190-->[com.google.android.gms:play-services-measurement-api:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\590b1ef2e9ebf25fea84424c03e11a32\transformed\jetified-play-services-measurement-api-21.5.1\AndroidManifest.xml:39:17-82
+191            <meta-data
+191-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\3d40d395b5ca20c7d9433b2c98c5e0ac\transformed\jetified-firebase-installations-17.2.0\AndroidManifest.xml:15:13-17:85
+192                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsKtxRegistrar"
+192-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\3d40d395b5ca20c7d9433b2c98c5e0ac\transformed\jetified-firebase-installations-17.2.0\AndroidManifest.xml:16:17-130
+193                android:value="com.google.firebase.components.ComponentRegistrar" />
+193-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\3d40d395b5ca20c7d9433b2c98c5e0ac\transformed\jetified-firebase-installations-17.2.0\AndroidManifest.xml:17:17-82
+194            <meta-data
+194-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\3d40d395b5ca20c7d9433b2c98c5e0ac\transformed\jetified-firebase-installations-17.2.0\AndroidManifest.xml:18:13-20:85
+195                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+195-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\3d40d395b5ca20c7d9433b2c98c5e0ac\transformed\jetified-firebase-installations-17.2.0\AndroidManifest.xml:19:17-127
+196                android:value="com.google.firebase.components.ComponentRegistrar" />
+196-->[com.google.firebase:firebase-installations:17.2.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\3d40d395b5ca20c7d9433b2c98c5e0ac\transformed\jetified-firebase-installations-17.2.0\AndroidManifest.xml:20:17-82
+197            <meta-data
+197-->[com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\98aa56bbd9a2eb8fe1abb0c49fdc2dc7\transformed\jetified-firebase-common-ktx-20.4.2\AndroidManifest.xml:12:13-14:85
+198                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
+198-->[com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\98aa56bbd9a2eb8fe1abb0c49fdc2dc7\transformed\jetified-firebase-common-ktx-20.4.2\AndroidManifest.xml:13:17-116
+199                android:value="com.google.firebase.components.ComponentRegistrar" />
+199-->[com.google.firebase:firebase-common-ktx:20.4.2] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\98aa56bbd9a2eb8fe1abb0c49fdc2dc7\transformed\jetified-firebase-common-ktx-20.4.2\AndroidManifest.xml:14:17-82
+200            <meta-data
+200-->[com.google.firebase:firebase-common:20.4.2] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\0206a66f3ba2852a6aadd56ffbaa4fb4\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:35:13-37:85
+201                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+201-->[com.google.firebase:firebase-common:20.4.2] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\0206a66f3ba2852a6aadd56ffbaa4fb4\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:36:17-109
+202                android:value="com.google.firebase.components.ComponentRegistrar" />
+202-->[com.google.firebase:firebase-common:20.4.2] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\0206a66f3ba2852a6aadd56ffbaa4fb4\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:37:17-82
+203            <meta-data
+203-->[com.google.firebase:firebase-datatransport:18.1.7] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\4e1a2afaa553b9b01033eee187bd4e31\transformed\jetified-firebase-datatransport-18.1.7\AndroidManifest.xml:27:13-29:85
+204                android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+204-->[com.google.firebase:firebase-datatransport:18.1.7] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\4e1a2afaa553b9b01033eee187bd4e31\transformed\jetified-firebase-datatransport-18.1.7\AndroidManifest.xml:28:17-115
+205                android:value="com.google.firebase.components.ComponentRegistrar" />
+205-->[com.google.firebase:firebase-datatransport:18.1.7] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\4e1a2afaa553b9b01033eee187bd4e31\transformed\jetified-firebase-datatransport-18.1.7\AndroidManifest.xml:29:17-82
+206        </service>
+207        <service
+207-->[androidx.camera:camera-camera2:1.3.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\747c5079c9c6034d4ba094ce1ff71d5c\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:24:9-33:19
+208            android:name="androidx.camera.core.impl.MetadataHolderService"
+208-->[androidx.camera:camera-camera2:1.3.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\747c5079c9c6034d4ba094ce1ff71d5c\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:25:13-75
+209            android:enabled="false"
+209-->[androidx.camera:camera-camera2:1.3.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\747c5079c9c6034d4ba094ce1ff71d5c\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:26:13-36
+210            android:exported="false" >
+210-->[androidx.camera:camera-camera2:1.3.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\747c5079c9c6034d4ba094ce1ff71d5c\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:27:13-37
+211            <meta-data
+211-->[androidx.camera:camera-camera2:1.3.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\747c5079c9c6034d4ba094ce1ff71d5c\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:30:13-32:89
+212                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+212-->[androidx.camera:camera-camera2:1.3.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\747c5079c9c6034d4ba094ce1ff71d5c\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:31:17-103
+213                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+213-->[androidx.camera:camera-camera2:1.3.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\747c5079c9c6034d4ba094ce1ff71d5c\transformed\jetified-camera-camera2-1.3.1\AndroidManifest.xml:32:17-86
+214        </service>
+215
+216        <uses-library
+216-->[androidx.camera:camera-extensions:1.3.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\fbba6c1b03ef951a72e2a65191bee101\transformed\jetified-camera-extensions-1.3.1\AndroidManifest.xml:29:9-31:40
+217            android:name="androidx.camera.extensions.impl"
+217-->[androidx.camera:camera-extensions:1.3.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\fbba6c1b03ef951a72e2a65191bee101\transformed\jetified-camera-extensions-1.3.1\AndroidManifest.xml:30:13-59
+218            android:required="false" />
+218-->[androidx.camera:camera-extensions:1.3.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\fbba6c1b03ef951a72e2a65191bee101\transformed\jetified-camera-extensions-1.3.1\AndroidManifest.xml:31:13-37
+219
+220        <receiver
+220-->[com.google.android.gms:play-services-measurement:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\d939210734c304b98429604c20b50894\transformed\jetified-play-services-measurement-21.5.1\AndroidManifest.xml:29:9-33:20
+221            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+221-->[com.google.android.gms:play-services-measurement:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\d939210734c304b98429604c20b50894\transformed\jetified-play-services-measurement-21.5.1\AndroidManifest.xml:30:13-85
+222            android:enabled="true"
+222-->[com.google.android.gms:play-services-measurement:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\d939210734c304b98429604c20b50894\transformed\jetified-play-services-measurement-21.5.1\AndroidManifest.xml:31:13-35
+223            android:exported="false" >
+223-->[com.google.android.gms:play-services-measurement:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\d939210734c304b98429604c20b50894\transformed\jetified-play-services-measurement-21.5.1\AndroidManifest.xml:32:13-37
+224        </receiver>
+225
+226        <service
+226-->[com.google.android.gms:play-services-measurement:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\d939210734c304b98429604c20b50894\transformed\jetified-play-services-measurement-21.5.1\AndroidManifest.xml:35:9-38:40
+227            android:name="com.google.android.gms.measurement.AppMeasurementService"
+227-->[com.google.android.gms:play-services-measurement:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\d939210734c304b98429604c20b50894\transformed\jetified-play-services-measurement-21.5.1\AndroidManifest.xml:36:13-84
+228            android:enabled="true"
+228-->[com.google.android.gms:play-services-measurement:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\d939210734c304b98429604c20b50894\transformed\jetified-play-services-measurement-21.5.1\AndroidManifest.xml:37:13-35
+229            android:exported="false" />
+229-->[com.google.android.gms:play-services-measurement:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\d939210734c304b98429604c20b50894\transformed\jetified-play-services-measurement-21.5.1\AndroidManifest.xml:38:13-37
+230        <service
+230-->[com.google.android.gms:play-services-measurement:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\d939210734c304b98429604c20b50894\transformed\jetified-play-services-measurement-21.5.1\AndroidManifest.xml:39:9-43:72
+231            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+231-->[com.google.android.gms:play-services-measurement:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\d939210734c304b98429604c20b50894\transformed\jetified-play-services-measurement-21.5.1\AndroidManifest.xml:40:13-87
+232            android:enabled="true"
+232-->[com.google.android.gms:play-services-measurement:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\d939210734c304b98429604c20b50894\transformed\jetified-play-services-measurement-21.5.1\AndroidManifest.xml:41:13-35
+233            android:exported="false"
+233-->[com.google.android.gms:play-services-measurement:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\d939210734c304b98429604c20b50894\transformed\jetified-play-services-measurement-21.5.1\AndroidManifest.xml:42:13-37
+234            android:permission="android.permission.BIND_JOB_SERVICE" />
+234-->[com.google.android.gms:play-services-measurement:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\d939210734c304b98429604c20b50894\transformed\jetified-play-services-measurement-21.5.1\AndroidManifest.xml:43:13-69
+235
+236        <property
+236-->[com.google.android.gms:play-services-measurement-api:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\590b1ef2e9ebf25fea84424c03e11a32\transformed\jetified-play-services-measurement-api-21.5.1\AndroidManifest.xml:30:9-32:61
+237            android:name="android.adservices.AD_SERVICES_CONFIG"
+237-->[com.google.android.gms:play-services-measurement-api:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\590b1ef2e9ebf25fea84424c03e11a32\transformed\jetified-play-services-measurement-api-21.5.1\AndroidManifest.xml:31:13-65
+238            android:resource="@xml/ga_ad_services_config" />
+238-->[com.google.android.gms:play-services-measurement-api:21.5.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\590b1ef2e9ebf25fea84424c03e11a32\transformed\jetified-play-services-measurement-api-21.5.1\AndroidManifest.xml:32:13-58
+239
+240        <activity
+240-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\3c0124e3684ff4f44227adadb0adbc0f\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:9-22:45
+241            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+241-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\3c0124e3684ff4f44227adadb0adbc0f\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:19-85
+242            android:exported="false"
+242-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\3c0124e3684ff4f44227adadb0adbc0f\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:22:19-43
+243            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+243-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\3c0124e3684ff4f44227adadb0adbc0f\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:21:19-78
+244
+245        <provider
+245-->[com.google.firebase:firebase-common:20.4.2] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\0206a66f3ba2852a6aadd56ffbaa4fb4\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:23:9-28:39
+246            android:name="com.google.firebase.provider.FirebaseInitProvider"
+246-->[com.google.firebase:firebase-common:20.4.2] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\0206a66f3ba2852a6aadd56ffbaa4fb4\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:24:13-77
+247            android:authorities="com.example.chomg.firebaseinitprovider"
+247-->[com.google.firebase:firebase-common:20.4.2] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\0206a66f3ba2852a6aadd56ffbaa4fb4\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:25:13-72
+248            android:directBootAware="true"
+248-->[com.google.firebase:firebase-common:20.4.2] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\0206a66f3ba2852a6aadd56ffbaa4fb4\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:26:13-43
+249            android:exported="false"
+249-->[com.google.firebase:firebase-common:20.4.2] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\0206a66f3ba2852a6aadd56ffbaa4fb4\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:27:13-37
+250            android:initOrder="100" />
+250-->[com.google.firebase:firebase-common:20.4.2] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\0206a66f3ba2852a6aadd56ffbaa4fb4\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:28:13-36
+251
+252        <uses-library
+252-->[androidx.privacysandbox.ads:ads-adservices:1.0.0-beta05] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\32cf4880d29fcb3150c93cf29db7ba12\transformed\jetified-ads-adservices-1.0.0-beta05\AndroidManifest.xml:23:9-25:40
+253            android:name="android.ext.adservices"
+253-->[androidx.privacysandbox.ads:ads-adservices:1.0.0-beta05] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\32cf4880d29fcb3150c93cf29db7ba12\transformed\jetified-ads-adservices-1.0.0-beta05\AndroidManifest.xml:24:13-50
+254            android:required="false" />
+254-->[androidx.privacysandbox.ads:ads-adservices:1.0.0-beta05] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\32cf4880d29fcb3150c93cf29db7ba12\transformed\jetified-ads-adservices-1.0.0-beta05\AndroidManifest.xml:25:13-37
+255
+256        <provider
+256-->[androidx.emoji2:emoji2:1.2.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\95f61b4840ae2a5e34a7884ff74330fb\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+257            android:name="androidx.startup.InitializationProvider"
+257-->[androidx.emoji2:emoji2:1.2.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\95f61b4840ae2a5e34a7884ff74330fb\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+258            android:authorities="com.example.chomg.androidx-startup"
+258-->[androidx.emoji2:emoji2:1.2.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\95f61b4840ae2a5e34a7884ff74330fb\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+259            android:exported="false" >
+259-->[androidx.emoji2:emoji2:1.2.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\95f61b4840ae2a5e34a7884ff74330fb\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+260            <meta-data
+260-->[androidx.emoji2:emoji2:1.2.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\95f61b4840ae2a5e34a7884ff74330fb\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+261                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+261-->[androidx.emoji2:emoji2:1.2.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\95f61b4840ae2a5e34a7884ff74330fb\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+262                android:value="androidx.startup" />
+262-->[androidx.emoji2:emoji2:1.2.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\95f61b4840ae2a5e34a7884ff74330fb\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+263            <meta-data
+263-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\6d554348c4eb014c98e081537764b463\transformed\jetified-lifecycle-process-2.6.1\AndroidManifest.xml:29:13-31:52
+264                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+264-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\6d554348c4eb014c98e081537764b463\transformed\jetified-lifecycle-process-2.6.1\AndroidManifest.xml:30:17-78
+265                android:value="androidx.startup" />
+265-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\6d554348c4eb014c98e081537764b463\transformed\jetified-lifecycle-process-2.6.1\AndroidManifest.xml:31:17-49
+266            <meta-data
+266-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\53cde14da7bb42b2f22937286b629d9d\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
+267                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+267-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\53cde14da7bb42b2f22937286b629d9d\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+268                android:value="androidx.startup" />
+268-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\53cde14da7bb42b2f22937286b629d9d\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
+269        </provider>
+270
+271        <uses-library
+271-->[androidx.window:window:1.0.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\cc4ccde8442214554878901af268f1e1\transformed\jetified-window-1.0.0\AndroidManifest.xml:25:9-27:40
+272            android:name="androidx.window.extensions"
+272-->[androidx.window:window:1.0.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\cc4ccde8442214554878901af268f1e1\transformed\jetified-window-1.0.0\AndroidManifest.xml:26:13-54
+273            android:required="false" />
+273-->[androidx.window:window:1.0.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\cc4ccde8442214554878901af268f1e1\transformed\jetified-window-1.0.0\AndroidManifest.xml:27:13-37
+274        <uses-library
+274-->[androidx.window:window:1.0.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\cc4ccde8442214554878901af268f1e1\transformed\jetified-window-1.0.0\AndroidManifest.xml:28:9-30:40
+275            android:name="androidx.window.sidecar"
+275-->[androidx.window:window:1.0.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\cc4ccde8442214554878901af268f1e1\transformed\jetified-window-1.0.0\AndroidManifest.xml:29:13-51
+276            android:required="false" />
+276-->[androidx.window:window:1.0.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\cc4ccde8442214554878901af268f1e1\transformed\jetified-window-1.0.0\AndroidManifest.xml:30:13-37
+277
+278        <meta-data
+278-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\cf2eac30f1e30f764e57be71ca230f80\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:21:9-23:69
+279            android:name="com.google.android.gms.version"
+279-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\cf2eac30f1e30f764e57be71ca230f80\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:22:13-58
+280            android:value="@integer/google_play_services_version" />
+280-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\cf2eac30f1e30f764e57be71ca230f80\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:23:13-66
+281
+282        <service
+282-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\3ae17cde1eb605821377777268cf4bd5\transformed\jetified-transport-backend-cct-3.1.8\AndroidManifest.xml:28:9-34:19
+283            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+283-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\3ae17cde1eb605821377777268cf4bd5\transformed\jetified-transport-backend-cct-3.1.8\AndroidManifest.xml:29:13-103
+284            android:exported="false" >
+284-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\3ae17cde1eb605821377777268cf4bd5\transformed\jetified-transport-backend-cct-3.1.8\AndroidManifest.xml:30:13-37
+285            <meta-data
+285-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\3ae17cde1eb605821377777268cf4bd5\transformed\jetified-transport-backend-cct-3.1.8\AndroidManifest.xml:31:13-33:39
+286                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+286-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\3ae17cde1eb605821377777268cf4bd5\transformed\jetified-transport-backend-cct-3.1.8\AndroidManifest.xml:32:17-94
+287                android:value="cct" />
+287-->[com.google.android.datatransport:transport-backend-cct:3.1.8] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\3ae17cde1eb605821377777268cf4bd5\transformed\jetified-transport-backend-cct-3.1.8\AndroidManifest.xml:33:17-36
+288        </service>
+289        <service
+289-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\a6ca6fd3aa64a804199bc9011f839dc8\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:26:9-30:19
+290            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+290-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\a6ca6fd3aa64a804199bc9011f839dc8\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:27:13-117
+291            android:exported="false"
+291-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\a6ca6fd3aa64a804199bc9011f839dc8\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:28:13-37
+292            android:permission="android.permission.BIND_JOB_SERVICE" >
+292-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\a6ca6fd3aa64a804199bc9011f839dc8\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:29:13-69
+293        </service>
+294
+295        <receiver
+295-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\a6ca6fd3aa64a804199bc9011f839dc8\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:32:9-34:40
+296            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+296-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\a6ca6fd3aa64a804199bc9011f839dc8\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:33:13-132
+297            android:exported="false" />
+297-->[com.google.android.datatransport:transport-runtime:3.1.8] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\a6ca6fd3aa64a804199bc9011f839dc8\transformed\jetified-transport-runtime-3.1.8\AndroidManifest.xml:34:13-37
+298        <receiver
+298-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\53cde14da7bb42b2f22937286b629d9d\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
+299            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+299-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\53cde14da7bb42b2f22937286b629d9d\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
+300            android:directBootAware="false"
+300-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\53cde14da7bb42b2f22937286b629d9d\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
+301            android:enabled="true"
+301-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\53cde14da7bb42b2f22937286b629d9d\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
+302            android:exported="true"
+302-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\53cde14da7bb42b2f22937286b629d9d\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
+303            android:permission="android.permission.DUMP" >
+303-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\53cde14da7bb42b2f22937286b629d9d\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
+304            <intent-filter>
+304-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\53cde14da7bb42b2f22937286b629d9d\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
+305                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+305-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\53cde14da7bb42b2f22937286b629d9d\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
+305-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\53cde14da7bb42b2f22937286b629d9d\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
+306            </intent-filter>
+307            <intent-filter>
+307-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\53cde14da7bb42b2f22937286b629d9d\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
+308                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+308-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\53cde14da7bb42b2f22937286b629d9d\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
+308-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\53cde14da7bb42b2f22937286b629d9d\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
+309            </intent-filter>
+310            <intent-filter>
+310-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\53cde14da7bb42b2f22937286b629d9d\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
+311                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+311-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\53cde14da7bb42b2f22937286b629d9d\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
+311-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\53cde14da7bb42b2f22937286b629d9d\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
+312            </intent-filter>
+313            <intent-filter>
+313-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\53cde14da7bb42b2f22937286b629d9d\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
+314                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+314-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\53cde14da7bb42b2f22937286b629d9d\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
+314-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\maria\AndroidStudioProjects\CS3305\.gradle\8.0\caches\transforms-3\53cde14da7bb42b2f22937286b629d9d\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
+315            </intent-filter>
+316        </receiver>
+317    </application>
+318
+319</manifest>

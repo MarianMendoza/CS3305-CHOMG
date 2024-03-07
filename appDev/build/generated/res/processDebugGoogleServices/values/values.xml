@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gcm_defaultSenderId" translatable="false">1041816947019</string>
+    <string name="google_api_key" translatable="false">AIzaSyAAmkgyVTrw5dzzPJV1hfeDPO7cS60sB-w</string>
+    <string name="google_app_id" translatable="false">1:1041816947019:android:d37cc8669a4ff1712340ce</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAAmkgyVTrw5dzzPJV1hfeDPO7cS60sB-w</string>
+    <string name="google_storage_bucket" translatable="false">chomg-cs3505.appspot.com</string>
+    <string name="project_id" translatable="false">chomg-cs3505</string>
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SignUpButton" parent="android:Widget.DeviceDefault.EditText">
+        <item name="android:layout_width">269dp</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:layout_marginStart">101dp</item>
+        <item name="android:layout_marginTop">36dp</item>
+        <item name="android:layout_marginEnd">100dp</item>
+        <item name="android:layout_marginBottom">463dp</item>
+        <item name="android:background">@drawable/shape1</item>
+        <item name="android:ems">10</item>
+        <item name="android:fontFamily">@font/dela_gothic_one</item>
+        <item name="android:inputType">text</item>
+        <item name="android:paddingLeft">60dp</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHighlight">#FF0000</item>
+        <item name="android:textColorHint">#000000</item>
+        <item name="android:textColorLink">#FF0000</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+</resources>
